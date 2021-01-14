@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">LedgerApp</string>
+
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="home_page_search_text">Search..</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="type_of_account">Choose Your Profile Type</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="debit_background">Debit</string>
+    <string name="credit_background">Credit</string>
+    <string name="title_activity_debit">DebitActivity</string>
+    <string name="profile_menu_content">New Ledger</string>
+    <string name="profile_voucher_content">New Voucher</string>
+    <string name="add_new_client_button_text">Add New Client</string>
+    <string name="client_card_demo_id">102000122345</string>
+    <string name="client_card_demo_name">Subhajit Dey</string>
+    <string name="client_card_demo_email">sdey453@gmail.com</string>
+    <string name="add_client_dialog_header">Add New Client</string>
+    <string name="dialog_box_positive_text">Add</string>
+    <string name="dialog_box_negative_text">Dismiss</string>
+    <string name="title_activity_select_and_add_client">SelectAndAddClient</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="title_activity_client_info">ClientInfoActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+
+    <string name="hint_password">Password</string>
+    <string name="title_activity_create_voucher">CreateVoucherActivity</string>
+
+    <string name="currency_sign_indian_rupees">\u20B9</string>
+
+
+</resources>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    android:background="@drawable/ledger_recycler_list_border"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/currency_sign"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="150dp"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@id/ledger_client_name"
+            android:text="@string/currency_sign_indian_rupees" />
+
+        <TextView
+            android:id="@+id/ledger_client_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="200dp"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@id/ledger_client_name"
+            android:text="3000"
+            android:textColor="@color/design_default_color_secondary" />
+
+        <TextView
+            android:id="@+id/ledger_date_and_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ledger_client_name"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="5dp"
+            android:text="2017-06-20 8:00 PM"
+            android:textColor="@color/cardview_dark_background" />
+
+        <TextView
+            android:id="@+id/ledger_client_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito_bold"
+            android:text="Subhajit Dey"
+            android:layout_marginStart="5dp"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

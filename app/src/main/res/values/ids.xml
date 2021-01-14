@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="account_relative_view" type="id" />
+    <item name="main_account_heading_layout" type="id" />
+    <item name="account_details_heading" type="id" />
+    <item name="account_name" type="id" />
+    <item name="debit_credit_radiogroup" type="id" />
+    <item name="debit_account" type="id" />
+    <item name="credit_account" type="id" />
+    <item name="account_address" type="id" />
+    <item name="account_country" type="id" />
+    <item name="account_state" type="id" />
+    <item name="account_pincode" type="id" />
+    <item name="opening_balance" type="id" />
+    <item name="bank_details_heading" type="id" />
+    <item name="pan_or_it_no" type="id" />
+    <item name="bank_name" type="id" />
+    <item name="bank_ifsc" type="id" />
+    <item name="account_number" type="id" />
+    <item name="branch_name" type="id" />
+    <item name="save_all_details" type="id" />
+</resources>
