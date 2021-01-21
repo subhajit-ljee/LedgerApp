@@ -43,6 +43,7 @@ public class ShowLedgerActivity extends AppCompatActivity {
 
         makeVouchers();
 
+        calculateDebitAmount();
     }
 
     private void openingBalance(){
@@ -78,12 +79,12 @@ public class ShowLedgerActivity extends AppCompatActivity {
                         ShowLedgerActivity.voucher_client_list.add(voucherLedger);
                     }
                     Log.d(TAG,"Inside collection: voucher_client_list: "+voucher_client_list);
+                    ShowVoucherLedgerAdapter showVoucherLedgerAdapter = new ShowVoucherLedgerAdapter();
+                    showVoucherLedgerAdapter.setList(voucher_client_list);
 
+                    recyclerView.setAdapter(showVoucherLedgerAdapter);
                 });
-        ShowVoucherLedgerAdapter showVoucherLedgerAdapter = new ShowVoucherLedgerAdapter();
-        showVoucherLedgerAdapter.setList(voucher_client_list);
 
-        recyclerView.setAdapter(showVoucherLedgerAdapter);
         Log.d(TAG,"Outside collection: voucher_client_list: "+voucher_client_list);
 
     }
@@ -92,6 +93,20 @@ public class ShowLedgerActivity extends AppCompatActivity {
     protected void onStop(){
         super.onStop();
         voucher_client_list.clear();
+    }
+
+    private void calculateDebitAmount(){
+        db.collection("vouchers")
+                .whereEqualTo("type","receipt")
+                .get()
+                .addOnCompleteListener(task->{
+                    int debit_amount = 0;
+                    for(QueryDocumentSnapshot snapshot:task.getResult()){
+                       //debit_amount = debit_amount+Integer.parseInt(snapshot.getString("amount"));
+                        Log.d(TAG,"Inside voucher collection on debit calculate: "+snapshot.getString("amount"));
+                    }
+
+                });
     }
 
 }

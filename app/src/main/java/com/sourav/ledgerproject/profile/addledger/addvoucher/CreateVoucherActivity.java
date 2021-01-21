@@ -69,7 +69,7 @@ public class CreateVoucherActivity extends AppCompatActivity {
         client_name_auto.setThreshold(2);
         client_name_auto.setAdapter(client_list);
 
-        String[] voucher_type_array = {"Payment","Reciept"};
+        String[] voucher_type_array = {"Payment","Receipt"};
 
         ArrayAdapter<String> voucher_type = new ArrayAdapter<String>
                 (this, android.R.layout.select_dialog_item, voucher_type_array);
