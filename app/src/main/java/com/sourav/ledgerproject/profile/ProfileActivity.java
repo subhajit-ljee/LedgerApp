@@ -24,6 +24,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.sourav.ledgerproject.MainActivity;
 import com.sourav.ledgerproject.R;
 import com.sourav.ledgerproject.profile.addclient.SelectAndAddClientActivity;
+import com.sourav.ledgerproject.profile.addledger.ListOfAllClients;
+import com.sourav.ledgerproject.profile.addledger.ShowLedgerActivity;
 import com.sourav.ledgerproject.profile.addledger.addvoucher.CreateVoucherActivity;
 import com.sourav.ledgerproject.profile.debit.DebitListActivity;
 
@@ -144,23 +146,29 @@ public class ProfileActivity extends AppCompatActivity {
 
         switch (item.getItemId()){
             case R.id.addnewledger:
-                makeVoucher();
-                break;
-            case R.id.addnewvoucher:
                 makeLedger();
                 break;
+            case R.id.addnewvoucher:
+                makeVoucher();
+                break;
+            case R.id.showledger:
+                showLedgerWithVoucher();
         }
 
         item.setChecked(true);
     }
 
-    private void makeLedger() {
+    private void showLedgerWithVoucher() {
+        startActivity(new Intent(ProfileActivity.this, ListOfAllClients.class));
+    }
+
+    private void makeVoucher() {
 
         Intent intent = new Intent(this, CreateVoucherActivity.class);
         startActivity(intent);
     }
 
-    private void makeVoucher() {
+    private void makeLedger() {
         Intent intent = new Intent(this, SelectAndAddClientActivity.class);
         ProfileActivity.this.startActivity(intent);
     }

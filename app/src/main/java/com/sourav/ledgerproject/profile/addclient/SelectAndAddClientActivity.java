@@ -39,7 +39,7 @@ public class SelectAndAddClientActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_and_add_client);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //setSupportActionBar(toolbar);
 
         db = FirebaseFirestore.getInstance();
 
@@ -59,16 +59,34 @@ public class SelectAndAddClientActivity extends AppCompatActivity {
                                 .addOnCompleteListener(task -> {
                                     for(QueryDocumentSnapshot snapshot:task.getResult()){
                                         if(snapshot.getString("user_auth_id").equals(editText.getText().toString())){
-
-                                            clients.put("client_name",snapshot.getString("name"));
-                                            clients.put("client_email",snapshot.getString("email"));
-                                            clients.put("user_id",snapshot.getString("user_auth_id"));
-
                                             db.collection("clients")
-                                                .add(clients)
-                                                .addOnSuccessListener( reference -> Log.d(TAG,"line number 87: reference added successfully "+reference.getId()) )
-                                                .addOnFailureListener( e ->  Log.w(TAG,"Error adding document"));
+                                                    .get()
+                                                    .addOnCompleteListener( task1 -> {
+                                                        for(QueryDocumentSnapshot clientsnapshot:task1.getResult()){
+                                                            if( !(editText.getText().toString().trim().equals(clientsnapshot.getString("client_name"))) || clientsnapshot.getString("client_name") == null ){
+
+                                                                clients.put("client_name",snapshot.getString("name"));
+                                                                clients.put("client_email",snapshot.getString("email"));
+                                                                clients.put("user_id",snapshot.getString("user_auth_id"));
+
+                                                                db.collection("clients")
+                                                                        .add(clients)
+                                                                        .addOnSuccessListener( reference -> Log.d(TAG,"line number 87: reference added successfully "+reference.getId()) )
+                                                                        .addOnFailureListener( e ->  Log.d(TAG,"Error adding document"));
+                                                            }
+                                                            else{
+                                                                AlertDialog nameerror = new AlertDialog.Builder(this)
+                                                                        .setMessage("Client Already exists, enter different name ")
+                                                                        .setCancelable(true)
+                                                                        .create();
+                                                                nameerror.show();
+                                                            }
+
+                                                        }
+
+                                                    });
                                         }
+
                                     }
                                 });
 
@@ -111,14 +129,28 @@ public class SelectAndAddClientActivity extends AppCompatActivity {
     }
 
 
-    public void createVoucherOption(View v){
+    public void createLedgerOption(View v){
         TextView client_id = v.findViewById(R.id.client_id);
         TextView client_name = v.findViewById(R.id.client_name);
         //Toast.makeText(this,"client id is: "+client_id.getText().toString().trim(),Toast.LENGTH_LONG).show();
-        Intent client_intent = new Intent(this, CreateLedgerActivity.class);
-        client_intent.putExtra("client_id",client_id.getText().toString().trim());
-        client_intent.putExtra("client_name",client_name.getText().toString().trim());
-        startActivity(client_intent);
+
+        AlertDialog confirm_ledger = new AlertDialog.Builder(this)
+                .setTitle("")
+                .setMessage("Do you want to Create Ledger?")
+                .setPositiveButton("Create", (dialog, which) -> {
+
+                    Intent client_intent = new Intent(this, CreateLedgerActivity.class);
+                    client_intent.putExtra("client_id", client_id.getText().toString().trim());
+                    client_intent.putExtra("client_name", client_name.getText().toString().trim());
+                    startActivity(client_intent);
+
+                })
+                .setNegativeButton("Cancel",null)
+                .create();
+
+        confirm_ledger.show();
+
+
     }
 
 }

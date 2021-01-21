@@ -14,41 +14,43 @@
             android:id="@+id/currency_sign"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="150dp"
-            android:layout_marginTop="5dp"
-            android:layout_toEndOf="@id/ledger_client_name"
+            android:layout_toEndOf="@id/ledger_date_and_time"
+            android:layout_marginStart="160dp"
+            android:layout_marginTop="8dp"
             android:text="@string/currency_sign_indian_rupees" />
 
         <TextView
             android:id="@+id/ledger_client_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="200dp"
-            android:layout_marginTop="5dp"
-            android:layout_toEndOf="@id/ledger_client_name"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@id/currency_sign"
             android:text="3000"
-            android:textColor="@color/design_default_color_secondary" />
+            android:textColor="@color/design_default_color_secondary"
+            android:fontFamily="@font/nunito_bold"/>
 
         <TextView
             android:id="@+id/ledger_date_and_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ledger_client_name"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="10dp"
             android:text="2017-06-20 8:00 PM"
-            android:textColor="@color/cardview_dark_background" />
+            android:textColor="@color/black" />
 
         <TextView
-            android:id="@+id/ledger_client_name"
+            android:id="@+id/voucher_mode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Payment"
+            android:layout_toEndOf="@id/ledger_date_and_time"
+            android:layout_marginStart="55dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/nunito_bold"
-            android:text="Subhajit Dey"
-            android:layout_marginStart="5dp"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:textColor="@color/black"/>
+
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

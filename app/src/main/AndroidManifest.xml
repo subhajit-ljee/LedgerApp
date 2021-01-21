@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LedgerProject">
+        <activity android:name=".profile.addledger.ListOfAllClients"></activity>
         <activity android:name=".profile.addledger.ShowLedgerActivity" />
         <activity android:name=".profile.debit.DebitListActivity" />
 
@@ -21,6 +22,9 @@
         <activity
             android:name=".profile.addledger.addvoucher.CreateVoucherActivity"
             android:label="@string/title_activity_create_voucher" />
+        <activity
+            android:name=".profile.addledger.CreateLedgerActivity"
+            android:label="@string/title_activity_create_ledger" />
         <activity
             android:name=".profile.addclient.SelectAndAddClientActivity"
             android:label="@string/title_activity_select_and_add_client"

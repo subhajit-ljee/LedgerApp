@@ -1,11 +1,8 @@
 package com.sourav.ledgerproject.profile.addledger;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -16,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.sourav.ledgerproject.R;
+import com.sourav.ledgerproject.profile.ProfileActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +22,7 @@ public class CreateLedgerActivity extends AppCompatActivity{
 
     FirebaseFirestore db;
 
-    private static final String TAG = "CreateVoucherActivity";
+    private static final String TAG = "CreateLedgerActivity";
 
     private EditText account_name;
     private RadioGroup account_type;
@@ -46,7 +44,7 @@ public class CreateLedgerActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_debit);
+        setContentView(R.layout.activity_create_ledger);
 
         db = FirebaseFirestore.getInstance();
 
@@ -120,7 +118,10 @@ public class CreateLedgerActivity extends AppCompatActivity{
                 .setPositiveButton("Add", (dialog, which) -> {
                     db.collection("account_details")
                             .add(account_details_map)
-                            .addOnSuccessListener( document -> Log.d(TAG,"document added successfully, id is: "+document.getId()))
+                            .addOnSuccessListener( document -> {
+                                Log.d(TAG,"document added successfully, id is: "+document.getId());
+                                startActivity(new Intent(CreateLedgerActivity.this, ProfileActivity.class));
+                            })
                             .addOnFailureListener( e -> Log.d(TAG,"cannot add, error: "+e));
 
                     CreateLedgerActivity.this.startActivity(new Intent(CreateLedgerActivity.this,ShowLedgerActivity.class));
