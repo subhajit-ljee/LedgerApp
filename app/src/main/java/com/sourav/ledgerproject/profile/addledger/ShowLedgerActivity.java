@@ -82,9 +82,16 @@ public class ShowLedgerActivity extends AppCompatActivity {
                 });
         ShowVoucherLedgerAdapter showVoucherLedgerAdapter = new ShowVoucherLedgerAdapter();
         showVoucherLedgerAdapter.setList(voucher_client_list);
-        voucher_client_list.clear();
+
         recyclerView.setAdapter(showVoucherLedgerAdapter);
         Log.d(TAG,"Outside collection: voucher_client_list: "+voucher_client_list);
+
+    }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+        voucher_client_list.clear();
     }
 
 }
