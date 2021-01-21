@@ -50,6 +50,7 @@ public class ShowVoucherLedgerAdapter extends RecyclerView.Adapter<ShowVoucherLe
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
             creation_time = itemView.findViewById(R.id.ledger_date_and_time);
             voucher_mode = itemView.findViewById(R.id.voucher_mode);
             voucher_amount = itemView.findViewById(R.id.ledger_client_amount);

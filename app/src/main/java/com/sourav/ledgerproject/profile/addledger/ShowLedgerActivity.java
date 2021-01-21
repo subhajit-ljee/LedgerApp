@@ -28,6 +28,7 @@ public class ShowLedgerActivity extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     static List<VoucherLedger> voucher_client_list = new ArrayList<>();
     TextView opening_balance;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,17 +36,49 @@ public class ShowLedgerActivity extends AppCompatActivity {
 
         Log.d(TAG,"client id in "+TAG+" "+getIntent().getStringExtra("client_id"));
 
+        openingBalance();
+
+        makeVouchers();
+
+    }
+
+    private void openingBalance(){
         opening_balance = findViewById(R.id.ledger_opening_balance);
 
         db.collection("account_details")
                 .get()
                 .addOnCompleteListener( task -> {
-                   String op_bal = null;
-                   for(QueryDocumentSnapshot snapshot:task.getResult()){
-                       op_bal = snapshot.getString("opening_balance");
-                   }
-                   opening_balance.setText(op_bal);
+                    String op_bal = null;
+                    for(QueryDocumentSnapshot snapshot:task.getResult()){
+                        op_bal = snapshot.getString("opening_balance");
+                    }
+                    opening_balance.setText(op_bal);
+                });
 
+    }
+
+    private void makeVouchers(){
+
+        RecyclerView recyclerView;
+        recyclerView = findViewById(R.id.showvoucherledgerrecycler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        db.collection("vouchers")
+                .whereEqualTo("client_id",getIntent().getStringExtra("client_id"))
+                .get()
+                .addOnCompleteListener(task->{
+                    VoucherLedger voucherLedger;
+
+                    for(QueryDocumentSnapshot snapshot:task.getResult()){
+                        voucherLedger = new VoucherLedger(snapshot.getString("timestamp"),snapshot.getString("type"),
+                                1,snapshot.getString("amount"));
+                        ShowLedgerActivity.voucher_client_list.add(voucherLedger);
+                    }
+
+                    ShowVoucherLedgerAdapter showVoucherLedgerAdapter = new ShowVoucherLedgerAdapter();
+                    showVoucherLedgerAdapter.setList(voucher_client_list);
+                    recyclerView.setAdapter(showVoucherLedgerAdapter);
                 });
     }
+
 }
