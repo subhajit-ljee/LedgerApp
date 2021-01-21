@@ -28,13 +28,16 @@ public class ShowLedgerActivity extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     static List<VoucherLedger> voucher_client_list = new ArrayList<>();
     TextView opening_balance;
-
+    TextView client_name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_ledger);
 
         Log.d(TAG,"client id in "+TAG+" "+getIntent().getStringExtra("client_id"));
+
+        client_name = findViewById(R.id.account_holder);
+        client_name.setText(getIntent().getStringExtra("client_name"));
 
         openingBalance();
 
@@ -74,11 +77,14 @@ public class ShowLedgerActivity extends AppCompatActivity {
                                 1,snapshot.getString("amount"));
                         ShowLedgerActivity.voucher_client_list.add(voucherLedger);
                     }
+                    Log.d(TAG,"Inside collection: voucher_client_list: "+voucher_client_list);
 
-                    ShowVoucherLedgerAdapter showVoucherLedgerAdapter = new ShowVoucherLedgerAdapter();
-                    showVoucherLedgerAdapter.setList(voucher_client_list);
-                    recyclerView.setAdapter(showVoucherLedgerAdapter);
                 });
+        ShowVoucherLedgerAdapter showVoucherLedgerAdapter = new ShowVoucherLedgerAdapter();
+        showVoucherLedgerAdapter.setList(voucher_client_list);
+        voucher_client_list.clear();
+        recyclerView.setAdapter(showVoucherLedgerAdapter);
+        Log.d(TAG,"Outside collection: voucher_client_list: "+voucher_client_list);
     }
 
 }

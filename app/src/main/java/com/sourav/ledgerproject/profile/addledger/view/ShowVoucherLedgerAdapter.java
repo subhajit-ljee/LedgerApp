@@ -39,8 +39,9 @@ public class ShowVoucherLedgerAdapter extends RecyclerView.Adapter<ShowVoucherLe
         return voucherList.size();
     }
 
-    public void setList(List<VoucherLedger> voucherList){
-        this.voucherList = voucherList;
+    public void setList(List<VoucherLedger> data){
+        voucherList.clear();
+        voucherList.addAll(data);
         notifyDataSetChanged();
     }
 
