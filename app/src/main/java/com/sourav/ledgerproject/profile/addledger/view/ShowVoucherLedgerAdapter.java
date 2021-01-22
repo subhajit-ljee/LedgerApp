@@ -31,7 +31,7 @@ public class ShowVoucherLedgerAdapter extends RecyclerView.Adapter<ShowVoucherLe
         VoucherLedger voucherLedger = voucherList.get(position);
         holder.creation_time.setText(voucherLedger.getCreation_time());
         holder.voucher_mode.setText(voucherLedger.getVoucher_mode());
-        holder.voucher_amount.setText(voucherLedger.getAmount());
+        holder.voucher_amount.setText(voucherLedger.getAmount()+".00");
     }
 
     @Override

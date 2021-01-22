@@ -20,12 +20,10 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.sourav.ledgerproject.MainActivity;
 import com.sourav.ledgerproject.R;
 import com.sourav.ledgerproject.profile.addclient.SelectAndAddClientActivity;
 import com.sourav.ledgerproject.profile.addledger.ListOfAllClients;
-import com.sourav.ledgerproject.profile.addledger.ShowLedgerActivity;
 import com.sourav.ledgerproject.profile.addledger.addvoucher.CreateVoucherActivity;
 import com.sourav.ledgerproject.profile.debit.DebitListActivity;
 

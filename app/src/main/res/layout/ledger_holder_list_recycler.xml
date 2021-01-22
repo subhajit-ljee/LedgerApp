@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <TextView
+            android:id="@+id/ledger_create_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="5dp"
+            android:text="3/06/2020"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/nunito_bold"/>
+
+        <TextView
+            android:id="@+id/ledger_holder_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:text="Subhajit Dey"
+            android:layout_toEndOf="@id/ledger_create_date"
+            android:fontFamily="@font/nunito_bold"
+            android:textColor="@color/black"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/currency_sign"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/ledger_holder_name"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/currency_sign_indian_rupees"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/ledger_client_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/currency_sign"
+            android:layout_marginStart="5dp"
+            android:text="3000.00"
+            android:textSize="15sp"
+            android:textColor="@color/design_default_color_secondary"
+            android:fontFamily="@font/nunito_bold"/>
+
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

@@ -15,7 +15,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.sourav.ledgerproject.R;
 import com.sourav.ledgerproject.profile.ProfileActivity;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class CreateLedgerActivity extends AppCompatActivity{
@@ -95,7 +98,10 @@ public class CreateLedgerActivity extends AppCompatActivity{
             bank_details_map.put("account_number",number_account);
             bank_details_map.put("branch_name",name_branch);
 
+            String date = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
+
             account_details_map.put("client_id",getIntent().getStringExtra("client_id"));
+            account_details_map.put("timestamp",date);
             account_details_map.put("account_name",name);
             account_details_map.put("account_type",type);
             account_details_map.put("account_address",address);
