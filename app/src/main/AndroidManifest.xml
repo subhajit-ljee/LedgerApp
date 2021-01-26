@@ -3,8 +3,8 @@
     package="com.sourav.ledgerproject">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -30,7 +30,7 @@
         <activity
             android:name=".profile.addclient.SelectAndAddClientActivity"
             android:label="@string/title_activity_select_and_add_client"
-            android:theme="@style/Theme.LedgerProject.NoActionBar" />
+            android:theme="@style/Theme.LedgerProject.AppBarOverlay" />
         <activity android:name=".MainActivity" />
         <activity android:name=".profile.ProfileActivity" />
         <activity android:name=".SplashActivity">
