@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -35,6 +36,9 @@ public class ListOfAllClients extends AppCompatActivity {
     private static final int MY_RESULT_CODE_FILECHOOSER = 2000;
 
     private static final String TAG = "ListOfAllClients";
+
+    Toolbar listItemToolbar;
+
     FirebaseFirestore db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +71,9 @@ public class ListOfAllClients extends AppCompatActivity {
                     }
 
                 });
+
+        listItemToolbar = findViewById(R.id.allvoucherlistpagetoolbar);
+        setSupportActionBar(listItemToolbar);
     }
 
     public void createLedgerOption(View v){
