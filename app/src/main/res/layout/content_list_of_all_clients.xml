@@ -7,7 +7,8 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_of_all_clients"

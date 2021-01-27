@@ -41,6 +41,8 @@
     <string name="title_activity_create_ledger">CreateLedgerActivity</string>
 
     <string name="currency_sign_indian_rupees">\u20B9</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
