@@ -1,4 +1,4 @@
-package com.sourav.ledgerproject.profile.debit;
+package com.sourav.ledgerproject.profile.credit;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,27 +12,26 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.sourav.ledgerproject.R;
 import com.sourav.ledgerproject.profile.debit.view.DebitListAdapter;
 import com.sourav.ledgerproject.profile.model.AccountHolder;
-import com.sourav.ledgerproject.profile.model.Client;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DebitListActivity extends AppCompatActivity {
+public class CreditListActivity extends AppCompatActivity {
 
-    private static final String TAG = "DebitListActivity";
+    private static final String TAG = CreditListActivity.class.getCanonicalName();
     List<AccountHolder> clientList;
     FirebaseFirestore db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_debit_list);
+        setContentView(R.layout.activity_credit_list);
 
         clientList = new ArrayList<>();
         db = FirebaseFirestore.getInstance();
         Log.d(TAG,"In DebitListActivity");
 
         db.collection("account_details")
-                .whereEqualTo("account_type","Debit")
+                .whereEqualTo("account_type","Credit")
                 .get()
                 .addOnCompleteListener(task->{
                     for(QueryDocumentSnapshot snapshot:task.getResult()){
@@ -52,15 +51,11 @@ public class DebitListActivity extends AppCompatActivity {
                     DebitListAdapter debitListAdapter = new DebitListAdapter();
                     debitListAdapter.setClientlist(clientList);
 
-                    RecyclerView recyclerView = findViewById(R.id.client_debit_list_recycler_view);
+                    RecyclerView recyclerView = findViewById(R.id.client_credit_list_recycler_view);
                     recyclerView.setLayoutManager(new LinearLayoutManager(this));
                     recyclerView.setAdapter(debitListAdapter);
 
                     Log.d(TAG,"Account Holder Credit List : "+clientList);
-
-                    Log.d(TAG,"Account Holder List : "+clientList);
                 });
-
-
     }
 }

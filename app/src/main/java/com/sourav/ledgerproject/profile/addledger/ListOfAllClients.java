@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,6 +28,15 @@ import com.sourav.ledgerproject.R;
 import com.sourav.ledgerproject.profile.addclient.view.ClientAdapter;
 import com.sourav.ledgerproject.profile.model.Client;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,30 +106,36 @@ public class ListOfAllClients extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem menuItem){
 
         switch (menuItem.getItemId()){
-            case R.id.bill_save_item:
+            case R.id.bill_upload_item:
                 uploadBill();
+            case R.id.bill_save_item:
+                saveBill();
         }
         return true;
     }
 
     private void uploadBill(){
 
-        int permisson = ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.READ_EXTERNAL_STORAGE);
+        ActivityCompat.requestPermissions(this,
+                    new String[]{
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                            Manifest.permission.READ_EXTERNAL_STORAGE
+                    }
+                    ,PackageManager.PERMISSION_GRANTED
+                );
 
-        if (permisson != PackageManager.PERMISSION_GRANTED) {
-            this.requestPermissions(
-                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                    MY_REQUEST_CODE_PERMISSION
-            );
-        }
-
+        Log.d(TAG,"calling upload bill method");
         doBrowseFile();
+    }
+
+    private void saveBill(){
+        String filepath = Environment.getExternalStorageDirectory().toString()+"/newfile.pdf";
+        //writeData(filepath);
     }
 
     private void doBrowseFile()  {
         Intent chooseFileIntent = new Intent(Intent.ACTION_GET_CONTENT);
-        chooseFileIntent.setType("*/*");
+        chooseFileIntent.setType("application/pdf");
         chooseFileIntent.addCategory(Intent.CATEGORY_OPENABLE);
         chooseFileIntent = Intent.createChooser(chooseFileIntent, "Choose a file");
         startActivityForResult(chooseFileIntent, MY_RESULT_CODE_FILECHOOSER);
@@ -154,6 +170,7 @@ public class ListOfAllClients extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data){
 
         super.onActivityResult(requestCode,resultCode,data);
+
         switch (requestCode) {
             case MY_RESULT_CODE_FILECHOOSER:
                 if (resultCode == Activity.RESULT_OK ) {
@@ -164,6 +181,13 @@ public class ListOfAllClients extends AppCompatActivity {
                         String filePath = null;
                         try {
                             filePath = BillFileUtils.getPath(this,fileUri);
+                            if(isExternalStorageAvailable() || isExternalStorageReadable()){
+                                readData(filePath);
+                                //writeData(filePath,filedata);
+                            }else{
+                                Log.d(TAG,"isStorageReadable() : "+isExternalStorageReadable()+",isStorageAvailable() : "+isExternalStorageAvailable());
+                            }
+
                         } catch (Exception e) {
                             Log.e(TAG,"Error: " + e);
                             Toast.makeText(this, "Error: " + e, Toast.LENGTH_SHORT).show();
@@ -177,6 +201,79 @@ public class ListOfAllClients extends AppCompatActivity {
 
     }
 
+    private void readData(String filePath) {
+        StringBuilder stringBuilder = new StringBuilder();
+        try {
+            FileInputStream fileInputStream = new FileInputStream(new File(filePath));
+            //InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+
+           // FileOutputStream outputStream = new FileOutputStream(new File("/storage/emulated/0/Download/mydownload.pdf"));
+
+            PrintBill printBill = new PrintBill(filePath,fileInputStream);
+            printBill.makeBillPdf();
+
+            /*int length;
+            byte[] filebyte = new byte[40*1024*1024];
+            int i=0;
+            while ((length = fileInputStream.read(filebyte)) > 0) {
+                outputStream.write(filebyte,0,length);
+            }
+            //stringBuilder.append("my name is subhajit");
+            //Files.copy(Paths.get(filePath),outputStream);
+
+
+            Log.d(TAG,"file data is: "+filebyte.toString());
+            fileInputStream.close();
+            outputStream.close();
+           // return stringBuilder.toString();
+        */
+        }catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+        //return null;
+
+    }
+
+    /*public void writeData(String filepath, String filedata){
+
+            try{
+
+            }catch (FileNotFoundException fe){
+                fe.printStackTrace();
+            }catch (IOException io){
+                io.printStackTrace();
+            }
+
+    }*/
+
+    public boolean isExternalStorageAvailable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isExternalStorageReadable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
+            return true;
+        }
+        return false;
+    }
+
+
+    public String getStorageDir(String fileName) {
+        //create folder
+        File file = new File(Environment.getExternalStorageDirectory().toString());
+        if (!file.mkdirs()) {
+            file.mkdirs();
+        }
+        String filePath = file.getAbsolutePath() + File.separator + fileName;
+        return filePath;
+    }
     //public String getPath()  {
       //  return this.editTextPath.getText().toString();
     //}

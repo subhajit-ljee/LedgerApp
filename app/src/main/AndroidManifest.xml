@@ -3,16 +3,29 @@
     package="com.sourav.ledgerproject">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LedgerProject">
+        <activity android:name=".profile.addledger.addvoucher.ApproveVoucherActivity"></activity>
+
+        <service
+            android:name=".profile.addledger.addvoucher.notification.ForegroundService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".profile.credit.CreditListActivity" />
         <activity android:name=".profile.addledger.ListOfAllClients" />
         <activity android:name=".profile.addledger.ShowLedgerActivity" />
         <activity android:name=".profile.debit.DebitListActivity" />
@@ -30,7 +43,7 @@
         <activity
             android:name=".profile.addclient.SelectAndAddClientActivity"
             android:label="@string/title_activity_select_and_add_client"
-            android:theme="@style/Theme.LedgerProject.AppBarOverlay" />
+            android:theme="@style/Theme.AppCompat" />
         <activity android:name=".MainActivity" />
         <activity android:name=".profile.ProfileActivity" />
         <activity android:name=".SplashActivity">

@@ -9,13 +9,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sourav.ledgerproject.R;
+import com.sourav.ledgerproject.profile.model.AccountHolder;
 import com.sourav.ledgerproject.profile.model.Client;
 
 import java.util.List;
 
 public class DebitListAdapter extends RecyclerView.Adapter<DebitListAdapter.ViewHolder> {
 
-    List<Client> clientlist;
+    List<AccountHolder> clientlist;
 
     @NonNull
     @Override
@@ -26,10 +27,10 @@ public class DebitListAdapter extends RecyclerView.Adapter<DebitListAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull DebitListAdapter.ViewHolder holder, int position) {
-        Client client = clientlist.get(position);
-        holder.client_name.setText(client.getClient_name());
-        holder.client_email.setText(client.getClient_email());
-        holder.client_id.setText(client.getClient_id());
+        AccountHolder accountHolder = clientlist.get(position);
+        holder.client_name.setText(accountHolder.getName());
+        holder.client_address.setText(accountHolder.getAddress());
+        holder.client_id.setText(accountHolder.getClient_id());
     }
 
     @Override
@@ -37,21 +38,21 @@ public class DebitListAdapter extends RecyclerView.Adapter<DebitListAdapter.View
         return clientlist.size();
     }
 
-    public void setClientlist(List<Client> clientlist){
+    public void setClientlist(List<AccountHolder> clientlist){
         this.clientlist = clientlist;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView client_name;
-        TextView client_email;
+        TextView client_address;
         TextView client_id;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             client_name = itemView.findViewById(R.id.client_list_item_name);
-            client_email = itemView.findViewById(R.id.client_list_item_email);
+            client_address = itemView.findViewById(R.id.client_list_item_address);
             client_id = itemView.findViewById(R.id.client_list_item_id);
         }
 

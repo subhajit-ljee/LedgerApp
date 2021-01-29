@@ -25,6 +25,7 @@ import com.sourav.ledgerproject.R;
 import com.sourav.ledgerproject.profile.addclient.SelectAndAddClientActivity;
 import com.sourav.ledgerproject.profile.addledger.ListOfAllClients;
 import com.sourav.ledgerproject.profile.addledger.addvoucher.CreateVoucherActivity;
+import com.sourav.ledgerproject.profile.credit.CreditListActivity;
 import com.sourav.ledgerproject.profile.debit.DebitListActivity;
 
 import java.util.HashMap;
@@ -176,7 +177,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void onCreditView(View v){
-
+        startActivity(new Intent(this, CreditListActivity.class));
     }
 
     @Override

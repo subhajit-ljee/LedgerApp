@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/Theme.AppCompat"
     tools:context=".profile.addledger.addvoucher.CreateVoucherActivity">
 
     <RelativeLayout
@@ -49,6 +50,15 @@
             android:layout_marginStart="60dp"
             android:layout_marginTop="10dp"
             android:text="Save Voucher"/>
+
+        <Button
+            android:id="@+id/stop_voucher_service"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/client_voucher_save"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="10dp"
+            android:text="Stop Srevice"/>
 
     </RelativeLayout>
 

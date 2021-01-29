@@ -19,7 +19,7 @@
             android:text="" />
 
         <TextView
-            android:id="@+id/client_list_item_email"
+            android:id="@+id/client_list_item_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/client_list_item_name"
@@ -29,8 +29,10 @@
             android:id="@+id/client_list_item_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/client_list_item_email"
+            android:layout_below="@id/client_list_item_address"
             android:text="" />
+
+
 
     </RelativeLayout>
 
