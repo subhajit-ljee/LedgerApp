@@ -23,6 +23,12 @@
             android:icon="@drawable/add_ledger"
             />
 
+        <item android:id="@+id/deletevoucher"
+            android:title="@string/delete_voucher"
+            app:showAsAction="ifRoom"
+            android:icon="@drawable/add_ledger"
+            />
+
 
     </group>
 

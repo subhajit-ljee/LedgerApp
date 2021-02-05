@@ -25,6 +25,7 @@ import com.sourav.ledgerproject.R;
 import com.sourav.ledgerproject.profile.addclient.SelectAndAddClientActivity;
 import com.sourav.ledgerproject.profile.addledger.ListOfAllClients;
 import com.sourav.ledgerproject.profile.addledger.addvoucher.CreateVoucherActivity;
+import com.sourav.ledgerproject.profile.addledger.addvoucher.DeleteVoucherActivity;
 import com.sourav.ledgerproject.profile.credit.CreditListActivity;
 import com.sourav.ledgerproject.profile.debit.DebitListActivity;
 
@@ -152,9 +153,15 @@ public class ProfileActivity extends AppCompatActivity {
                 break;
             case R.id.showledger:
                 showLedgerWithVoucher();
+            case R.id.deletevoucher:
+                deleteVoucher();
         }
 
         item.setChecked(true);
+    }
+
+    private void deleteVoucher(){
+        startActivity(new Intent(this, DeleteVoucherActivity.class));
     }
 
     private void showLedgerWithVoucher() {

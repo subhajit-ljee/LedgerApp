@@ -11,9 +11,11 @@ import android.widget.RadioGroup;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.sourav.ledgerproject.R;
 import com.sourav.ledgerproject.profile.ProfileActivity;
+import com.sourav.ledgerproject.profile.addledger.addvoucher.CreateVoucherActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -100,6 +102,7 @@ public class CreateLedgerActivity extends AppCompatActivity{
 
             String date = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
 
+            account_details_map.put("user_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
             account_details_map.put("client_id",getIntent().getStringExtra("client_id"));
             account_details_map.put("timestamp",date);
             account_details_map.put("account_name",name);
@@ -123,10 +126,11 @@ public class CreateLedgerActivity extends AppCompatActivity{
                 .setMessage("yes")
                 .setPositiveButton("Add", (dialog, which) -> {
                     db.collection("account_details")
-                            .add(account_details_map)
+                            .document("account_details_"+FirebaseAuth.getInstance().getCurrentUser().getUid())
+                            .set(account_details_map)
                             .addOnSuccessListener( document -> {
-                                Log.d(TAG,"document added successfully, id is: "+document.getId());
-                                startActivity(new Intent(CreateLedgerActivity.this, ProfileActivity.class));
+                                Log.d(TAG,"document added successfully: ");
+                                startActivity(new Intent(CreateLedgerActivity.this, CreateVoucherActivity.class));
                             })
                             .addOnFailureListener( e -> Log.d(TAG,"cannot add, error: "+e));
 

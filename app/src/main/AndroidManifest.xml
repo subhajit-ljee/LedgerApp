@@ -15,7 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LedgerProject">
-        <activity android:name=".profile.addledger.addvoucher.ApproveVoucherActivity"></activity>
+        <activity android:name=".profile.addledger.addvoucher.DeleteVoucherListActivity"></activity>
+        <activity android:name=".profile.addledger.addvoucher.DeleteVoucherActivity" />
+        <activity android:name=".profile.addledger.addvoucher.ApproveVoucherActivity" />
 
         <service
             android:name=".profile.addledger.addvoucher.notification.ForegroundService"

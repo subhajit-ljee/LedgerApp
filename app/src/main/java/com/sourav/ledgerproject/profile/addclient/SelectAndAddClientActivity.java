@@ -10,14 +10,22 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.sourav.ledgerproject.R;
+import com.sourav.ledgerproject.profile.addclient.dependency.ClientComponent;
+import com.sourav.ledgerproject.profile.addclient.dependency.ClientModule;
+import com.sourav.ledgerproject.profile.addclient.model.ClientViewModel;
+import com.sourav.ledgerproject.profile.addclient.model.ClientViewModelFactory;
+import com.sourav.ledgerproject.profile.addclient.model.DataLoadListener;
 import com.sourav.ledgerproject.profile.addclient.view.ClientAdapter;
 import com.sourav.ledgerproject.profile.addledger.CreateLedgerActivity;
 import com.sourav.ledgerproject.profile.model.Client;
@@ -26,13 +34,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import androidx.lifecycle.Observer;;import javax.inject.Inject;
 
-public class SelectAndAddClientActivity extends AppCompatActivity {
+public class SelectAndAddClientActivity extends AppCompatActivity implements DataLoadListener {
 
     private static final String TAG = "SelectAndAddClientActivity";
-    FirebaseFirestore db;
-    Map<String,Object> clients = new HashMap<>();
+    private Map<String,Object> clients = new HashMap<>();
 
+    @Inject
+    ClientViewModelFactory clientViewModelFactory;
+
+    private ClientViewModel clientViewModel;
+    private RecyclerView clientRecyclerView;
+    private ClientAdapter clientAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +55,12 @@ public class SelectAndAddClientActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
 
-        db = FirebaseFirestore.getInstance();
+        ClientComponent clientComponent = DaggerClientComponent.builder()
+                .clientModule(new ClientModule(this))
+                .build();
+        clientComponent.inject(this);
 
-
+        clientViewModel = ViewModelProviders.of(this,clientViewModelFactory).get(ClientViewModel.class);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
@@ -53,78 +70,24 @@ public class SelectAndAddClientActivity extends AppCompatActivity {
                     .setMessage("Enter ID")
                     .setView(editText)
                     .setPositiveButton("Add", (dialog, which) -> {
-
-                        db.collection("users")
-                                .get()
-                                .addOnCompleteListener(task -> {
-                                    for(QueryDocumentSnapshot snapshot:task.getResult()){
-                                        if(snapshot.getString("user_auth_id").equals(editText.getText().toString())){
-                                            db.collection("clients")
-                                                    .get()
-                                                    .addOnCompleteListener( task1 -> {
-                                                        for(QueryDocumentSnapshot clientsnapshot:task1.getResult()){
-                                                            if( !(editText.getText().toString().trim().equals(clientsnapshot.getString("client_name"))) || clientsnapshot.getString("client_name") == null ){
-
-                                                                clients.put("client_name",snapshot.getString("name"));
-                                                                clients.put("client_email",snapshot.getString("email"));
-                                                                clients.put("user_id",snapshot.getString("user_auth_id"));
-
-                                                                db.collection("clients")
-                                                                        .add(clients)
-                                                                        .addOnSuccessListener( reference -> Log.d(TAG,"line number 87: reference added successfully "+reference.getId()) )
-                                                                        .addOnFailureListener( e ->  Log.d(TAG,"Error adding document"));
-                                                            }
-                                                            else{
-                                                                AlertDialog nameerror = new AlertDialog.Builder(this)
-                                                                        .setMessage("Client Already exists, enter different name ")
-                                                                        .setCancelable(true)
-                                                                        .create();
-                                                                nameerror.show();
-                                                            }
-
-                                                        }
-
-                                                    });
-                                        }
-
-                                    }
-                                });
-
+                        String client_id = editText.getText().toString().trim();
+                        Log.d(TAG,"client_id is: "+client_id);
+                        clientViewModel.addClient(client_id);
                     })
                     .setNegativeButton("Cancel",null)
                     .create();
             alertDialog.show();
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+
         });
 
 
-        db.collection("clients")
-                .get()
-                .addOnCompleteListener( task -> {
-                    List<Client> clientList = new ArrayList<>();
-                    for(QueryDocumentSnapshot document:task.getResult()){
-                        Client client = new Client(document.getId(),document.getString("client_name"),
-                                document.getString("client_email"),document.getString("user_id"));
 
-                        clientList.add(client);
-                    }
+        clientRecyclerView = findViewById(R.id.client_list_view);
+        clientAdapter = new ClientAdapter();
 
-                    Log.d(TAG,"clientlist: "+clientList);
-
-                    if(clientList.size() > 0){
-                        ClientAdapter clientAdapter = new ClientAdapter();
-                        clientAdapter.setClient(clientList);
-                        RecyclerView recyclerView = findViewById(R.id.client_list_view);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-                        recyclerView.setFocusable(true);
-                        recyclerView.setAdapter(clientAdapter);
-
-                    }
-
-                });
-
-
+        clientAdapter.setClient(clientViewModel.getClients().getValue());
+        clientRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        clientRecyclerView.setAdapter(clientAdapter);
 
     }
 
@@ -153,4 +116,13 @@ public class SelectAndAddClientActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onClientLoaded() {
+        clientViewModel.getClients().observe(this, new Observer<List<Client>>() {
+            @Override
+            public void onChanged(List<Client> clients) {
+                clientAdapter.notifyDataSetChanged();
+            }
+        });
+    }
 }

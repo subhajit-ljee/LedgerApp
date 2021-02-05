@@ -52,6 +52,8 @@ public class CreateVoucherActivity extends AppCompatActivity {
     List<String> client_list_array = new ArrayList<>();
 
     ApiService apiService;
+    ArrayAdapter<String> client_list;
+    ArrayAdapter<String> voucher_type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,120 +71,127 @@ public class CreateVoucherActivity extends AppCompatActivity {
                         client_list_array.add(client.getClient_name());
                     }
 
-                    makeAdaptersForVouchers();
+                    Map<String,Object> client_vouchers = new HashMap<>();
 
-                });
-        }
+                    String[] client_list_array_conv = new String[client_list_array.size()];
 
-    private void makeAdaptersForVouchers() {
+                    client_list = new ArrayAdapter<String>
+                            (this, android.R.layout.select_dialog_item, client_list_array.toArray(client_list_array_conv));
+                    AutoCompleteTextView client_name_auto = findViewById(R.id.create_client_list_autocomplete);
+                    client_name_auto.setThreshold(2);
+                    client_name_auto.setAdapter(client_list);
 
-        Map<String,Object> client_vouchers = new HashMap<>();
+                    String[] voucher_type_array = {"Payment","Receipt"};
 
-        String[] client_list_array_conv = new String[client_list_array.size()];
+                    voucher_type = new ArrayAdapter<String>
+                            (this, android.R.layout.select_dialog_item, voucher_type_array);
+                    AutoCompleteTextView voucher_type_auto = findViewById(R.id.list_voucher_mode);
+                    voucher_type_auto.setThreshold(2);
+                    voucher_type_auto.setAdapter(voucher_type);
+                    voucher_amount = findViewById(R.id.client_voucher_amount);
 
-        ArrayAdapter<String> client_list = new ArrayAdapter<String>
-                (this, android.R.layout.select_dialog_item, client_list_array.toArray(client_list_array_conv));
-        AutoCompleteTextView client_name_auto = findViewById(R.id.create_client_list_autocomplete);
-        client_name_auto.setThreshold(2);
-        client_name_auto.setAdapter(client_list);
+                    voucher_save = findViewById(R.id.client_voucher_save);
+                    stopservice = findViewById(R.id.stop_voucher_service);
 
-        String[] voucher_type_array = {"Payment","Receipt"};
+                    apiService = new NotificationClient().getClient("https://fcm.googleapis.com/").create(ApiService.class);
+                    Log.d(TAG, "client_list_array: " + client_list_array.toString() + " and client name is: "+client_name_auto.getText().toString().trim());
+                    if (client_list_array.size() >=0 ) {
 
-        ArrayAdapter<String> voucher_type = new ArrayAdapter<String>
-                (this, android.R.layout.select_dialog_item, voucher_type_array);
-        AutoCompleteTextView voucher_type_auto = findViewById(R.id.list_voucher_mode);
-        voucher_type_auto.setThreshold(2);
-        voucher_type_auto.setAdapter(voucher_type);
-        voucher_amount = findViewById(R.id.client_voucher_amount);
+                        Log.d(TAG, "client_list_array size: " + client_list_array.size());
 
-        voucher_save = findViewById(R.id.client_voucher_save);
-        stopservice = findViewById(R.id.stop_voucher_service);
+                        voucher_save.setOnClickListener(new View.OnClickListener() {
 
-        apiService = new NotificationClient().getClient("https://fcm.googleapis.com/").create(ApiService.class);
-        Log.d(TAG, "client_list_array: " + client_list_array.toString() + " and client name is: "+client_name_auto.getText().toString().trim());
-        if (client_list_array.size() >=0 ) {
+                            public void onClick(View v) {
 
-            Log.d(TAG, "client_list_array size: " + client_list_array.size());
-
-            voucher_save.setOnClickListener(new View.OnClickListener() {
-
-                public void onClick(View v) {
-
-                db.collection("clients")
-                        .whereEqualTo("client_name", client_name_auto.getText().toString().trim())
-                        .get()
-                        .addOnCompleteListener(task -> {
-
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-
-                                db.collection("client_token")
-                                        .whereNotEqualTo("client_id",FirebaseAuth.getInstance().getCurrentUser().getUid().toString().trim())
-                                        .whereEqualTo("client_id",document.getString("user_id"))
+                                db.collection("clients")
+                                        .whereEqualTo("client_name", client_name_auto.getText().toString().trim())
                                         .get()
-                                        .addOnCompleteListener( task1-> {
-                                            for(QueryDocumentSnapshot snapshot : task1.getResult()){
-                                                sendNotifications(snapshot.getString("token"),"Hello","hello subhajit");
+                                        .addOnCompleteListener(task -> {
+
+                                            for (QueryDocumentSnapshot document : task.getResult()) {
+
+                                                db.collection("client_token")
+                                                        .whereNotEqualTo("client_id",FirebaseAuth.getInstance().getCurrentUser().getUid().toString().trim())
+                                                        .whereEqualTo("client_id",document.getString("user_id"))
+                                                        .get()
+                                                        .addOnCompleteListener( task1-> {
+                                                            for(QueryDocumentSnapshot snapshot : task1.getResult()){
+                                                                sendNotifications(snapshot.getString("token"),"Hello","hello subhajit");
+                                                            }
+                                                        });
+
+                                                client_vouchers.put("client_id", document.getString("user_id"));
+                                                client_vouchers.put("name", document.getString("client_name"));
+                                                client_vouchers.put("type", voucher_type_auto.getText().toString().trim());
+                                                client_vouchers.put("amount", voucher_amount.getText().toString().trim());
+                                                String date = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
+                                                client_vouchers.put("added",false);
+                                                client_vouchers.put("timestamp",date);
+
+                                                Log.d(TAG,"voucher map is: "+client_vouchers);
+
+                                                db.collection("vouchers")
+                                                        .document("vouchers_"+client_vouchers.get("client_id"))
+                                                        .set(client_vouchers)
+                                                        .addOnSuccessListener(reference -> {
+                                                            Log.d(TAG, "voucher added: " );
+                                                            Toast.makeText(CreateVoucherActivity.this,"Voucher added",Toast.LENGTH_LONG).show();
+                                                            startActivity(new Intent(CreateVoucherActivity.this, ProfileActivity.class));
+                                                        })
+                                                        .addOnFailureListener(e -> Log.d(TAG, "error adding: " + e));
+
+                                                Log.d(TAG, "client_list_array size: " + client_list_array.size());
+
+                                                if(getIntent().getStringExtra("voucher_approved")!=null && getIntent().getStringExtra("voucher_approved").equals("added")){
+                                                    db.collection("vouchers")
+                                                            .document("vouchers_"+document.getString("client_id"))
+                                                            .update("added",true);
+
+                                                }
+
+
                                             }
+
+
                                         });
-
-                                client_vouchers.put("client_id", document.getString("user_id"));
-                                client_vouchers.put("name", document.getString("client_name"));
-                                client_vouchers.put("type", voucher_type_auto.getText().toString().trim());
-                                client_vouchers.put("amount", voucher_amount.getText().toString().trim());
-                                String date = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
-                                client_vouchers.put("added",false);
-                                client_vouchers.put("timestamp",date);
-
-                                db.collection("vouchers")
-                                        .document("vouchers_"+document.getString("client_id"))
-                                        .set(client_vouchers)
-                                        .addOnSuccessListener(reference -> {
-                                            Log.d(TAG, "voucher added: " );
-                                            Toast.makeText(CreateVoucherActivity.this,"Voucher added",Toast.LENGTH_LONG).show();
-                                            startActivity(new Intent(CreateVoucherActivity.this, ProfileActivity.class));
-                                        })
-                                        .addOnFailureListener(e -> Log.d(TAG, "error adding: " + e));
-
-                                Log.d(TAG, "client_list_array size: " + client_list_array.size());
-
-                                if(getIntent().getStringExtra("voucher_approved")!=null && getIntent().getStringExtra("voucher_approved").equals("added")){
-                                    db.collection("vouchers")
-                                            .document("vouchers_"+document.getString("client_id"))
-                                            .update("added",true);
-
-                                }
-
 
                             }
 
 
                         });
 
-                }
+                        //update token
+                        Map<String,Object> client_token = new HashMap<>();
+                        FirebaseMessaging.getInstance().getToken().addOnCompleteListener( task2 -> {
+                            String token = task2.getResult();
+                            Log.d(TAG,"token is: "+token);
+                            db.collection("clients")
+                                    .whereEqualTo("client_name",client_name_auto.getText().toString().trim())
+                                    .get()
+                                    .addOnCompleteListener(task3->{
+                                        for(QueryDocumentSnapshot snapshot:task3.getResult()){
+                                            if( !FirebaseAuth.getInstance().getCurrentUser().getUid().equals(snapshot.getString("client_id")) ){
 
-
-            });
-
-            updateToken();
+                                                client_token.put("client_id", snapshot.getString("client_id"));
+                                                client_token.put("token", token);
+                                                client_token.put("user_id",FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                                db.collection("client_token")
+                                                        .add(client_token)
+                                                        .addOnSuccessListener( reference -> {
+                                                            Log.d(TAG,"token added");
+                                                        })
+                                                        .addOnFailureListener( e -> Log.d(TAG," error adding token"));
+                                            }
+                                            else{
+                                                Toast.makeText(this,"Id error",Toast.LENGTH_LONG).show();
+                                            }
+                                        }
+                                    });
+                        });
+                    }
+                });
         }
-    }
 
-    private void updateToken(){
-        Map<String,Object> client_token = new HashMap<>();
-        FirebaseMessaging.getInstance().getToken().addOnCompleteListener( task -> {
-            String token = task.getResult();
-            client_token.put("client_id", FirebaseAuth.getInstance().getCurrentUser().getUid().toString().trim());
-            client_token.put("token", token);
-            db.collection("client_token")
-                    .add(client_token)
-                    .addOnSuccessListener( reference -> {
-                        Log.d(TAG,"token added");
-                    })
-                    .addOnFailureListener( e -> Log.d(TAG," error adding token"));
-        });
-
-
-    }
 
     private void sendNotifications(String token, String title, String message){
         Data data = new Data(title, message);
