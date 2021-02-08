@@ -1,8 +1,7 @@
 package com.sourav.ledgerproject.profile.addledger.model;
 
-public class Voucher {
+public class Ledger {
 
-    private String id;
     private String account_name;
     private String account_type;
     private String account_address;
@@ -11,8 +10,9 @@ public class Voucher {
     private String account_pincode;
     private String opening_balance;
 
-    public Voucher(String id, String account_name, String account_type, String account_address, String account_country, String account_state, String account_pincode, String opening_balance) {
-        this.id = id;
+    public Ledger(){}
+
+    public Ledger(String account_name, String account_type, String account_address, String account_country, String account_state, String account_pincode, String opening_balance) {
         this.account_name = account_name;
         this.account_type = account_type;
         this.account_address = account_address;
@@ -20,10 +20,6 @@ public class Voucher {
         this.account_state = account_state;
         this.account_pincode = account_pincode;
         this.opening_balance = opening_balance;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public String getAccount_name() {
@@ -56,8 +52,7 @@ public class Voucher {
 
     @Override
     public String toString() {
-        return "Voucher{" +
-                "id='" + id + '\'' +
+        return "Ledger{" +
                 ", account_name='" + account_name + '\'' +
                 ", account_type='" + account_type + '\'' +
                 ", account_address='" + account_address + '\'' +

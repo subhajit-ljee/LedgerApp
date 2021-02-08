@@ -10,19 +10,16 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
+
 import com.sourav.ledgerproject.R;
-import com.sourav.ledgerproject.profile.addclient.dependency.ClientComponent;
+
 import com.sourav.ledgerproject.profile.addclient.dependency.ClientModule;
+import com.sourav.ledgerproject.profile.addclient.dependency.DaggerClientComponent;
 import com.sourav.ledgerproject.profile.addclient.model.ClientViewModel;
 import com.sourav.ledgerproject.profile.addclient.model.ClientViewModelFactory;
 import com.sourav.ledgerproject.profile.addclient.model.DataLoadListener;
@@ -30,11 +27,13 @@ import com.sourav.ledgerproject.profile.addclient.view.ClientAdapter;
 import com.sourav.ledgerproject.profile.addledger.CreateLedgerActivity;
 import com.sourav.ledgerproject.profile.model.Client;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import androidx.lifecycle.Observer;;import javax.inject.Inject;
+import androidx.lifecycle.Observer;
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjection;
 
 public class SelectAndAddClientActivity extends AppCompatActivity implements DataLoadListener {
 
@@ -48,17 +47,19 @@ public class SelectAndAddClientActivity extends AppCompatActivity implements Dat
     private RecyclerView clientRecyclerView;
     private ClientAdapter clientAdapter;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_and_add_client);
         Toolbar toolbar = findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
-
-        ClientComponent clientComponent = DaggerClientComponent.builder()
-                .clientModule(new ClientModule(this))
-                .build();
-        clientComponent.inject(this);
+        Log.d(TAG,"in select");
+        DaggerClientComponent.builder()
+            .clientModule(new ClientModule(this))
+            .build()
+            .inject(this);
 
         clientViewModel = ViewModelProviders.of(this,clientViewModelFactory).get(ClientViewModel.class);
 
@@ -118,11 +119,16 @@ public class SelectAndAddClientActivity extends AppCompatActivity implements Dat
 
     @Override
     public void onClientLoaded() {
+        try{
         clientViewModel.getClients().observe(this, new Observer<List<Client>>() {
             @Override
             public void onChanged(List<Client> clients) {
+                Log.d(TAG,"clients in observe: "+clients);
                 clientAdapter.notifyDataSetChanged();
             }
         });
+        }catch (Exception e){
+            Log.d(TAG,"Error occured");
+        }
     }
 }

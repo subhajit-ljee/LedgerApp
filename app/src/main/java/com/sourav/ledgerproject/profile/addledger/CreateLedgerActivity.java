@@ -10,12 +10,20 @@ import android.widget.RadioGroup;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.sourav.ledgerproject.R;
 import com.sourav.ledgerproject.profile.ProfileActivity;
+import com.sourav.ledgerproject.profile.addclient.model.DataLoadListener;
 import com.sourav.ledgerproject.profile.addledger.addvoucher.CreateVoucherActivity;
+import com.sourav.ledgerproject.profile.addledger.dependency.DaggerLedgerComponent;
+import com.sourav.ledgerproject.profile.addledger.dependency.LedgerComponent;
+import com.sourav.ledgerproject.profile.addledger.model.BankDetails;
+import com.sourav.ledgerproject.profile.addledger.model.Ledger;
+import com.sourav.ledgerproject.profile.addledger.model.LedgerViewModel;
+import com.sourav.ledgerproject.profile.addledger.model.LedgerViewModelFactory;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -23,9 +31,11 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 public class CreateLedgerActivity extends AppCompatActivity{
 
-    FirebaseFirestore db;
+    private FirebaseFirestore db;
 
     private static final String TAG = "CreateLedgerActivity";
 
@@ -44,7 +54,13 @@ public class CreateLedgerActivity extends AppCompatActivity{
     private EditText branch_name;
 
     private Button saveAllDetails;
+    private Ledger ledger;
+    private BankDetails bank_details;
 
+    @Inject
+    LedgerViewModelFactory ledgerViewModelFactory;
+
+    private LedgerViewModel ledgerViewModel = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +87,10 @@ public class CreateLedgerActivity extends AppCompatActivity{
 
         saveAllDetails = findViewById(R.id.save_all_details);
 
+        DaggerLedgerComponent.builder()
+                .build()
+                .inject(this);
+
         saveAllDetails.setOnClickListener( v -> {
             int selectedId = account_type.getCheckedRadioButtonId();
 
@@ -90,57 +110,36 @@ public class CreateLedgerActivity extends AppCompatActivity{
             String number_account = account_number.getText().toString().trim();
             String name_branch = branch_name.getText().toString().trim();
 
-            Map<String,Object> account_details_map = new HashMap<>();
+            //Map<String,Object> account_details_map = new HashMap<>();
 
-            Map<String,Object> bank_details_map = new HashMap<>();
+            ledger = new Ledger(name,type,address,country,state,pincode,balance);
 
-            bank_details_map.put("pan_or_it",pan_or_it);
-            bank_details_map.put("bank_name",name_bank);
-            bank_details_map.put("bank_ifsc",ifsc_bank);
-            bank_details_map.put("account_number",number_account);
-            bank_details_map.put("branch_name",name_branch);
+            bank_details = new BankDetails(pan_or_it,name_bank,ifsc_bank,number_account,name_branch);
 
-            String date = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
+            //Map<String,Object> bank_details_map = new HashMap<>();
 
-            account_details_map.put("user_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
-            account_details_map.put("client_id",getIntent().getStringExtra("client_id"));
-            account_details_map.put("timestamp",date);
-            account_details_map.put("account_name",name);
-            account_details_map.put("account_type",type);
-            account_details_map.put("account_address",address);
-            account_details_map.put("account_country",country);
-            account_details_map.put("account_state",state);
-            account_details_map.put("account_pincode",pincode);
-            account_details_map.put("opening_balance",balance);
-            account_details_map.put("bank_details_info",bank_details_map);
-            confirmAddingLedger(account_details_map);
+            confirmAddingLedger(ledger,bank_details);
         });
 
     }
 
-    private void confirmAddingLedger(Map<String,Object> account_details_map){
+    private void confirmAddingLedger(Ledger ledger,BankDetails bank_details){
 
-        final EditText editText = new EditText(this);
         AlertDialog alertDialog = new AlertDialog.Builder(this)
                 .setTitle("")
-                .setMessage("yes")
+                .setMessage("Add ledger?")
                 .setPositiveButton("Add", (dialog, which) -> {
-                    db.collection("account_details")
-                            .document("account_details_"+FirebaseAuth.getInstance().getCurrentUser().getUid())
-                            .set(account_details_map)
-                            .addOnSuccessListener( document -> {
-                                Log.d(TAG,"document added successfully: ");
-                                startActivity(new Intent(CreateLedgerActivity.this, CreateVoucherActivity.class));
-                            })
-                            .addOnFailureListener( e -> Log.d(TAG,"cannot add, error: "+e));
 
-                    CreateLedgerActivity.this.startActivity(new Intent(CreateLedgerActivity.this,ShowLedgerActivity.class));
+                    Intent intent = new Intent(this,ProfileActivity.class);
+                    ledgerViewModel = ViewModelProviders.of(this,ledgerViewModelFactory).get(LedgerViewModel.class);
+                    ledgerViewModel.saveLedger(ledger,bank_details);
+                    startActivity(intent);
+                    
                 })
                 .setNegativeButton("Cancel",null)
                 .create();
 
         alertDialog.show();
-
-
     }
+
 }

@@ -1,19 +1,21 @@
-package com.sourav.ledgerproject.profile.addclient.model;
+package com.sourav.ledgerproject.profile.addledger.model;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import java.util.Map;
-
 import javax.inject.Inject;
 import javax.inject.Provider;
-//checked
-public class ClientViewModelFactory implements ViewModelProvider.Factory {
 
-    private final Map<Class<? extends ViewModel>, Provider<ViewModel>> creators;
+import java.util.HashMap;
+import java.util.Map;
+
+public class LedgerViewModelFactory implements ViewModelProvider.Factory {
+
+    private Map<Class<? extends ViewModel>, Provider<ViewModel>> creators = new HashMap<>();
+
     @Inject
-    public ClientViewModelFactory(Map<Class<? extends ViewModel>, Provider<ViewModel>> creators){
+    public LedgerViewModelFactory(Map<Class<? extends ViewModel>,Provider<ViewModel>> creators){
         this.creators = creators;
     }
 
@@ -22,7 +24,7 @@ public class ClientViewModelFactory implements ViewModelProvider.Factory {
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
 
         Provider<ViewModel> creator = creators.get(modelClass);
-        if(creator==null) {
+        if(creator == null){
             for (Map.Entry<Class<? extends ViewModel>, Provider<ViewModel>> entry : creators.entrySet()) {
                 if(modelClass.isAssignableFrom(entry.getKey())){
                     creator = entry.getValue();
@@ -30,6 +32,7 @@ public class ClientViewModelFactory implements ViewModelProvider.Factory {
                 }
             }
         }
+
         if(creator==null){
             throw new IllegalArgumentException("class not found "+modelClass);
         }

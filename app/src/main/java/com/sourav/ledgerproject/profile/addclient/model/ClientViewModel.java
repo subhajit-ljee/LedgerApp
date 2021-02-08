@@ -1,11 +1,8 @@
 package com.sourav.ledgerproject.profile.addclient.model;
 
-import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -34,6 +31,7 @@ public class ClientViewModel extends ViewModel {
     }
 
     public void addClient(String client_id){
+        Log.d(getClass().getCanonicalName(),"client_id "+client_id);
         clientRepository.saveClient(client_id);
     }
 }

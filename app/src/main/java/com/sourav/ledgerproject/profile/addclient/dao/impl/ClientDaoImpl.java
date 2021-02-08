@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.sourav.ledgerproject.profile.addclient.SelectAndAddClientActivity;
 import com.sourav.ledgerproject.profile.addclient.dao.ClientDao;
 import com.sourav.ledgerproject.profile.addclient.model.DataLoadListener;
 import com.sourav.ledgerproject.profile.model.Client;
@@ -25,6 +26,9 @@ public class ClientDaoImpl implements ClientDao {
     FirebaseFirestore db;
     Map<String, Object> clients = new HashMap<>();
     List<Client> client_record = new ArrayList<>();
+
+    private MutableLiveData<List<Client>> clientsdata;
+
     Context context;
     static DataLoadListener dataLoadListener;
 
@@ -32,6 +36,8 @@ public class ClientDaoImpl implements ClientDao {
     public ClientDaoImpl(Context context){
         this.context = context;
         db = FirebaseFirestore.getInstance();
+        clientsdata = new MutableLiveData<List<Client>>();
+        dataLoadListener = (DataLoadListener) context;
     }
 
     @Override
@@ -39,10 +45,10 @@ public class ClientDaoImpl implements ClientDao {
         if(client_record.size() == 0){
             loadData();
         }
+        Log.d(getClass().getCanonicalName(),"client_record: "+client_record);
 
-        MutableLiveData<List<Client>> clients = new MutableLiveData<>();
-        clients.setValue(client_record);
-        return clients;
+        clientsdata.setValue(client_record);
+        return clientsdata;
     }
 
     @Override
@@ -77,14 +83,14 @@ public class ClientDaoImpl implements ClientDao {
                                 this.clients.put("client_name", snapshot.getString("name"));
                                 this.clients.put("client_email", snapshot.getString("email"));
                                 this.clients.put("user_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                Log.d(TAG,"client is inside user table: "+clients);
                                 db.collection("clients")
                                         .get()
                                         .addOnCompleteListener(checktask -> {
                                             for (QueryDocumentSnapshot query : checktask.getResult()) {
                                                 if (!(query.getString("user_id").equals(clientid) && query.getString("client_id").equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) && (query.getString("client_id") != null)) {
                                                     db.collection("clients")
-                                                            .document("clients_" + FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                                            .set(clients)
+                                                            .add(clients)
                                                             .addOnSuccessListener(reference -> Log.d(TAG, "client added"))
                                                             .addOnFailureListener(e -> Log.d(TAG, "Error occurred while adding client: " + e.toString()));
                                                 }
