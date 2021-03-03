@@ -5,61 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/Theme.AppCompat"
-    tools:context=".profile.addledger.addvoucher.CreateVoucherActivity">
+    android:id="@+id/create_voucher_activity"
+    tools:context="profile.addvoucher.CreateVoucherActivity" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints">
-
-
-        <AutoCompleteTextView
-            android:id="@+id/create_client_list_autocomplete"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="100dp"
-            android:completionHint="@string/app_name"
-            />
-
-        <AutoCompleteTextView
-            android:id="@+id/list_voucher_mode"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="10dp"
-            android:layout_below="@id/create_client_list_autocomplete"
-            android:completionHint="@string/app_name"
-            />
-
-
-        <EditText
-            android:id="@+id/client_voucher_amount"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginStart="60dp"
-            android:hint="Amount"
-            android:layout_below="@id/list_voucher_mode"/>
-
-        <Button
-            android:id="@+id/client_voucher_save"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/client_voucher_amount"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="10dp"
-            android:text="Save Voucher"/>
-
-        <Button
-            android:id="@+id/stop_voucher_service"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/client_voucher_save"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="10dp"
-            android:text="Stop Srevice"/>
-
-    </RelativeLayout>
-
-</RelativeLayout>

@@ -19,4 +19,6 @@
     <item name="account_number" type="id" />
     <item name="branch_name" type="id" />
     <item name="save_all_details" type="id" />
+    <item name="account_holder" type="id" />
+    <item name="heading_ledger_list" type="id" />
 </resources>

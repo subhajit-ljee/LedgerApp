@@ -14,8 +14,11 @@
     <string name="profile_menu_content">New Ledger</string>
     <string name="profile_voucher_content">New Voucher</string>
     <string name="show_ledger">Show Voucher with Ledger</string>
+    <string name="show_voucher_of_ledger">Show Voucher</string>
+    <string name="create_voucher_of_ledger">Create Voucher</string>
     <string name="print_ledger">Print Ledger</string>
     <string name="delete_voucher">Delete Voucher</string>
+    <string name="upload_bill">Upload Bill</string>
     <string name="add_new_client_button_text">Add New Client</string>
     <string name="client_card_demo_id">102000122345</string>
     <string name="client_card_demo_name">Subhajit Dey</string>
@@ -45,5 +48,13 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!-- for qr code -->
+    <string name="qr_code">qr_code</string>
+    <string name="enter_your_info">Enter your info</string>
+    <string name="generate_qr_code">Generate QR Code</string>
 
+    <string-array name="voucher_options">
+        <item>Show Voucher</item>
+        <item>Create Voucher</item>
+    </string-array>
 </resources>

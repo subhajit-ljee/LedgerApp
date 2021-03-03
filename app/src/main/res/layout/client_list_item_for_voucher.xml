@@ -12,21 +12,21 @@
         android:padding="8dp">
 
         <TextView
-            android:id="@+id/client_name"
+            android:id="@+id/client_name_v"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/client_email"
+            android:id="@+id/client_email_v"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/client_name" />
+            android:layout_below="@id/client_name_v" />
 
         <TextView
-            android:id="@+id/client_id"
+            android:id="@+id/client_id_v"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/client_email" />
+            android:layout_below="@id/client_email_v" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

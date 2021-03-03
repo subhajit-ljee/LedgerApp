@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/voucher_list_border"
+        android:backgroundTint="@color/white"
+        >
+        <TextView
+            android:id="@+id/debit_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Debit"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="25dp"
+            android:textSize="15sp"
+            android:fontFamily="@font/nunito_bold"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/debit_amount_in_frag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_toEndOf="@id/debit_label"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:textSize="15sp"
+            android:fontFamily="@font/nunito"/>
+
+
+        <TextView
+            android:id="@+id/credit_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/debit_amount_in_frag"
+            android:fontFamily="@font/nunito_bold"
+            android:text="Credit"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/credit_amount_in_frag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/credit_label"
+            android:text=""
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:textSize="15sp"
+            android:fontFamily="@font/nunito"/>
+
+        <TextView
+            android:id="@+id/closing_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Closing Balance"
+            android:layout_marginTop="15dp"
+            android:layout_below="@id/debit_label"
+            android:layout_marginStart="25dp"
+            android:textSize="15sp"
+            android:fontFamily="@font/nunito_bold"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/closing_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/closing_label"
+            android:layout_below="@id/debit_label"
+            android:text="4000"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="10dp"
+            android:textSize="15sp"
+            android:fontFamily="@font/nunito"/>
+
+    </RelativeLayout>
+</RelativeLayout>

@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
+        android:name=".LedgerApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -15,40 +16,51 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LedgerProject">
-        <activity android:name=".profile.addledger.addvoucher.DeleteVoucherListActivity"></activity>
-        <activity android:name=".profile.addledger.addvoucher.DeleteVoucherActivity" />
-        <activity android:name=".profile.addledger.addvoucher.ApproveVoucherActivity" />
+        <activity android:name="profile.upload.PdfUploadActivity"></activity>
+        <activity android:name="profile.qr.CreateQrCodeActivity" />
 
         <service
-            android:name=".profile.addledger.addvoucher.notification.ForegroundService"
+            android:name="profile.addvoucher.AddVoucherService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="TODO" />
+
+        <activity android:name="profile.addvoucher.ShowVoucherActivity" />
+
+        <service
+            android:name="profile.addvoucher.ApproveVoucherService"
+            android:enabled="true"
+            android:exported="true" /> <!-- <activity android:name=".profile.ledger.voucher.ApproveVoucherActivity" /> -->
+        <service
+            android:name="profile.addvoucher.notification.ForegroundService"
+            android:directBootAware="true"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
-        </service>
-
-        <activity android:name=".profile.credit.CreditListActivity" />
-        <activity android:name=".profile.addledger.ListOfAllClients" />
-        <activity android:name=".profile.addledger.ShowLedgerActivity" />
-        <activity android:name=".profile.debit.DebitListActivity" />
-
+        </service> <!-- <activity android:name=".profile.credit.CreditListActivity" /> -->
+        <activity android:name="profile.addledger.ListOfAllClients" />
+        <activity android:name="profile.addledger.ShowLedgerActivity" /> <!-- <activity android:name=".profile.debit.DebitListActivity" /> -->
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".profile.addledger.addvoucher.CreateVoucherActivity"
+            android:name="profile.addvoucher.CreateVoucherActivity"
             android:label="@string/title_activity_create_voucher" />
         <activity
-            android:name=".profile.addledger.CreateLedgerActivity"
+            android:name="profile.addledger.CreateLedgerActivity"
             android:label="@string/title_activity_create_ledger" />
         <activity
-            android:name=".profile.addclient.SelectAndAddClientActivity"
+            android:name="profile.addclient.SelectAndAddClientActivity"
             android:label="@string/title_activity_select_and_add_client"
             android:theme="@style/Theme.AppCompat" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".profile.ProfileActivity" />
-        <activity android:name=".SplashActivity">
+        <!--<activity android:name=".MainActivity" /> -->
+        <activity android:name="profile.ProfileActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

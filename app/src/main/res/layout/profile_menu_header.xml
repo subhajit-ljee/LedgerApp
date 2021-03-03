@@ -10,7 +10,7 @@
         android:id="@+id/user_image_registered"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:layout_marginStart="16dp"
         android:scaleType="fitXY"
         />
@@ -20,9 +20,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_below="@id/user_image_registered"
-        android:text=""
+        android:text="Subhajit Dey"
         android:textSize="20sp"
         android:textColor="@color/searchEditColor"/>
 
@@ -31,9 +31,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_below="@+id/registered_user_name"
-        android:text=""
+        android:text="sdey453@gmail.com"
+        android:textSize="13sp"
+        android:textColor="@color/searchEditColor"/>
+
+    <TextView
+        android:id="@+id/registered_user_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/registered_user_email"
+        android:text="AKDJ566HGJH546565"
         android:textSize="13sp"
         android:textColor="@color/searchEditColor"/>
 

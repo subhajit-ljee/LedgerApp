@@ -1,0 +1,221 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="profile.profilefragments.ledger.AddLedgerFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/account_relative_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints">
+
+            <RelativeLayout
+                android:id="@+id/main_account_heading_layout"
+                android:layout_width="250dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+
+                >
+
+                <TextView
+                    android:id="@+id/account_details_heading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/nunito"
+                    android:text="Account Details"
+                    android:textSize="30sp" />
+
+                <EditText
+                    android:id="@+id/account_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/account_details_heading"
+                    android:layout_marginTop="40dp"
+                    android:ems="10"
+                    android:hint="Name"
+                    android:inputType="text"
+                    android:fontFamily="@font/nunito"/>
+
+                <RadioGroup
+                    android:id="@+id/debit_credit_radiogroup"
+                    android:layout_width="124dp"
+                    android:layout_height="66dp"
+                    android:layout_below="@id/account_name"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/nunito">
+
+                    <RadioButton
+                        android:id="@+id/debit_account"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/debit_background" />
+
+                    <RadioButton
+                        android:id="@+id/credit_account"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/credit_background" />
+                </RadioGroup>
+
+                <EditText
+                    android:id="@+id/account_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/debit_credit_radiogroup"
+                    android:layout_marginTop="10dp"
+                    android:ems="10"
+                    android:hint="Address"
+                    android:inputType="text"
+                    android:fontFamily="@font/nunito"/>
+
+                <EditText
+                    android:id="@+id/account_country"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/account_address"
+                    android:layout_marginTop="10dp"
+                    android:ems="10"
+                    android:hint="Country"
+                    android:inputType="text"
+                    android:fontFamily="@font/nunito"/>
+
+                <EditText
+                    android:id="@+id/account_state"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/account_country"
+                    android:layout_marginTop="10dp"
+                    android:ems="10"
+                    android:hint="State"
+                    android:inputType="text"
+                    android:fontFamily="@font/nunito"/>
+
+                <EditText
+                    android:id="@+id/account_pincode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/account_state"
+                    android:layout_marginTop="10dp"
+                    android:ems="10"
+                    android:hint="Pincode"
+                    android:inputType="text"
+                    android:fontFamily="@font/nunito"/>
+
+                <EditText
+                    android:id="@+id/opening_balance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/account_pincode"
+                    android:layout_marginTop="10dp"
+                    android:ems="10"
+                    android:hint="Opening Balance"
+                    android:inputType="text"
+                    android:fontFamily="@font/nunito"/>
+
+                <TextView
+                    android:id="@+id/bank_details_heading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/opening_balance"
+                    android:layout_marginTop="30dp"
+                    android:layout_centerHorizontal="true"
+                    android:text="Bank Details"
+                    android:textSize="30sp"
+                    android:fontFamily="@font/nunito"/>
+
+                <EditText
+                    android:id="@+id/pan_or_it_no"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/bank_details_heading"
+                    android:layout_marginTop="10dp"
+                    android:ems="10"
+                    android:hint="PAN / IT No."
+                    android:inputType="text"
+                    android:fontFamily="@font/nunito"/>
+
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                android:layout_below="@id/main_account_heading_layout">
+
+                <EditText
+                    android:id="@+id/bank_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:hint="Bank Name"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/nunito"/>
+
+                <EditText
+                    android:id="@+id/bank_ifsc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/bank_name"
+                    android:layout_marginTop="20dp"
+                    android:hint="IFSC"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/nunito"/>
+
+                <EditText
+                    android:id="@+id/account_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/bank_ifsc"
+                    android:layout_marginTop="20dp"
+                    android:hint="Account Number"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/nunito"/>
+
+                <EditText
+                    android:id="@+id/branch_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/account_number"
+                    android:layout_marginTop="20dp"
+                    android:hint="Branch Name"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/nunito"/>
+
+                <Button
+                    android:id="@+id/save_all_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/branch_name"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="30dp"
+                    android:text="Save"
+                    android:background="@drawable/account_page_button"
+                    android:backgroundTint="@color/accountButtonColor"
+                    android:padding="0dp"
+                    android:textColor="@color/searchEditColor"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

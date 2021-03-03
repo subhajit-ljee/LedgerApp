@@ -16,14 +16,14 @@
             android:id="@+id/currency_sign"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/ledger_date_and_time"
+            android:layout_toEndOf="@id/voucher_date_and_time"
             android:layout_marginStart="225dp"
             android:layout_marginTop="8dp"
             android:text="@string/currency_sign_indian_rupees"
             android:textSize="18sp"/>
 
         <TextView
-            android:id="@+id/ledger_client_amount"
+            android:id="@+id/voucher_client_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -35,7 +35,7 @@
             android:fontFamily="@font/nunito_bold"/>
 
         <TextView
-            android:id="@+id/ledger_date_and_time"
+            android:id="@+id/voucher_date_and_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Payment"
-            android:layout_toEndOf="@id/ledger_date_and_time"
+            android:layout_toEndOf="@id/voucher_date_and_time"
             android:layout_marginStart="70dp"
             android:layout_marginTop="5dp"
             android:fontFamily="@font/nunito_bold"
