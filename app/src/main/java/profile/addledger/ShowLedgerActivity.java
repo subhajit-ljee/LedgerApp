@@ -44,9 +44,6 @@ public class ShowLedgerActivity extends AppCompatActivity {
     private LedgerHolderFragment ledgerHolderFragment;
     //List<VoucherLedger> longClickedVoucherLedgerList;
 
-    String opening_amt_print;
-    String closing_amt_print;
-
     Toolbar ledgerToolbar;
 
     @Override

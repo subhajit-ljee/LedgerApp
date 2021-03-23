@@ -1,19 +1,39 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".profile.ledger.voucher.deletevoucher.DeleteVoucherFragment">
+    tools:context="profile.profilefragments.deletevoucher.DeleteVoucherFragment">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_delete_voucher_ledger_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:listitem="@layout/delete_voucher_recycler"/>
-    </ScrollView>
+    <TextView
+        android:id="@+id/permission_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your Client Need Permission to Delete A Voucher of You"
+        android:textSize="25sp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="300dp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/nunito_bold"
+        />
 
-</FrameLayout>
+    <Button
+        android:id="@+id/permission_grant_heading_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Grant Permission"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_below="@id/permission_heading"
+        />
+
+    <Button
+        android:id="@+id/permission_deny_heading_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Deny Permission"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_below="@id/permission_heading"
+        android:layout_toEndOf="@id/permission_grant_heading_button"/>
+
+</RelativeLayout>

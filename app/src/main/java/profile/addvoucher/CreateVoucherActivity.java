@@ -26,35 +26,43 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import profile.addvoucher.notification.ApiService;
-import profile.addvoucher.notification.Data;
-import profile.addvoucher.notification.MyResponse;
-import profile.addvoucher.notification.NotificationSender;
 import profile.profilefragments.ledger.ClientListFragment;
 import profile.profilefragments.voucher.CreateVoucherFragment;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+
 
 public class CreateVoucherActivity extends AppCompatActivity {
 
     private static final String TAG = "CreateVoucherActivity";
     private CreateVoucherFragment createVoucherFragment;
-
-    private ApiService apiService;
-
+    private int approve;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_voucher);
 
+        String vid = null;
+
         String ledgerid = getIntent().getStringExtra("ledgerid");
+        if(getIntent().getStringExtra("vid") != null){
+            vid = getIntent().getStringExtra("vid");
+        }
         String clientid = getIntent().getStringExtra("clientid");
         String ledgername = getIntent().getStringExtra("ledgername");
         String opening_balance = getIntent().getStringExtra("opening_balance");
         String account_type = getIntent().getStringExtra("account_type");
+        String notifyfrom = getIntent().getStringExtra("notifyfrom");
+        if(!(getIntent().getStringExtra("approved") == null || getIntent().getStringExtra("approved").isEmpty()))
+            approve = Integer.parseInt(getIntent().getStringExtra("approved"));
+        else
+            approve = 0;
 
-        createVoucherFragment = CreateVoucherFragment.newInstance(ledgerid, clientid, ledgername, opening_balance, account_type);
+        Log.d(TAG, "onCreate: getIntent().getStringExtra(): " + getIntent().getStringExtra("approved"));
+
+        Log.d(TAG, "onCreate: approve " + approve);
+        Log.d(TAG, "ledgerid: "+ledgerid+" clientid: "+clientid+" ledgername: "+ledgername+" opening_balance: "+opening_balance+" account_type: "+account_type);
+
+        createVoucherFragment = CreateVoucherFragment.newInstance(vid, ledgerid, clientid, ledgername, opening_balance, account_type, String.valueOf(approve),
+                notifyfrom);
         getSupportFragmentManager().beginTransaction().replace(R.id.create_voucher_activity,createVoucherFragment).commit();
     }
 

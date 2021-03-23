@@ -31,10 +31,12 @@ import javax.inject.Inject;
 
 import profile.addclient.adapter.ClientAdapter;
 import profile.addclient.dependency.ClientComponent;
+import profile.addclient.jobintentservices.SelectAndAddClientService;
 import profile.addclient.model.Client;
 import profile.addclient.repository.ClientRepository;
 import profile.addclient.threads.AddClientHandlerThread;
 import profile.addclient.threads.AddClientRunnable;
+import profile.addclient.uivalidation.ClientValidation;
 import profile.addledger.CreateLedgerActivity;
 import profile.addledger.threads.AddLedgerHandlerThread;
 import profile.addledger.threads.AddLedgerRunnable;
@@ -49,12 +51,8 @@ public class SelectAndAddClientActivity extends AppCompatActivity{
     private static final String TAG = "SelectAndAddClientActivity";
     private Map<String,Object> clients = new HashMap<>();
 
-    @Inject
-    ClientRepository clientRepository;
-    private ClientComponent clientComponent;
 
-    private RecyclerView clientRecyclerView;
-    private ClientAdapter clientAdapter;
+    private ClientValidation clientValidation;
 
     private AddClientHandlerThread handlerThread = new AddClientHandlerThread();
     @Override
@@ -75,22 +73,29 @@ public class SelectAndAddClientActivity extends AppCompatActivity{
                     .setView(editText)
                     .setPositiveButton("Add", (dialog, which) -> {
                         String client_id = editText.getText().toString().trim();
-                        FirebaseMessaging.getInstance().getToken().addOnCompleteListener( task -> {
-                            String token = task.getResult();
-                            Log.d(TAG,"client_id is: "+client_id);
-                            Client client = new Client();
-                            client.setId(client_id);
-                            clientComponent = ((LedgerApplication)getApplication()).getAppComponent()
-                                    .getClientComponentFactory().create(client);
-                            clientComponent.inject(this);
+                        clientValidation = new ClientValidation();
+                        String error = clientValidation.isValid(client_id);
+                        Log.d(TAG, "client_id is: " + client_id);
+                        if(error.isEmpty()) {
+                            FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
+                                String token = task.getResult();
+                                Intent intent = new Intent(this, SelectAndAddClientService.class);
+                                intent.putExtra("clientid",client_id);
+                                SelectAndAddClientService.enqueueWork(this,intent);
+                            });
+                        }else {
+                            TextView errorText = new TextView(this);
+                            errorText.setText(error);
+                            errorText.setTextSize(30);
+                            errorText.setPadding(40,20,10,0);
+                            AlertDialog errorAlert = new AlertDialog.Builder(this)
+                                    .setView(errorText)
+                                    .setPositiveButton("OK", null)
+                                    .create();
+                            errorAlert.show();
 
-                            //threading for submit client
-                            AddClientRunnable runnable = new AddClientRunnable(clientRepository);
-                            Message msg = Message.obtain(handlerThread.getHandler());
-                            msg.what = ADD_CLIENT_TASK;
-                            msg.sendToTarget();
-                            handlerThread.getHandler().post(runnable);
-                        });
+                            Log.d(TAG, "onCreate: error message: "+error);
+                        }
                     })
                     .setNegativeButton("Cancel",null)
                     .create();
@@ -99,46 +104,12 @@ public class SelectAndAddClientActivity extends AppCompatActivity{
         });
 
         try {
-//
             ClientListFragment clientListFragment = ClientListFragment.newInstance("SelectAndAddClient");
             getSupportFragmentManager().beginTransaction().replace(R.id.client_list_frag,clientListFragment).commit();
-            //Log.d(TAG,"getQuery: "+clientRepository.getClientDao().getQuery());
         }catch (Exception e){
             Log.d(TAG,"Exception on getQuery: "+e.toString());
         }
 
     }
 
-
-//    public void createLedgerOption(View v){
-//        TextView client_id = v.findViewById(R.id.client_id);
-//        TextView client_name = v.findViewById(R.id.client_name);
-//        //Toast.makeText(this,"client id is: "+client_id.getText().toString().trim(),Toast.LENGTH_LONG).show();
-//
-//        AlertDialog confirm_ledger = new AlertDialog.Builder(this)
-//                .setTitle("")
-//                .setMessage("Do you want to Create Ledger?")
-//                .setPositiveButton("Create", (dialog, which) -> {
-//
-//                    String clientid = client_id.getText().toString().trim();
-//                    String clientname = client_name.getText().toString().trim();
-//                    Log.d(TAG, "createLedgerOption: clientid: " + clientid + " clientname: " + clientname);
-//                    Intent intent = new Intent(this, CreateLedgerActivity.class);
-//                    intent.putExtra("client_id",clientid);
-//                    intent.putExtra("client_name",clientname);
-//                    startActivity(intent);
-//                })
-//                .setNegativeButton("Cancel",null)
-//                .create();
-//
-//        confirm_ledger.show();
-//
-//
-//    }
-
-    @Override
-    public void onDestroy(){
-        super.onDestroy();
-        handlerThread.quit();
-    }
 }

@@ -4,7 +4,9 @@ import com.sourav.ledgerproject.ActivityScope;
 
 import dagger.BindsInstance;
 import dagger.Subcomponent;
+import profile.profilefragments.qr.CreateQrCodeFragment;
 import profile.upload.PdfUploadActivity;
+import profile.upload.QrCodeUploadIntentService;
 import profile.upload.model.UploadPDF;
 
 @ActivityScope
@@ -16,5 +18,5 @@ public interface UploadPdfComponent {
         UploadPdfComponent create(@BindsInstance UploadPDF uploadPDF);
     }
 
-    void inject(PdfUploadActivity pdfUploadActivity);
+    void inject(QrCodeUploadIntentService qrCodeUploadIntentService);
 }

@@ -34,42 +34,64 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="30dp"
-                    android:fontFamily="@font/nunito"
+                    android:layout_marginTop="50dp"
+                    android:fontFamily="@font/nunito_bold"
                     android:text="Account Details"
+                    android:textColor="#3F51B5"
                     android:textSize="30sp" />
 
-                <EditText
-                    android:id="@+id/account_name"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/account_details_heading"
-                    android:layout_marginTop="40dp"
-                    android:ems="10"
-                    android:hint="Name"
-                    android:inputType="text"
-                    android:fontFamily="@font/nunito"/>
+                    android:text="Mandatory Fields are Marked (*)"
+                    android:layout_marginTop="25dp"
+                    android:textColor="@color/design_default_color_error"/>
+
+
+                <TextView
+                    android:id="@+id/type_heading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/account_details_heading"
+                    android:fontFamily="@font/nunito_bold"
+                    android:layout_marginTop="60dp"
+                    android:text="Choose any one"
+                    android:textColor="#2196F3" />
 
                 <RadioGroup
                     android:id="@+id/debit_credit_radiogroup"
                     android:layout_width="124dp"
                     android:layout_height="66dp"
-                    android:layout_below="@id/account_name"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/nunito">
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="45dp"
+                    android:layout_toEndOf="@id/type_heading"
+                    android:layout_below="@id/account_details_heading"
+                    android:fontFamily="@font/nunito_bold">
 
                     <RadioButton
                         android:id="@+id/debit_account"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/debit_background" />
+                        android:text="@string/debit_background"
+                        android:textColor="#145588"
+                        />
 
                     <RadioButton
                         android:id="@+id/credit_account"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/credit_background" />
+                        android:text="@string/credit_background"
+                        android:textColor="#145588"/>
                 </RadioGroup>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/debit_credit_radiogroup"
+                    android:layout_marginTop="10dp"
+                    android:text="*"
+                    android:textColor="@color/design_default_color_error" />
 
                 <EditText
                     android:id="@+id/account_address"
@@ -80,20 +102,36 @@
                     android:ems="10"
                     android:hint="Address"
                     android:inputType="text"
-                    android:fontFamily="@font/nunito"/>
+                    android:fontFamily="@font/nunito"
+                    android:textColor="#2196F3"/>
 
-                <EditText
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/account_address"
+                    android:layout_marginTop="10dp"
+                    android:text="*"
+                    android:textColor="@color/design_default_color_error" />
+
+                <AutoCompleteTextView
                     android:id="@+id/account_country"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/account_address"
                     android:layout_marginTop="10dp"
-                    android:ems="10"
-                    android:hint="Country"
-                    android:inputType="text"
-                    android:fontFamily="@font/nunito"/>
+                    android:completionHint="@string/app_name"
+                    android:fontFamily="@font/nunito"
+                    android:hint="Country" />
 
-                <EditText
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/account_country"
+                    android:layout_marginTop="10dp"
+                    android:text="*"
+                    android:textColor="@color/design_default_color_error" />
+
+                <AutoCompleteTextView
                     android:id="@+id/account_state"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -101,8 +139,15 @@
                     android:layout_marginTop="10dp"
                     android:ems="10"
                     android:hint="State"
-                    android:inputType="text"
                     android:fontFamily="@font/nunito"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/account_state"
+                    android:layout_marginTop="10dp"
+                    android:text="*"
+                    android:textColor="@color/design_default_color_error" />
 
                 <EditText
                     android:id="@+id/account_pincode"
@@ -112,8 +157,15 @@
                     android:layout_marginTop="10dp"
                     android:ems="10"
                     android:hint="Pincode"
-                    android:inputType="text"
                     android:fontFamily="@font/nunito"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/account_pincode"
+                    android:layout_marginTop="10dp"
+                    android:text="*"
+                    android:textColor="@color/design_default_color_error" />
 
                 <EditText
                     android:id="@+id/opening_balance"
@@ -135,7 +187,8 @@
                     android:layout_centerHorizontal="true"
                     android:text="Bank Details"
                     android:textSize="30sp"
-                    android:fontFamily="@font/nunito"/>
+                    android:fontFamily="@font/nunito_bold"
+                    android:textColor="#3F51B5"/>
 
                 <EditText
                     android:id="@+id/pan_or_it_no"

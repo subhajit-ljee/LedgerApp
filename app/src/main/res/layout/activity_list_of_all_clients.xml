@@ -4,16 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    android:id="@+id/ledger_holder_list_frag"
+    tools:context="profile.addledger.ListOfAllClients"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior" >
 
-   <androidx.appcompat.widget.Toolbar
-       android:id="@+id/allvoucherlistpagetoolbar"
-       android:layout_width="match_parent"
-       android:layout_height="?attr/actionBarSize"
-       android:background="?attr/colorPrimary"
-       android:elevation="4dp"
-       android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-       app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-       />
-   <include layout="@layout/content_list_of_all_clients"/>
+         <androidx.appcompat.widget.Toolbar
+             android:id="@+id/allvoucherlistpagetoolbar"
+             android:layout_width="match_parent"
+             android:layout_height="?attr/actionBarSize"
+             android:background="?attr/colorPrimary"
+             android:elevation="4dp"
+             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+             />
+
 </RelativeLayout>

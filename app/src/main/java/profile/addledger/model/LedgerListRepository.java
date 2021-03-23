@@ -19,4 +19,13 @@ public class LedgerListRepository {
     public Query getLedger(){
         return ledgerListDao.getLedger();
     }
+
+    public Query getDebitLedger(){
+        return ledgerListDao.getDebitLedger();
+    }
+
+    public Query getCreditLedger(){
+        return ledgerListDao.getCreditLedger();
+    }
+
 }

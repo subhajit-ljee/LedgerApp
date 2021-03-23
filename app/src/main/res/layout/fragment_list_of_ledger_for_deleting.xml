@@ -1,0 +1,30 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="profile.profilefragments.deletevoucher.ListOfLedgerForDeletingFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="80dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listofclientfordel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/ledger_list_item_for_voucher"/>
+
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/no_ledger_delete_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No Ledgers available for this Client. "
+        android:layout_marginTop="350dp"
+        android:layout_marginStart="30dp"
+        android:textSize="22sp"
+        android:textColor="@color/teal_200"
+        android:fontFamily="@font/nunito"/>
+</FrameLayout>

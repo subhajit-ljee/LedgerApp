@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/voucher_added_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Voucher Granted Succesfully"
+        android:textSize="25sp"
+        android:fontFamily="@font/nunito_bold"
+        android:textColor="@color/green_100"
+        android:layout_marginTop="270dp"
+        android:layout_marginStart="45dp"/>
+
+    <ImageView
+        android:id="@+id/voucher_added_animation"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_baseline_check_circle_outline_24"
+        android:layout_below="@+id/voucher_added_heading"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="150dp"/>
+
+</RelativeLayout>

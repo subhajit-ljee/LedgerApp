@@ -1,61 +1,48 @@
 package profile.addclient.dao.impl;
 
-import android.content.Context;
 import android.util.Log;
-
-import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import profile.addclient.dao.ClientDao;
 import profile.addclient.model.Client;
 
 public class ClientDaoImpl implements ClientDao {
 
-    private final String TAG = getClass().getCanonicalName();
+    private static final String TAG = "ClientDaoImpl";
     private final Client client;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     CollectionReference userReference;
-    CollectionReference clientReference;
-
 
     @Inject
     public ClientDaoImpl(Client client) {
         this.client = client;
 
         userReference = db.collection("users");
-        clientReference = db.collection("clients");
+
+        Log.d(TAG, "ClientDaoImpl: ");
     }
 
     @Override
-    public void saveClient() {
-
-
+    public String saveClient() {
+        AtomicReference<String> clientError = new AtomicReference<>("");
         String userid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        if (client.getId() != null || !client.getId().equals(userid)) {
+        if (!client.getId().isEmpty() && !client.getId().equals(userid)) {
 
-            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            //String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
             String cid = client.getId();
 
             userReference
-                    .whereEqualTo("id", client.getId())
+                    .whereEqualTo("id",client.getId())  // to check user exists
                     .get()
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
@@ -66,7 +53,7 @@ public class ClientDaoImpl implements ClientDao {
                                     if (client.getId() != null) {
                                         newClient = new Client(cid, document.getString("name"), document.getString("email"), document.getString("messeging_token"));
                                         userReference
-                                                .document(uid)
+                                                .document(userid)
                                                 .collection("clients")
                                                 .document(cid)
                                                 .set(newClient)
@@ -82,8 +69,23 @@ public class ClientDaoImpl implements ClientDao {
                         } else {
                             Log.d(TAG, "clientid null");
                         }
-                    });
-
+                    })
+            .addOnFailureListener( e -> {
+                clientError.set("id is invalid");
+                Log.d(TAG, "saveClient: addOnFailureError: " + e);
+            });
         }
+        else if(client.getId().isEmpty()){
+            clientError.set("Id is empty");
+            Log.d(TAG, "saveClient: client.getId(): 1st" + client.getId());
+        }
+        else if(client.getId().equals(userid)){
+            clientError.set("You cannot make client of yourself");
+            Log.d(TAG, "saveClient: client.getId(): 2nd" + client.getId());
+        }
+        Log.d(TAG, "saveClient: clientError: " + clientError);
+        Log.d(TAG, "saveClient: clientid: " + client.getId());
+        Log.d(TAG, "saveClient: user id: " + userid);
+        return clientError.get();
     }
 }

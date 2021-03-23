@@ -12,7 +12,7 @@
         android:layout_height="200dp"
         android:background="@drawable/home_page_serach_button_background_layout"
         android:layout_marginStart="65dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="60dp"
         android:backgroundTint="#05CCBB">
         <TextView
             android:id="@+id/account_holder"

@@ -54,16 +54,15 @@
             android:textColor="@color/black"
             android:textSize="18sp"/>
 
-        <ImageView
-            android:id="@+id/check_ledger_todo"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+        <ImageButton
+            android:id="@+id/go_to_see_voucher_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="20dp"
-            android:backgroundTint="@color/white"
-            android:src="@drawable/ic_baseline_check_24_ledger_page"
-            android:visibility="invisible"/>
+            android:backgroundTint="@color/black"
+            android:src="@drawable/ic_baseline_view_list_24"
+            android:layout_marginTop="22dp"
+            />
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

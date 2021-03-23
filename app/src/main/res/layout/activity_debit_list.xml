@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/debit_list_activity_id"
     android:theme="@style/Theme.AppCompat"
     >
 
@@ -16,19 +17,5 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         />
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="58dp">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/client_debit_list_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:listitem="@layout/client_debit_list_recycler"/>
-
-    </ScrollView>
-
 
 </RelativeLayout>

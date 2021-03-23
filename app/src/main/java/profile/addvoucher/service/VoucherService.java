@@ -4,6 +4,6 @@ import com.google.firebase.firestore.Query;
 
 public interface VoucherService {
     void addVoucher();
-    void deleteVoucher();
+    void updateVoucher();
     Query getVoucher();
 }

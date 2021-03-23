@@ -1,0 +1,28 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="profile.profilefragments.credit.all.CreditListAllLedgersFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="58dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/ledgers_debit_list_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/ledger_list_for_debit_client"/>
+
+    </ScrollView>
+    <TextView
+        android:id="@+id/client_credit_ledger_no_list_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create Credit Ledgers to see this List"
+        android:layout_marginTop="300dp"
+        android:layout_marginStart="25dp"
+        android:textSize="27sp"
+        android:textColor="@color/black"/>
+</FrameLayout>

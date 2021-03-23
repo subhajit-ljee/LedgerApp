@@ -3,6 +3,7 @@ package com.sourav.ledgerproject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.accounts.Account;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,8 +32,9 @@ public class MainActivity extends AppCompatActivity {
 
     static final String TAG = "MainActivity";
     private static final int RC_SIGN_IN = 0;
-    FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,10 +54,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        signIn();
-        if (mAuth.getCurrentUser() != null) {
-            finish();
-            new Handler().postDelayed(() -> startActivity(new Intent(this,ProfileActivity.class)), 2000);
+        GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(this);
+        //Log.d(TAG, "onStart: mAuth.getCurrentUser(): " + mAuth.getCurrentUser().getUid());
+        if(signInAccount != null){
+            Intent intent = new Intent(this, ProfileActivity.class);
+            startActivity(intent);
+        }else{
+            signIn();
         }
     }
 
@@ -74,8 +79,9 @@ public class MainActivity extends AppCompatActivity {
 
                 //authenticating with firebase
                 firebaseAuthWithGoogle(account);
+
             } catch (ApiException e) {
-                Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -91,8 +97,8 @@ public class MainActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         Log.d(TAG, "signInWithCredential:success");
-                        FirebaseUser user = mAuth.getCurrentUser();
-
+                        Intent intent = new Intent(this, ProfileActivity.class);
+                        startActivity(intent);
                         Toast.makeText(MainActivity.this, "User Signed In", Toast.LENGTH_SHORT).show();
                     } else {
                         // If sign in fails, display a message to the user.
@@ -114,6 +120,5 @@ public class MainActivity extends AppCompatActivity {
         //starting the activity for result
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
-
 
 }

@@ -23,8 +23,8 @@ public class VoucherServiceImpl implements VoucherService {
     }
 
     @Override
-    public void deleteVoucher() {
-        voucherDao.deleteVoucher();
+    public void updateVoucher() {
+        voucherDao.updateVoucher();
     }
 
     @Override

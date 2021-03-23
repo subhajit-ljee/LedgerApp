@@ -44,12 +44,23 @@ public class VoucherDaoImpl implements VoucherDao {
                 .addOnFailureListener( e -> Log.d(TAG,"error adding document" + e.toString()));
     }
 
+
     @Override
-    public void deleteVoucher() {
+    public void updateVoucher() {
+
+        String userid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        Log.d(TAG,"updateVoucher: "+voucher);
+        Log.d(TAG, "updateVoucher: userid: "+userid);
         db = FirebaseFirestore.getInstance();
-        CollectionReference voucherdelete = db.collection("vouchers");
-        Query deleteQuery = voucherdelete.whereEqualTo("user_id",voucher.getClient_id());
-        //deleteQuery.
+        db.collection("users")
+                .document(voucher.getNotifyfrom())
+                .collection("clients")
+                .document(voucher.getClient_id())
+                .collection("ledgers")
+                .document(voucher.getLedger_id())
+                .collection("vouchers")
+                .document(voucher.getId())
+                .update("added",voucher.isAdded());
     }
 
     @Override

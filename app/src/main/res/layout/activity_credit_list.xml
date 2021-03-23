@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/Theme.AppCompat"
+    android:id="@+id/credit_list_activity_id"
     >
 
     <androidx.appcompat.widget.Toolbar
@@ -17,17 +18,6 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="58dp">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/client_credit_list_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:listitem="@layout/client_debit_list_recycler"/>
-
-    </ScrollView>
 
 </RelativeLayout>

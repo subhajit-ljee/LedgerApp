@@ -12,27 +12,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.messaging.FirebaseMessaging;
-
-import java.util.List;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicReference;
-
-import profile.addclient.model.Client;
-import profile.addvoucher.model.Voucher;
 import profile.addvoucher.model.VoucherRepository;
-import profile.addvoucher.notification.ApiService;
-import profile.addvoucher.notification.Data;
-import profile.addvoucher.notification.MyResponse;
-import profile.addvoucher.notification.NotificationSender;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+
 
 public class AddVoucherHandlerThread extends HandlerThread {
     private static final String TAG = "AddVoucherHandlerThread";
@@ -42,14 +23,14 @@ public class AddVoucherHandlerThread extends HandlerThread {
     private VoucherRepository voucherRepository;
     private Intent intent;
 
-    private ApiService apiService;
-    private FirebaseFirestore db;
+
+
     private Context context;
 
     public AddVoucherHandlerThread(Context context) {
         super("addvoucherhandlerthread", Process.THREAD_PRIORITY_BACKGROUND);
         this.context = context;
-        db = FirebaseFirestore.getInstance();
+        //db = FirebaseFirestore.getInstance();
     }
 
     @SuppressLint("HandlerLeak")
@@ -60,28 +41,8 @@ public class AddVoucherHandlerThread extends HandlerThread {
             public void handleMessage(@NonNull Message msg) {
                 switch (msg.what){
                     case ADD_VOUCHER_TASK:
-                        ;
-                        //update token
-                        Map<String,Object> client_token = new HashMap<>();
-                        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task2 -> {
-                            Voucher voucher = ((Voucher) msg.obj);
-                            String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                            db.collection("users")
-                                    .document(user_id)
-                                    .collection("clients")
-                                    .document(voucher.getClient_id())
-                                    .get()
-                                    .addOnSuccessListener(task->{
-                                        if(task.exists()) {
-                                            String token = (String) task.get("messeging_token");
-                                            Log.d(TAG,"token is: "+token);
-                                            sendNotifications(token,"hi","hello from "+token);
-                                        }
-                                        else{
-                                            Log.d(TAG, "handleMessage: failed to fecth token");
-                                        }
-                                    });
-                        });
+
+
 
                         break;
                     case APPROVE_VOUCHER_TASK:
@@ -93,25 +54,7 @@ public class AddVoucherHandlerThread extends HandlerThread {
         };
     }
 
-    private void sendNotifications(String token, String title, String message) {
-        Data data = new Data(title, message);
-        NotificationSender sender = new NotificationSender(data, token);
-        apiService.sendNotifcation(sender).enqueue(new Callback<MyResponse>() {
-            @Override
-            public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
-                if (response.code() == 200) {
-                    if (response.body().success != 1) {
-                        Log.d(TAG, "onResponse: failed");
-                    }
-                }
-            }
 
-            @Override
-            public void onFailure(Call<MyResponse> call, Throwable t) {
-
-            }
-        });
-    }
 
     public Handler getHandler(){ return handler; }
 

@@ -13,10 +13,11 @@ public class Voucher implements Parcelable {
     private String amount;
     private String timestamp;
     private boolean added;
+    private String notifyfrom;
 
     public Voucher(){}
 
-    public Voucher(String id, String name, String client_id, String ledger_id, String type, String amount, String timestamp, boolean added) {
+    public Voucher(String id, String name, String client_id, String ledger_id, String type, String amount, String timestamp, boolean added, String notifyfrom) {
         this.id = id;
         this.name = name;
         this.client_id = client_id;
@@ -25,6 +26,7 @@ public class Voucher implements Parcelable {
         this.amount = amount;
         this.timestamp = timestamp;
         this.added = added;
+        this.notifyfrom = notifyfrom;
     }
 
     protected Voucher(Parcel in) {
@@ -114,6 +116,14 @@ public class Voucher implements Parcelable {
         this.added = added;
     }
 
+    public String getNotifyfrom() {
+        return notifyfrom;
+    }
+
+    public void setNotifyfrom(String notifyfrom) {
+        this.notifyfrom = notifyfrom;
+    }
+
     @Override
     public String toString() {
         return "Voucher{" +
@@ -123,7 +133,9 @@ public class Voucher implements Parcelable {
                 ", ledger_id='" + ledger_id + '\'' +
                 ", type='" + type + '\'' +
                 ", amount='" + amount + '\'' +
+                ", timestamp='" + timestamp + '\'' +
                 ", added=" + added +
+                ", notifyfrom='" + notifyfrom + '\'' +
                 '}';
     }
 
@@ -142,5 +154,6 @@ public class Voucher implements Parcelable {
         dest.writeString(amount);
         dest.writeString(timestamp);
         dest.writeByte((byte) (added ? 1 : 0));
+        dest.writeString(notifyfrom);
     }
 }

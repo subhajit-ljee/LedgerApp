@@ -1,0 +1,29 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="profile.profilefragments.credit.CreditListFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="58dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/client_credit_list_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/client_debit_list_recycler"/>
+
+    </ScrollView>
+    <TextView
+        android:id="@+id/no_credit_client_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="You don't have any Client. Click on the Button below to add Client. "
+        android:layout_marginTop="300dp"
+        android:layout_marginStart="20dp"
+        android:textSize="22sp"
+        android:textColor="@color/teal_200"
+        android:fontFamily="@font/nunito"/>
+</FrameLayout>

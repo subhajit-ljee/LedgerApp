@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -56,7 +57,7 @@ public class LedgerAdapter extends FirestoreRecyclerAdapter<Ledger,LedgerAdapter
         holder.datetime.setText(model.getTimestamp());
         holder.opening_balance.setText(model.getOpening_balance());
 
-        holder.itemView.setOnClickListener(v -> {
+        holder.go_to_see_voucher_list.setOnClickListener(v -> {
 
             Intent intent = new Intent(context, ShowVoucherActivity.class);
             intent.putExtra("ledgerid",model.getId());
@@ -67,21 +68,6 @@ public class LedgerAdapter extends FirestoreRecyclerAdapter<Ledger,LedgerAdapter
             Log.d(TAG, "onBindViewHolder: "+model.getOpening_balance());
             context.startActivity(intent);
 
-        });
-
-        holder.itemView.setOnLongClickListener(v -> {
-
-            //holder.check_ledger_todo.setVisibility(View.VISIBLE);
-
-            if(holder.check_ledger_todo.getVisibility() == View.VISIBLE) {
-                holder.check_ledger_todo.setVisibility(View.INVISIBLE);
-                return false;
-            }
-            else if(holder.check_ledger_todo.getVisibility() == View.INVISIBLE) {
-                holder.check_ledger_todo.setVisibility(View.VISIBLE);
-                return true;
-            }
-            return true;
         });
     }
 
@@ -94,14 +80,15 @@ public class LedgerAdapter extends FirestoreRecyclerAdapter<Ledger,LedgerAdapter
 
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView opening_balance, datetime, clientname;
-        ImageView check_ledger_todo;
+        ImageButton go_to_see_voucher_list;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             clientname = itemView.findViewById(R.id.client_name_v);
             datetime = itemView.findViewById(R.id.ledger_date_and_time_v);
             opening_balance = itemView.findViewById(R.id.opening_balance_amount_v);
-            check_ledger_todo = itemView.findViewById(R.id.check_ledger_todo);
+            go_to_see_voucher_list = itemView.findViewById(R.id.go_to_see_voucher_list);
         }
     }
 }

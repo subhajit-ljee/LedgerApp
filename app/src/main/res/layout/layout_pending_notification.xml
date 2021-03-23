@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp" android:layout_height="150dp">
+
+    <TextView
+        android:id="@+id/pending_voucher_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="95dp"
+        android:layout_marginTop="10dp"
+        android:text="Pending"
+        android:textSize="25sp"
+        android:fontFamily="@font/nunito"
+        android:textColor="@color/black"
+        />
+    <Button
+        android:id="@+id/pending_voucher_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/pending_voucher_text"
+        android:text="Notify Client"/>
+
+</RelativeLayout>

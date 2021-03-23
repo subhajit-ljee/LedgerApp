@@ -10,10 +10,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.sourav.ledgerproject.LedgerApplication;
 import com.sourav.ledgerproject.R;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -71,12 +75,15 @@ public class ClientListFragment extends Fragment{
 
         View v = inflater.inflate(R.layout.fragment_client_list, container, false);
 
+        TextView t = v.findViewById(R.id.no_client_heading);
+        t.setVisibility(View.INVISIBLE);
+
         clientlistComponent = ((LedgerApplication)getActivity().getApplication()).getAppComponent()
                 .getClientListComponentFactory().create();
         clientlistComponent.inject(this);
 
         try{
-            if (clientListRepository.getQuery() != null || clientListRepository.getQuery().get().getResult().size() != 0) {
+
                 FirestoreRecyclerOptions<Client> options = new FirestoreRecyclerOptions.Builder<Client>()
                         .setQuery(clientListRepository.getQuery(), Client.class)
                         .build();
@@ -93,12 +100,17 @@ public class ClientListFragment extends Fragment{
                     Log.d(TAG, "onCreateView: query is not null ");
                 }
 
-            } else {
-                Log.d(TAG, "query is null");
-            }
         }catch (Exception e){
-            Log.d(TAG,"exception occurred: "+e.toString());
+            v = inflater.inflate(R.layout.fragment_error_adding_ledger, container, false);
         }
+
+        clientListRepository.getQuery().get().addOnCompleteListener( task -> {
+           if(task.isSuccessful()){
+               if(task.getResult().size() < 1){
+                   t.setVisibility(View.VISIBLE);
+               }
+           }
+        });
 
         Log.d(TAG,"in fragment: ");
 

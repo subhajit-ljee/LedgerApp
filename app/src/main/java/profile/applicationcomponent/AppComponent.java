@@ -12,8 +12,11 @@ import profile.addclient.dependency.ClientComponent;
 import profile.addclient.dependency.ClientlistComponent;
 import profile.addledger.dependency.LedgerComponent;
 import profile.addledger.dependency.LedgerListComponent;
+import profile.addusers.dependency.UserComponent;
 import profile.addvoucher.dependency.component.VoucherComponent;
 import profile.addvoucher.dependency.component.VoucherListComponent;
+import profile.deletevoucher.dependency.VoucherDeleteComponent;
+import profile.upload.dependency.CheckQRComponent;
 import profile.upload.dependency.UploadPdfComponent;
 //import profile.addvoucher.dependency.component.VoucherComponent;
 
@@ -27,4 +30,7 @@ public interface AppComponent {
     LedgerListComponent.Factory getLedgerListComponent();
     VoucherListComponent.Factory getVoucherListComponent();
     UploadPdfComponent.Factory getUploadPdfComponent();
+    CheckQRComponent.Factory getCheckQRComponent();
+    VoucherDeleteComponent.Factory getVoucherDeleteComponent();
+    UserComponent.Factory getUserComponent();
 }

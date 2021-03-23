@@ -19,29 +19,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/id_file_upload_activity">
+        android:id="@+id/id_file_upload_activity" />
 
-        <EditText
-            android:id="@+id/id_file_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
-            android:hint="Enter File name"/>
-
-        <Button
-            android:id="@+id/id_upload_file_pdf"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_below="@id/id_file_name"
-            android:text="@string/upload_bill"/>
-
-        <RelativeLayout
-            android:id="@+id/input_for_qr"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_below="@id/id_upload_file_pdf"/>
-
-    </RelativeLayout>
 </RelativeLayout>

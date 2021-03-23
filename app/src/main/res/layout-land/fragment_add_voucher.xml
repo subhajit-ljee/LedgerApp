@@ -1,0 +1,50 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="profile.profilefragments.voucher.CreateVoucherFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <AutoCompleteTextView
+            android:id="@+id/list_voucher_mode"
+            android:layout_width="600dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="65dp"
+            android:layout_marginTop="100dp"
+            android:completionHint="@string/app_name" />
+
+        <EditText
+            android:id="@+id/client_voucher_amount"
+            android:layout_width="600dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="65dp"
+            android:hint="Amount"
+            android:layout_below="@id/list_voucher_mode"/>
+
+        <Button
+            android:id="@+id/client_voucher_save"
+            android:layout_width="600dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/client_voucher_amount"
+            android:layout_marginStart="65dp"
+            android:layout_marginTop="10dp"
+            android:text="Save Voucher"/>
+
+        <Button
+            android:id="@+id/stop_voucher_service"
+            android:layout_width="600dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/client_voucher_save"
+            android:layout_marginStart="65dp"
+            android:layout_marginTop="10dp"
+            android:text="Stop Srevice"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

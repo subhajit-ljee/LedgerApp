@@ -14,25 +14,25 @@
         <item android:id="@+id/addnewvoucher"
             android:title="@string/profile_voucher_content"
             app:showAsAction="ifRoom"
-            android:icon="@drawable/add_ledger"
+            android:icon="@drawable/voucher_icon"
             />
 
         <item android:id="@+id/showledger"
             android:title="@string/show_ledger"
             app:showAsAction="ifRoom"
-            android:icon="@drawable/add_ledger"
+            android:icon="@drawable/ledger"
             />
 
         <item android:id="@+id/deletevoucher"
             android:title="@string/delete_voucher"
             app:showAsAction="ifRoom"
-            android:icon="@drawable/add_ledger"
+            android:icon="@drawable/delete_voucher"
             />
 
         <item android:id="@+id/uploadbill"
             android:title="@string/upload_bill"
             app:showAsAction="ifRoom"
-            android:icon="@drawable/add_ledger"
+            android:icon="@drawable/bill"
             />
 
     </group>

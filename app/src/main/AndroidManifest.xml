@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.sourav.ledgerproject">
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <uses-feature android:name="android.hardware.type.watch" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".LedgerApplication"
@@ -16,29 +26,69 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LedgerProject">
-        <activity android:name="profile.upload.PdfUploadActivity"></activity>
-        <activity android:name="profile.qr.CreateQrCodeActivity" />
+        <activity android:name="profile.credit.CreditListAllLedgersActivity" />
 
         <service
-            android:name="profile.addvoucher.AddVoucherService"
+            android:name="profile.addclient.jobintentservices.SelectAndAddClientService"
             android:enabled="true"
             android:exported="true"
-            android:permission="TODO" />
-
-        <activity android:name="profile.addvoucher.ShowVoucherActivity" />
+            android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <service
-            android:name="profile.addvoucher.ApproveVoucherService"
+            android:name="profile.addledger.jobintentservices.AddLedgerService"
             android:enabled="true"
-            android:exported="true" /> <!-- <activity android:name=".profile.ledger.voucher.ApproveVoucherActivity" /> -->
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
         <service
-            android:name="profile.addvoucher.notification.ForegroundService"
-            android:directBootAware="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service> <!-- <activity android:name=".profile.credit.CreditListActivity" /> -->
+            android:name="profile.addvoucher.jobintentservice.AddVoucherService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <service
+            android:name="profile.addvoucher.jobintentservice.UpdateVoucherService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <activity android:name="profile.deletevoucher.activities.DeleteVoucherActivity" />
+        <activity android:name="profile.deletevoucher.VoucherForDeletingActivity" android:label="Tap and Hold to Delete Voucher"/>
+        <activity android:name="profile.deletevoucher.ListOfLedgerForDeletingActivity" />
+        <activity android:name="profile.deletevoucher.ListofClientForDeleteActivity" />
+        <activity android:name="profile.upload.QRCodeAuthenticatedActivity" />
+        <activity android:name="profile.debit.all.BankDetailsActivity" />
+        <activity android:name="profile.debit.all.DebitListAllLedgersActivity" />
+        <activity android:name="profile.debit.DebitListActivity" />
+        <activity android:name="profile.credit.CreditListActivity" />
+
+        <service
+            android:name="profile.deletevoucher.service.DeleteVoucherService"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+        <service
+            android:name="profile.addusers.SaveUserJobService"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <activity android:name="profile.qrscanner.QRCodeScanActivity" />
+
+        <meta-data
+            android:name="com.google.android.gms.vision.DEPENDENCIES"
+            android:value="barcode" />
+
+        <service
+            android:name="profile.upload.QrCodeUploadIntentService"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+        <service
+            android:name="profile.deletevoucher.service.SendNotificationForDeleteVoucherService"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <activity android:name="profile.upload.PdfUploadActivity" />
+        <activity android:name="profile.qr.CreateQrCodeActivity" />
+        <activity android:name="profile.addvoucher.ShowVoucherActivity" /> <!-- <activity android:name=".profile.ledger.voucher.ApproveVoucherActivity" /> -->
         <activity android:name="profile.addledger.ListOfAllClients" />
         <activity android:name="profile.addledger.ShowLedgerActivity" /> <!-- <activity android:name=".profile.debit.DebitListActivity" /> -->
         <meta-data
@@ -56,9 +106,7 @@
             android:label="@string/title_activity_create_ledger" />
         <activity
             android:name="profile.addclient.SelectAndAddClientActivity"
-            android:label="@string/title_activity_select_and_add_client"
-            android:theme="@style/Theme.AppCompat" />
-        <!--<activity android:name=".MainActivity" /> -->
+            android:label="@string/title_activity_select_and_add_client" /> <!-- <activity android:name=".MainActivity" /> -->
         <activity android:name="profile.ProfileActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -67,6 +115,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name="profile.addvoucher.ShowNotificationVoucher"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>

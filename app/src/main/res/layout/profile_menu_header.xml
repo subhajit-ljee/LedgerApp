@@ -2,50 +2,63 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
-    android:background="@color/categoryButtonColorDark"
-    android:gravity="bottom">
+    android:layout_height="300dp"
+    android:background="@color/white">
 
     <ImageView
         android:id="@+id/user_image_registered"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
         android:scaleType="fitXY"
+        android:background="@drawable/debit_credit_view_border"
         />
 
     <TextView
         android:id="@+id/registered_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:layout_below="@id/user_image_registered"
+        android:fontFamily="@font/nunito_bold"
         android:text="Subhajit Dey"
-        android:textSize="20sp"
-        android:textColor="@color/searchEditColor"/>
+        android:textSize="28sp"
+        android:textColor="@color/main_page_heading_text"/>
 
     <TextView
         android:id="@+id/registered_user_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
         android:layout_below="@+id/registered_user_name"
         android:text="sdey453@gmail.com"
-        android:textSize="13sp"
-        android:textColor="@color/searchEditColor"/>
+        android:textSize="16sp"
+        android:textColor="@color/main_page_heading_text"
+        android:fontFamily="@font/nunito"/>
 
     <TextView
         android:id="@+id/registered_user_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="5dp"
         android:layout_below="@+id/registered_user_email"
         android:text="AKDJ566HGJH546565"
-        android:textSize="13sp"
-        android:textColor="@color/searchEditColor"/>
+        android:textSize="16sp"
+        android:textColor="@color/main_page_heading_text"
+        android:fontFamily="@font/nunito_bold"/>
+
+    <Button
+        android:id="@+id/copy_id"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_below="@id/registered_user_id"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:text="Copy Id"
+        android:textSize="10sp" />
 
 </RelativeLayout>

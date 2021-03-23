@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.sourav.ledgerproject.LedgerApplication;
@@ -61,12 +62,12 @@ public class LedgerHolderFragment extends Fragment {
             activity_name = getArguments().getString(ACTIVITY_NAME);
             client_id = getArguments().getString(CLIENT_ID);
 
-            Client client = new Client();
+            Ledger ledger = new Ledger();
             Log.d(TAG, "onCreate: client_id: " + client_id);
-            client.setId(client_id);
+            ledger.setClient_id(client_id);
 
             ledgerListComponent = ((LedgerApplication) getActivity().getApplication()).getAppComponent()
-                    .getLedgerListComponent().create(client);
+                    .getLedgerListComponent().create(ledger);
             ledgerListComponent.inject(this);
         }
     }
@@ -76,6 +77,9 @@ public class LedgerHolderFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_ledger_holder, container, false);
+
+        TextView t = view.findViewById(R.id.no_ledger_heading);
+        t.setVisibility(View.INVISIBLE);
         if (ledgerListRepository.getLedger() != null || ledgerListRepository.getLedger().get().getResult().size() != 0) {
             options = new FirestoreRecyclerOptions.Builder<Ledger>()
                     .setQuery(ledgerListRepository.getLedger(), Ledger.class)
@@ -87,6 +91,15 @@ public class LedgerHolderFragment extends Fragment {
                 ledgerRecyclerView.setAdapter(ledgerAdapter);
             }
         }
+
+        ledgerListRepository.getLedger().get().addOnCompleteListener( task -> {
+           if(task.isSuccessful()){
+               if(task.getResult().size() < 1){
+                   t.setVisibility(View.VISIBLE);
+               }
+           }
+        });
+
         return view;
     }
 

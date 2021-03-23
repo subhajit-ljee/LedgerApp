@@ -11,15 +11,6 @@
         android:layout_height="wrap_content"
         android:background="#EFEFEF">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/voucherlistpagetoolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:elevation="4dp"
-            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            />
 
         <include layout="@layout/content_show_voucher" />
 

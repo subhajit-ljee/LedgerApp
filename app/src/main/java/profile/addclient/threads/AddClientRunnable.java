@@ -2,6 +2,9 @@ package profile.addclient.threads;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AlertDialog;
 
 import com.sourav.ledgerproject.LedgerApplication;
 
@@ -17,12 +20,14 @@ public class AddClientRunnable implements Runnable {
     private static final String TAG = "AddClientRunnable";
 
     private ClientRepository clientRepository;
-    public AddClientRunnable(ClientRepository clientRepository){
+    private Context context;
+    public AddClientRunnable(Context context, ClientRepository clientRepository){
         this.clientRepository = clientRepository;
+        this.context = context;
     }
 
     @Override
     public void run() {
-        clientRepository.saveClient();
+
     }
 }

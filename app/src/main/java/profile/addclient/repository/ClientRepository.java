@@ -28,8 +28,8 @@ public class ClientRepository{
         this.clientDao = clientDao;
     }
 
-    public void saveClient(){
-        clientDao.saveClient();
+    public String saveClient(){
+        return clientDao.saveClient();
     }
 
 }

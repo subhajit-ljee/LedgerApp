@@ -25,19 +25,10 @@ import profile.addclient.model.Client;
 import profile.addclient.repository.ClientListRepository;
 import profile.addvoucher.adapter.ClientAdapterForVoucher;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ClientListForVoucherFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ClientListForVoucherFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ACTIVITY_NAME = "activity_name";
 
-    // TODO: Rename and change types of parameters
-    private String activityName;
+
     private static final String TAG = "ClientListForVoucherFragment";
     @Inject
     ClientListRepository clientListRepository;
@@ -50,18 +41,10 @@ public class ClientListForVoucherFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param activityName Parameter 1.
-     * @return A new instance of fragment ClientListForVoucherFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ClientListForVoucherFragment newInstance(String activityName) {
+    public static ClientListForVoucherFragment newInstance() {
         ClientListForVoucherFragment fragment = new ClientListForVoucherFragment();
         Bundle args = new Bundle();
-        args.putString(ACTIVITY_NAME, activityName);
+
         fragment.setArguments(args);
         return fragment;
     }
@@ -70,7 +53,7 @@ public class ClientListForVoucherFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            activityName = getArguments().getString(ACTIVITY_NAME);
+
         }
     }
 
@@ -93,18 +76,9 @@ public class ClientListForVoucherFragment extends Fragment {
 
                 if(getArguments() != null) {
 
-                    activityName = getArguments().getString(ACTIVITY_NAME);
                     clientRecyclerView = view.findViewById(R.id.client_list_for_voucher_fragment_recycler);
                     clientAdapterForVoucher = new ClientAdapterForVoucher(options, getActivity());
                     Log.d(TAG, "onCreateView: clientAdapterForVoucher: " + clientAdapterForVoucher);
-                    //clientRecyclerView.setHasFixedSize(true);
-                    clientListRepository.getQuery().get()
-                            .addOnCompleteListener( task -> {
-                                for(QueryDocumentSnapshot snapshot : task.getResult()){
-                                    Log.d(TAG, "result is: ");
-                                    Log.d(TAG, snapshot.getData().toString());
-                                }
-                            });
                     clientRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                     clientRecyclerView.setAdapter(clientAdapterForVoucher);
                     Log.d(TAG, "onCreateView: query is not null ");

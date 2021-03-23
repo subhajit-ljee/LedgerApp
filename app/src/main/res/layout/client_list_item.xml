@@ -12,22 +12,57 @@
         android:padding="8dp">
 
         <TextView
+            android:id="@+id/client_list_for_ledger_image_text_id"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:text="A"
+            android:textSize="55sp"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:background="@drawable/debit_credit_view_border"
+            android:backgroundTint="@color/green_100" />
+
+        <TextView
             android:id="@+id/client_name"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="Subhajit Dey"
+            android:layout_toEndOf="@id/client_list_for_ledger_image_text_id"
+            android:layout_marginStart="20dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/nunito_bold"
+            android:textSize="22sp"/>
 
         <TextView
             android:id="@+id/client_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/client_list_for_ledger_image_text_id"
+            android:layout_marginStart="20dp"
+            android:textSize="18sp"
+            android:text="sdey453@gmail.com"
+            android:fontFamily="@font/nunito"
             android:layout_below="@id/client_name"/>
 
         <TextView
             android:id="@+id/client_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/client_email"/>
+            android:layout_below="@id/client_email"
+            android:layout_toEndOf="@id/client_list_for_ledger_image_text_id"
+            android:layout_marginStart="20dp"
+            android:textSize="15sp"
+            android:fontFamily="@font/nunito"
+            android:text="123456123456"/>
 
+        <ImageButton
+            android:id="@+id/go_to_view_ledger_list_for_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:backgroundTint="@color/black"
+            android:src="@drawable/ic_baseline_view_list_24"
+            android:layout_alignParentRight="true"/>
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

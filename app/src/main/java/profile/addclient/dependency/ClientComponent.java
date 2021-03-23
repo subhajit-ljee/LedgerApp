@@ -6,6 +6,7 @@ import dagger.Component;
 import dagger.Subcomponent;
 import profile.addclient.SelectAndAddClientActivity;
 import profile.addclient.dependency.module.ClientModule;
+import profile.addclient.jobintentservices.SelectAndAddClientService;
 import profile.addclient.model.Client;
 
 import com.sourav.ledgerproject.ActivityScope;
@@ -22,5 +23,5 @@ public interface ClientComponent{
     interface Factory {
          ClientComponent create(@BindsInstance Client client);
     }
-    void inject(SelectAndAddClientActivity selectAndAddClientActivity);
+    void inject(SelectAndAddClientService selectAndAddClientService);
 }

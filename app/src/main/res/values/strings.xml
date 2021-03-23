@@ -16,6 +16,7 @@
     <string name="show_ledger">Show Voucher with Ledger</string>
     <string name="show_voucher_of_ledger">Show Voucher</string>
     <string name="create_voucher_of_ledger">Create Voucher</string>
+    <string name="delete_voucher_title_toolbar">Tap and Hold to Delete a Voucher</string>
     <string name="print_ledger">Print Ledger</string>
     <string name="delete_voucher">Delete Voucher</string>
     <string name="upload_bill">Upload Bill</string>
@@ -26,7 +27,7 @@
     <string name="add_client_dialog_header">Add New Client</string>
     <string name="dialog_box_positive_text">Add</string>
     <string name="dialog_box_negative_text">Dismiss</string>
-    <string name="title_activity_select_and_add_client">SelectAndAddClient</string>
+    <string name="title_activity_select_and_add_client">Your Client List</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
@@ -57,4 +58,10 @@
         <item>Show Voucher</item>
         <item>Create Voucher</item>
     </string-array>
+    <string name="title_activity_main">MainActivity</string>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="hello_world">Hello Square World!</string>
 </resources>

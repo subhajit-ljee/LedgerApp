@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -59,8 +60,8 @@ public class ClientAdapter extends FirestoreRecyclerAdapter<Client,ClientAdapter
         holder.client_name.setText(model.getClient_name());
         holder.client_email.setText(model.getClient_email());
         holder.client_id.setText(model.getId());
-
-        holder.itemView.setOnLongClickListener( v -> {
+        holder.client_list_for_ledger_image_text_id.setText(model.getClient_name().substring(0,1).toUpperCase());
+        holder.go_to_view_ledger_list.setOnClickListener( v -> {
 
             if(holder.client_id.getText().toString().trim() != null)
                 Log.d(TAG, "onLongClick: " + holder.client_id.getText().toString().trim());
@@ -75,20 +76,22 @@ public class ClientAdapter extends FirestoreRecyclerAdapter<Client,ClientAdapter
 
             }
             context.startActivity(intent);
-            return true;
         });
     }
 
 
     class ViewHolder extends RecyclerView.ViewHolder{
-        TextView client_name,client_email,client_id;
-
+        TextView client_name,client_email,client_id, client_list_for_ledger_image_text_id;
+        ImageButton go_to_view_ledger_list;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             Log.d(TAG, "ViewHolder: ");
             client_name = itemView.findViewById(R.id.client_name);
             client_email = itemView.findViewById(R.id.client_email);
             client_id = itemView.findViewById(R.id.client_id);
+
+            go_to_view_ledger_list = itemView.findViewById(R.id.go_to_view_ledger_list_for_delete);
+            client_list_for_ledger_image_text_id = itemView.findViewById(R.id.client_list_for_ledger_image_text_id);
         }
     }
 

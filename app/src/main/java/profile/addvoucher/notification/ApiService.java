@@ -1,5 +1,7 @@
 package profile.addvoucher.notification;
 
+import profile.addvoucher.notification.model.MyResponse;
+import profile.addvoucher.notification.model.NotificationSender;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Headers;
@@ -14,5 +16,5 @@ public interface ApiService {
     )
 
     @POST("fcm/send")
-    Call<MyResponse> sendNotifcation(@Body NotificationSender body);
+    Call<MyResponse> sendNotification(@Body NotificationSender body);
 }

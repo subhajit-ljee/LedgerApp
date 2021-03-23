@@ -1,5 +1,6 @@
 package profile.profilefragments.voucher;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +20,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -26,6 +29,7 @@ import com.sourav.ledgerproject.R;
 
 import javax.inject.Inject;
 
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import profile.addledger.model.Ledger;
@@ -115,6 +119,7 @@ public class VoucherListFragment extends Fragment {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -125,20 +130,74 @@ public class VoucherListFragment extends Fragment {
         account_type = view.findViewById(R.id.voucher_type);
         Log.d(TAG, "onCreateView: opening balance " + ledger_opening_balance);
         account_holder.setText(ledger_name);
-        opening_balance.setText(ledger_opening_balance);
+        opening_balance.setText(ledger_opening_balance+".00");
         account_type.setText(type);
+        Log.d(TAG, "onCreateView: type "+type);
 
         if (voucherListRepository.getVoucher() != null || voucherListRepository.getVoucher().get().getResult().size() != 0) {
             options = new FirestoreRecyclerOptions.Builder<Voucher>()
                     .setQuery(voucherListRepository.getVoucher(), Voucher.class)
                     .build();
             if(getArguments() != null) {
-                voucherListAdapter = new VoucherListAdapter(options, getActivity(), "ShowLedgerActivity");
+                voucherListAdapter = new VoucherListAdapter(options, getActivity(), "ShowLedgerActivity",ledger_opening_balance);
                 voucherRecycler = view.findViewById(R.id.showvoucherledgerrecycler);
                 voucherRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
                 voucherRecycler.setAdapter(voucherListAdapter);
             }
         }
+
+
+        Query query = voucherListRepository.getVoucher();
+        AtomicInteger countDebitAmount = new AtomicInteger();
+        AtomicInteger countCreditAmount = new AtomicInteger();
+        query.get()
+                .addOnSuccessListener(task -> {
+                    TextView debit_text;
+                    TextView credit_text;
+                    for(DocumentSnapshot document : task.getDocuments()){
+                        try {
+                            if ((boolean) document.get("added")) {
+                                if (document.getString("type").equals("Payment")) {
+                                    Log.d(TAG, "getDebitAmount: " + document.getString("amount"));
+                                    countDebitAmount.getAndAdd(Integer.parseInt(document.getString("amount")));
+                                } else if (document.getString("type").equals("Receipt")) {
+                                    Log.d(TAG, "getCreditAmount: " + document.getString("amount"));
+                                    countCreditAmount.getAndAdd(Integer.parseInt(document.getString("amount")));
+                                }
+                            }
+                        }catch (NullPointerException e){
+                            Log.e(TAG, "onCreateView: ", e);
+                        }
+                    }
+
+
+                    TextView closing_balance = view.findViewById(R.id.closing_amount);
+
+                    debit_text = view.findViewById(R.id.debit_amount_in_frag);
+                    debit_text.setText(countDebitAmount.intValue()+".00");
+
+                    credit_text = view.findViewById(R.id.credit_amount_in_frag);
+                    credit_text.setText(countCreditAmount.intValue()+".00");
+
+                    Integer op_bal = Integer.parseInt(ledger_opening_balance);
+                    Integer deb_amount = countDebitAmount.intValue();
+                    Integer cred_amount = countCreditAmount.intValue();
+
+                    if(account_type.getText().toString().trim().equals("Debit")){
+                        closing_balance.setText(((op_bal + deb_amount) - cred_amount)+".00");
+                    }else if(account_type.getText().toString().trim().equals("Credit")){
+                        closing_balance.setText(((op_bal - deb_amount) + cred_amount)+".00");
+                    }
+
+                });
+        //TextView debit_text = view.findViewById(R.id.debit_amount_in_frag);
+        //debit_text.setText("hello");
+
+
+
+        //View calc_view = getLayoutInflater().inflate(R.layout.content_fragment_voucher_list_calculation,null);
+
+
 
         fab = view.findViewById(R.id.add_voucher_in_frag);
         fab.setOnClickListener( v -> {
