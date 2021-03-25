@@ -6,10 +6,6 @@ import android.content.ClipboardManager;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
@@ -24,24 +20,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.messaging.FirebaseMessagingService;
 import com.sourav.ledgerproject.R;
 
-import java.util.Objects;
-
-import profile.ProfileActivity;
 import profile.addclient.SelectAndAddClientActivity;
 import profile.addledger.ListOfAllClients;
 import profile.addusers.SaveUserJobService;
-import profile.addusers.model.User;
 import profile.credit.CreditListActivity;
 import profile.debit.DebitListActivity;
-import profile.deletevoucher.ListofClientForDeleteActivity;
+import profile.deletevoucher.activities.ListofClientForDeleteActivity;
 import profile.upload.PdfUploadActivity;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
@@ -58,15 +47,11 @@ public class ProfileFragment extends Fragment {
 
     private static final String TAG = "ProfileFragment";
 
-    private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
-    private Toolbar toolbar;
-
-    private View header;
     private ImageView imageView;
-    private TextView name, email, id;
+    private TextView name;
 
     private Button debitView, creditView, copyid;
+    private BottomNavigationView bottomNavigationView;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -102,40 +87,26 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        drawerLayout = view.findViewById(R.id.drawerlayout);
-        navigationView = view.findViewById(R.id.profile_menu_nav_view);
-        toolbar = view.findViewById(R.id.profilepagetoolbar);
 
-        header = navigationView.getHeaderView(0);
+        name = view.findViewById(R.id.registered_user_name);
+        //email = view.findViewById(R.id.registered_user_email);
+        //id = view.findViewById(R.id.registered_user_id);
+        imageView = view.findViewById(R.id.user_image_registered);
+        copyid = view.findViewById(R.id.copy_id);
+        bottomNavigationView = view.findViewById(R.id.profile_menu_nav_view);
 
-
-        //setSupportActionBar(toolbar);
-
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(getActivity(),drawerLayout,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-
-        setupDrawerContents(navigationView,drawerLayout);
-
-
-
-        name = header.findViewById(R.id.registered_user_name);
-        email = header.findViewById(R.id.registered_user_email);
-        id = header.findViewById(R.id.registered_user_id);
-        imageView = header.findViewById(R.id.user_image_registered);
-        copyid = header.findViewById(R.id.copy_id);
+        setUpBottomNavigation(bottomNavigationView);
 
         String userid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         String username = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
         String useremail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
         name.setText(username);
-        email.setText(useremail);
-        id.setText(userid);
+
 
         copyid.setOnClickListener( v -> {
             ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(CLIPBOARD_SERVICE);
-            ClipData clip = ClipData.newPlainText("label", id.getText());
+            ClipData clip = ClipData.newPlainText("label", userid);
             clipboard.setPrimaryClip(clip);
             Toast.makeText(getActivity(), "Id Copied Successfully! ", Toast.LENGTH_SHORT).show();
         });
@@ -166,7 +137,7 @@ public class ProfileFragment extends Fragment {
                 .into(imageView);
 
         name.setText(username);
-        email.setText(useremail);
+        //email.setText(useremail);
 
         debitView = view.findViewById(R.id.debit_view);
         creditView = view.findViewById(R.id.credit_view);
@@ -180,11 +151,9 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
-    private void setupDrawerContents(NavigationView navigationView, DrawerLayout drawerLayout) {
-
-        navigationView.setNavigationItemSelectedListener(item -> {
+    public void setUpBottomNavigation(BottomNavigationView bottomNavigationView){
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             selectDrawerItem(item);
-            drawerLayout.openDrawer(GravityCompat.START);
             return true;
         });
     }

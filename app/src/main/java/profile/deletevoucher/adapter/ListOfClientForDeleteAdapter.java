@@ -1,4 +1,4 @@
-package profile.deletevoucher;
+package profile.deletevoucher.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +16,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.sourav.ledgerproject.R;
 
 import profile.addclient.model.Client;
+import profile.deletevoucher.activities.ListOfLedgerForDeletingActivity;
 
 public class ListOfClientForDeleteAdapter extends FirestoreRecyclerAdapter<Client, ListOfClientForDeleteAdapter.ViewHolder> {
     /**

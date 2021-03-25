@@ -5,14 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/listofclientfordelete"
-    tools:context="profile.deletevoucher.ListofClientForDeleteActivity">
+    tools:context="profile.deletevoucher.activities.ListofClientForDeleteActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/id_pdf_upload_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
+        app:titleTextColor="@color/white"
         android:elevation="4dp"
+        app:title="Ledger List For Delete Voucher"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 

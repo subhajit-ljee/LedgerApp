@@ -53,7 +53,7 @@
     <string name="qr_code">qr_code</string>
     <string name="enter_your_info">Enter your info</string>
     <string name="generate_qr_code">Generate QR Code</string>
-
+    <string name="user_image_content_description">User Profile Photo</string>
     <string-array name="voucher_options">
         <item>Show Voucher</item>
         <item>Create Voucher</item>
@@ -64,4 +64,5 @@
     values-round/strings.xml for round devices.
     -->
     <string name="hello_world">Hello Square World!</string>
+    <string name="home_page_heading_content">LedgerApp! INDIA\'s 1 Ledger based App</string>
 </resources>

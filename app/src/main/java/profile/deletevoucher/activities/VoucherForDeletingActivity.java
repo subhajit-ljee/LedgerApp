@@ -1,4 +1,4 @@
-package profile.deletevoucher;
+package profile.deletevoucher.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 

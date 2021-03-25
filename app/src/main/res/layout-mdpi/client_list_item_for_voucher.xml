@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="8dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/client_list_for_show_ledger_image_text_id"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="A"
+            android:textSize="50sp"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:background="@drawable/debit_credit_view_border"
+            android:backgroundTint="@color/green_100" />
+
+        <TextView
+            android:id="@+id/client_name_v"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@id/client_list_for_show_ledger_image_text_id"
+            android:textColor="@color/black"
+            android:fontFamily="@font/nunito_bold"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/client_email_v"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/client_name_v"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@id/client_list_for_show_ledger_image_text_id"
+            android:fontFamily="@font/nunito"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/client_id_v"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/client_email_v"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@id/client_list_for_show_ledger_image_text_id"
+            android:fontFamily="@font/nunito"
+            android:textSize="12sp"/>
+
+        <ImageButton
+            android:id="@+id/go_to_view_ledger_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:backgroundTint="@color/black"
+            android:src="@drawable/ic_baseline_view_list_24"
+            android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

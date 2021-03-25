@@ -53,9 +53,9 @@
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <activity android:name="profile.deletevoucher.activities.DeleteVoucherActivity" />
-        <activity android:name="profile.deletevoucher.VoucherForDeletingActivity" android:label="Tap and Hold to Delete Voucher"/>
-        <activity android:name="profile.deletevoucher.ListOfLedgerForDeletingActivity" />
-        <activity android:name="profile.deletevoucher.ListofClientForDeleteActivity" />
+        <activity android:name="profile.deletevoucher.activities.VoucherForDeletingActivity" android:label="Tap and Hold to Delete Voucher"/>
+        <activity android:name="profile.deletevoucher.activities.ListOfLedgerForDeletingActivity" />
+        <activity android:name="profile.deletevoucher.activities.ListofClientForDeleteActivity" />
         <activity android:name="profile.upload.QRCodeAuthenticatedActivity" />
         <activity android:name="profile.debit.all.BankDetailsActivity" />
         <activity android:name="profile.debit.all.DebitListAllLedgersActivity" />

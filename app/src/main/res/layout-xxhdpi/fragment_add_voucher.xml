@@ -1,0 +1,44 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="profile.profilefragments.voucher.CreateVoucherFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <AutoCompleteTextView
+            android:id="@+id/list_voucher_mode"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="200dp"
+            android:hint="Voucher Type"
+            />
+
+
+        <EditText
+            android:id="@+id/client_voucher_amount"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="60dp"
+            android:hint="Amount"
+            android:layout_below="@id/list_voucher_mode"/>
+
+        <Button
+            android:id="@+id/client_voucher_save"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/client_voucher_amount"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="10dp"
+            android:text="Save Voucher"/>
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

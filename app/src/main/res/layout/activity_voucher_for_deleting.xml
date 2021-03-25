@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/listfordeletingvoucher"
-    tools:context="profile.deletevoucher.VoucherForDeletingActivity">
+    tools:context="profile.deletevoucher.activities.VoucherForDeletingActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/id_pdf_upload_toolbar"

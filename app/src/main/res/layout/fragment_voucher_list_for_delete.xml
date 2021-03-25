@@ -13,7 +13,7 @@
             android:id="@+id/listofvouchersfordel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/ledger_list_recycler"/>
+            tools:listitem="@layout/ledger_list_recycler" />
 
     </ScrollView>
 

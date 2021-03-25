@@ -19,7 +19,7 @@ import javax.inject.Inject;
 import profile.addclient.dependency.ClientlistComponent;
 import profile.addclient.model.Client;
 import profile.addclient.repository.ClientListRepository;
-import profile.deletevoucher.ListOfClientForDeleteAdapter;
+import profile.deletevoucher.adapter.ListOfClientForDeleteAdapter;
 
 /**
  * A simple {@link Fragment} subclass.

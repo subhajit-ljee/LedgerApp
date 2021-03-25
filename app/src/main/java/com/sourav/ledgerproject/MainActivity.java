@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         if(signInAccount != null){
             Intent intent = new Intent(this, ProfileActivity.class);
             startActivity(intent);
+            finish();
         }else{
             signIn();
         }

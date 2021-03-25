@@ -16,7 +16,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.sourav.ledgerproject.R;
 
 import profile.addledger.model.Ledger;
-import profile.deletevoucher.VoucherForDeletingActivity;
+import profile.deletevoucher.activities.VoucherForDeletingActivity;
 
 public class ListOfLedgerForDeletingAdapter extends FirestoreRecyclerAdapter<Ledger, ListOfLedgerForDeletingAdapter.ViewHolder> {
     /**

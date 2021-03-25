@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
-    android:layout_height="300dp"
-    android:background="@color/white">
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/user_image_registered"
@@ -11,9 +13,11 @@
         android:layout_height="60dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="30dp"
-        android:scaleType="fitXY"
         android:background="@drawable/debit_credit_view_border"
-        />
+        android:contentDescription="@string/user_image_content_description"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/registered_user_name"
@@ -21,11 +25,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:layout_below="@id/user_image_registered"
         android:fontFamily="@font/nunito_bold"
         android:text="Subhajit Dey"
+        android:textColor="@color/main_page_heading_text"
         android:textSize="28sp"
-        android:textColor="@color/main_page_heading_text"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/user_image_registered" />
 
     <TextView
         android:id="@+id/registered_user_email"
@@ -33,11 +38,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
-        android:layout_below="@+id/registered_user_name"
+        android:fontFamily="@font/nunito"
         android:text="sdey453@gmail.com"
-        android:textSize="16sp"
         android:textColor="@color/main_page_heading_text"
-        android:fontFamily="@font/nunito"/>
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registered_user_name" />
 
     <TextView
         android:id="@+id/registered_user_id"
@@ -45,20 +51,22 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="5dp"
-        android:layout_below="@+id/registered_user_email"
+        android:fontFamily="@font/nunito_bold"
         android:text="AKDJ566HGJH546565"
-        android:textSize="16sp"
         android:textColor="@color/main_page_heading_text"
-        android:fontFamily="@font/nunito_bold"/>
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registered_user_email" />
 
     <Button
         android:id="@+id/copy_id"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_below="@id/registered_user_id"
         android:layout_marginStart="20dp"
         android:layout_marginTop="5dp"
         android:text="Copy Id"
-        android:textSize="10sp" />
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/registered_user_id" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

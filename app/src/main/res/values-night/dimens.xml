@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="home_page_heading_left_margin">62dp</dimen>
+</resources>

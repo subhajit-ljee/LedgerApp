@@ -42,12 +42,14 @@ public class SaveUserJobService extends JobIntentService {
         String useremail = intent.getStringExtra("useremail");
         String messaging_token = intent.getStringExtra("messaging_token");
 
+        Log.d(TAG, "onHandleWork: userid: " + userid + " username: " + username + " useremail: " + useremail + "messaging_token: " + messaging_token);
+
         db.collection("users")
                 .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .get()
                 .addOnCompleteListener( task -> {
                    if(task.isSuccessful()){
-                       if(!task.getResult().get("id").equals(userid)){
+
                            User user = new User(userid, username, useremail, messaging_token);
 
                            Log.d(TAG, "onHandleWork: user: " + user);
@@ -57,7 +59,6 @@ public class SaveUserJobService extends JobIntentService {
                            userComponent.inject(this);
 
                            userRepository.saveUser();
-                       }
                    }
                 });
     }
