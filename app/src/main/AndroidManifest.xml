@@ -26,6 +26,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LedgerProject">
+        <activity android:name=".BaseActivity" />
         <activity android:name="profile.credit.CreditListAllLedgersActivity" />
 
         <service
@@ -33,19 +34,16 @@
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE" />
-
         <service
             android:name="profile.addledger.jobintentservices.AddLedgerService"
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE" />
-
         <service
             android:name="profile.addvoucher.jobintentservice.AddVoucherService"
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE" />
-
         <service
             android:name="profile.addvoucher.jobintentservice.UpdateVoucherService"
             android:enabled="true"
@@ -53,11 +51,12 @@
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <activity android:name="profile.deletevoucher.activities.DeleteVoucherActivity" />
-        <activity android:name="profile.deletevoucher.activities.VoucherForDeletingActivity" android:label="Tap and Hold to Delete Voucher"/>
+        <activity
+            android:name="profile.deletevoucher.activities.VoucherForDeletingActivity"
+            android:label="Tap and Hold to Delete Voucher" />
         <activity android:name="profile.deletevoucher.activities.ListOfLedgerForDeletingActivity" />
         <activity android:name="profile.deletevoucher.activities.ListofClientForDeleteActivity" />
         <activity android:name="profile.upload.QRCodeAuthenticatedActivity" />
-        <activity android:name="profile.debit.all.BankDetailsActivity" />
         <activity android:name="profile.debit.all.DebitListAllLedgersActivity" />
         <activity android:name="profile.debit.DebitListActivity" />
         <activity android:name="profile.credit.CreditListActivity" />
@@ -105,8 +104,7 @@
             android:name="profile.addledger.CreateLedgerActivity"
             android:label="@string/title_activity_create_ledger" />
         <activity
-            android:name="profile.addclient.SelectAndAddClientActivity"
-            android:label="@string/title_activity_select_and_add_client" /> <!-- <activity android:name=".MainActivity" /> -->
+            android:name="profile.addclient.SelectAndAddClientActivity" /> <!-- <activity android:name=".MainActivity" /> -->
         <activity android:name="profile.ProfileActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

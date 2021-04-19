@@ -2,6 +2,8 @@ package profile.profilefragments.voucher;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -61,9 +63,12 @@ public class ClientListForVoucherFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_client_list_for_voucher, container, false);
+        return inflater.inflate(R.layout.fragment_client_list_for_voucher, container, false);
+    }
 
-
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         clientlistComponent = ((LedgerApplication)getActivity().getApplication()).getAppComponent()
                 .getClientListComponentFactory().create();
         clientlistComponent.inject(this);
@@ -92,8 +97,6 @@ public class ClientListForVoucherFragment extends Fragment {
         }
 
         Log.d(TAG,"in fragment: ");
-
-        return view;
     }
 
     @Override

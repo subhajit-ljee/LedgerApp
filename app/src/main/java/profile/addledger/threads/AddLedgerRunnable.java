@@ -9,7 +9,6 @@ import androidx.appcompat.app.AlertDialog;
 import profile.addledger.CreateLedgerActivity;
 import profile.addledger.model.Ledger;
 import profile.addledger.model.LedgerRepository;
-import profile.addledger.uivalidation.LedgerValidation;
 
 import java.util.ArrayList;
 import java.util.List;

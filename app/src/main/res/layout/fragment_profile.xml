@@ -29,16 +29,13 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="@string/home_page_heading_content" />
 
-                <ImageView
-                    android:id="@+id/debit_credi_main_image"
-                    android:layout_width="369dp"
-                    android:layout_height="265dp"
-                    android:layout_marginStart="46dp"
-                    android:layout_marginTop="40dp"
-                    android:src="@drawable/debit_credit_image"
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
                     android:id="@+id/debit_view"

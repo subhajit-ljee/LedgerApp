@@ -65,4 +65,5 @@
     -->
     <string name="hello_world">Hello Square World!</string>
     <string name="home_page_heading_content">LedgerApp! INDIA\'s 1 Ledger based App</string>
+    <string name="mandatory">(Required)</string>
 </resources>

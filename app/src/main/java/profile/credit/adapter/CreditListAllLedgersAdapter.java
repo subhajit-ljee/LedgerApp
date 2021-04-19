@@ -18,7 +18,6 @@ import com.sourav.ledgerproject.R;
 
 import profile.addledger.model.Ledger;
 import profile.addvoucher.ShowVoucherActivity;
-import profile.debit.all.BankDetailsActivity;
 
 
 public class CreditListAllLedgersAdapter extends FirestoreRecyclerAdapter<Ledger, CreditListAllLedgersAdapter.ViewHolder> {
@@ -58,15 +57,6 @@ public class CreditListAllLedgersAdapter extends FirestoreRecyclerAdapter<Ledger
 
         }
 
-
-
-        holder.see_bank_details.setOnClickListener(v -> {
-
-            Intent intent = new Intent(context, BankDetailsActivity.class);
-            intent.putExtra("client_id", model.getClient_id());
-            context.startActivity(intent);
-
-        });
     }
 
     @NonNull
@@ -78,7 +68,6 @@ public class CreditListAllLedgersAdapter extends FirestoreRecyclerAdapter<Ledger
 
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView ledger_client_name, ledger_client_account_type, ledger_client_client_date;
-        Button see_bank_details;
         ImageButton go_for_voucher_list;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -86,7 +75,6 @@ public class CreditListAllLedgersAdapter extends FirestoreRecyclerAdapter<Ledger
             ledger_client_account_type = itemView.findViewById(R.id.ledger_client_account_type);
             ledger_client_client_date = itemView.findViewById(R.id.ledger_client_creation_date);
 
-            see_bank_details = itemView.findViewById(R.id.see_ledgers_details);
             go_for_voucher_list = itemView.findViewById(R.id.go_for_voucher_list);
         }
     }

@@ -12,7 +12,6 @@ import com.sourav.ledgerproject.LedgerApplication;
 import javax.inject.Inject;
 
 import profile.addledger.dependency.LedgerComponent;
-import profile.addledger.model.BankDetails;
 import profile.addledger.model.Ledger;
 import profile.addledger.model.LedgerRepository;
 
@@ -34,6 +33,7 @@ public class AddLedgerService extends JobIntentService {
     protected void onHandleWork(@NonNull Intent intent) {
 
         String id = intent.getStringExtra("id");
+        String lno = intent.getStringExtra("lno");
         String clientid = intent.getStringExtra("clientid");
         String accountname = intent.getStringExtra("accountname");
         String accounttype = intent.getStringExtra("accounttype");
@@ -44,15 +44,8 @@ public class AddLedgerService extends JobIntentService {
         String opbal = intent.getStringExtra("opbal");
         String timestamp = intent.getStringExtra("timestamp");
 
-        String bankname = intent.getStringExtra("bankname");
-        String accountnumber = intent.getStringExtra("accountnumber");
-        String pan = intent.getStringExtra("pan");
-        String bankifsc = intent.getStringExtra("bankifsc");
-        String branch = intent.getStringExtra("branch");
 
-        BankDetails bankDetails = new BankDetails(pan, bankname, bankifsc, accountnumber, branch);
-
-        Ledger ledger = new Ledger(id,clientid, accountname, accounttype, address, country, state, pincode, opbal, timestamp, bankDetails);
+        Ledger ledger = new Ledger(id, lno, clientid, accountname, accounttype, address, country, state, pincode, opbal, timestamp);
         Log.d(TAG, "onHandleWork: ledger: " + ledger);
         ledgerComponent = ((LedgerApplication) getApplication()).getAppComponent()
                 .getLedgerComponentFactory().create(ledger);

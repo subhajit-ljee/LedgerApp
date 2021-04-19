@@ -34,6 +34,7 @@ public class SelectAndAddClientService extends JobIntentService {
     protected void onHandleWork(@NonNull Intent intent) {
         String client_id = intent.getStringExtra("clientid");
 
+        Log.d(TAG, "onHandleWork: clientid: " + client_id);
         Client client = new Client();
         client.setId(client_id);
 
@@ -45,7 +46,7 @@ public class SelectAndAddClientService extends JobIntentService {
         String error = clientRepository.saveClient();
         Log.d(TAG, "run: error: " + error);
         if(!error.isEmpty()){
-            Toast.makeText(this, "error occured "+error, Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "onHandleWork: error: "+error);
         }
     }
 

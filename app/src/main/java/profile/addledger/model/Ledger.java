@@ -3,6 +3,7 @@ package profile.addledger.model;
 public class Ledger {
 
     private String id;
+    private String ledger_number;
     private String client_id;
     private String account_name;
     private String account_type;
@@ -13,12 +14,11 @@ public class Ledger {
     private String opening_balance;
     private String timestamp;
 
-    private BankDetails bankDetails;
-
     public Ledger(){}
 
-    public Ledger(String id, String client_id, String account_name, String account_type, String account_address, String account_country, String account_state, String account_pincode, String opening_balance, String timestamp, BankDetails bankDetails) {
+    public Ledger(String id, String ledger_number, String client_id, String account_name, String account_type, String account_address, String account_country, String account_state, String account_pincode, String opening_balance, String timestamp) {
         this.id = id;
+        this.ledger_number = ledger_number;
         this.client_id = client_id;
         this.account_name = account_name;
         this.account_type = account_type;
@@ -28,10 +28,11 @@ public class Ledger {
         this.account_pincode = account_pincode;
         this.opening_balance = opening_balance;
         this.timestamp = timestamp;
-        this.bankDetails = bankDetails;
     }
 
     public String getId(){ return id; }
+
+    public String getLedger_number(){ return ledger_number; }
 
     public String getClient_id() {
         return client_id;
@@ -73,6 +74,10 @@ public class Ledger {
         this.id = id;
     }
 
+    public void setLedger_number(String ledger_number){
+        this.ledger_number = ledger_number;
+    }
+
     public void setClient_id(String client_id) {
         this.client_id = client_id;
     }
@@ -109,18 +114,12 @@ public class Ledger {
         this.timestamp = timestamp;
     }
 
-    public BankDetails getBankDetails() {
-        return bankDetails;
-    }
-
-    public void setBankDetails(BankDetails bankDetails) {
-        this.bankDetails = bankDetails;
-    }
 
     @Override
     public String toString() {
         return "Ledger{" +
                 "id='" + id + '\'' +
+                "ledger_number='" + ledger_number + '\'' +
                 "client_id='" + client_id + '\'' +
                 ", account_name='" + account_name + '\'' +
                 ", account_type='" + account_type + '\'' +
@@ -130,7 +129,6 @@ public class Ledger {
                 ", account_pincode='" + account_pincode + '\'' +
                 ", opening_balance='" + opening_balance + '\'' +
                 ", timestamp='" + timestamp + '\'' +
-                ", bankDetails=" + bankDetails +
                 '}';
     }
 }

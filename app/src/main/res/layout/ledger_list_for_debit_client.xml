@@ -48,14 +48,5 @@
             android:layout_marginTop="30dp"
             android:background="@color/teal_200"/>
 
-
-        <Button
-            android:id="@+id/see_ledgers_details"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/ledger_client_creation_date"
-            android:layout_marginTop="10dp"
-            android:text="See Bank Details"/>
-
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

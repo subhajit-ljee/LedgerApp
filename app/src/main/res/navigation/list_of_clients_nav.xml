@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/list_of_clients_nav"
+    app:startDestination="@id/addLedgerFragment">
+    <fragment
+        android:id="@+id/clientListFragment"
+        android:name="profile.profilefragments.ledger.ClientListFragment"
+        android:label="fragment_client_list"
+        tools:layout="@layout/fragment_client_list" >
+        <action
+            android:id="@+id/action_clientListFragment_to_addLedgerFragment"
+            app:destination="@id/addLedgerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addLedgerFragment"
+        android:name="profile.profilefragments.ledger.AddLedgerFragment"
+        android:label="fragment_add_ledger"
+        tools:layout="@layout/fragment_add_ledger" >
+        <action
+            android:id="@+id/action_addLedgerFragment_to_clientListFragment"
+            app:destination="@id/clientListFragment" />
+    </fragment>
+</navigation>

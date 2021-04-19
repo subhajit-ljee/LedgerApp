@@ -2,6 +2,9 @@ package profile.profilefragments.ledger;
 
 import android.os.Bundle;
 
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,14 +34,14 @@ import profile.addclient.repository.ClientListRepository;
  * Use the {@link ClientListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ClientListFragment extends Fragment{
+public class ClientListFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ACTIVITY_NAME = "activity_name";
+    //private static final String ACTIVITY_NAME = "activity_name";
 
     // TODO: Rename and change types of parameters
-    private String activityName;
+    //private String activityName;
 
 
     public ClientListFragment() {
@@ -64,7 +67,7 @@ public class ClientListFragment extends Fragment{
     public static ClientListFragment newInstance(String activityName) {
         ClientListFragment fragment = new ClientListFragment();
         Bundle args = new Bundle();
-        args.putString(ACTIVITY_NAME, activityName);
+        //args.putString(ACTIVITY_NAME, activityName);
         fragment.setArguments(args);
         return fragment;
     }
@@ -72,10 +75,13 @@ public class ClientListFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_client_list, container, false);
+    }
 
-        View v = inflater.inflate(R.layout.fragment_client_list, container, false);
-
-        TextView t = v.findViewById(R.id.no_client_heading);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        TextView t = view.findViewById(R.id.no_client_heading);
         t.setVisibility(View.INVISIBLE);
 
         clientlistComponent = ((LedgerApplication)getActivity().getApplication()).getAppComponent()
@@ -84,37 +90,35 @@ public class ClientListFragment extends Fragment{
 
         try{
 
-                FirestoreRecyclerOptions<Client> options = new FirestoreRecyclerOptions.Builder<Client>()
-                        .setQuery(clientListRepository.getQuery(), Client.class)
-                        .build();
+            FirestoreRecyclerOptions<Client> options = new FirestoreRecyclerOptions.Builder<Client>()
+                    .setQuery(clientListRepository.getQuery(), Client.class)
+                    .build();
 
-                if(getArguments() != null) {
 
-                    activityName = getArguments().getString(ACTIVITY_NAME);
-                    clientRecyclerView = v.findViewById(R.id.client_list_fragment_recycler);
-                    clientAdapter = new ClientAdapter(options, getActivity(), activityName);
+            //activityName = getArguments().getString(ACTIVITY_NAME);
+            clientRecyclerView = view.findViewById(R.id.client_list_fragment_recycler);
+            clientAdapter = new ClientAdapter(options, getActivity());
 
-                    //clientRecyclerView.setHasFixedSize(true);
-                    clientRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                    clientRecyclerView.setAdapter(clientAdapter);
-                    Log.d(TAG, "onCreateView: query is not null ");
-                }
+            //clientRecyclerView.setHasFixedSize(true);
+            clientRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            clientRecyclerView.setAdapter(clientAdapter);
+            Log.d(TAG, "onCreateView: query is not null ");
+
 
         }catch (Exception e){
-            v = inflater.inflate(R.layout.fragment_error_adding_ledger, container, false);
+            getLayoutInflater().inflate(R.layout.fragment_error_adding_ledger, null);
         }
 
         clientListRepository.getQuery().get().addOnCompleteListener( task -> {
-           if(task.isSuccessful()){
-               if(task.getResult().size() < 1){
-                   t.setVisibility(View.VISIBLE);
-               }
-           }
+            if(task.isSuccessful()){
+                if(task.getResult().size() < 1){
+                    t.setVisibility(View.VISIBLE);
+                }
+            }
         });
 
         Log.d(TAG,"in fragment: ");
 
-        return v;
     }
 
     @Override

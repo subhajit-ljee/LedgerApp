@@ -6,7 +6,13 @@ import android.content.ClipboardManager;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.os.Handler;
 import android.util.Log;
@@ -15,7 +21,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +34,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.sourav.ledgerproject.R;
 
 import profile.addclient.SelectAndAddClientActivity;
+import profile.addclient.jobintentservices.SelectAndAddClientService;
 import profile.addledger.ListOfAllClients;
 import profile.addusers.SaveUserJobService;
 import profile.credit.CreditListActivity;
@@ -50,8 +59,9 @@ public class ProfileFragment extends Fragment {
     private ImageView imageView;
     private TextView name;
 
-    private Button debitView, creditView, copyid;
-    private BottomNavigationView bottomNavigationView;
+    private Button copyid;
+    private ConstraintLayout see_debit, see_credit, add_client_view;
+
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -85,23 +95,26 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+       return inflater.inflate(R.layout.fragment_profile, container, false);
 
+    }
 
-        name = view.findViewById(R.id.registered_user_name);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        //name = view.findViewById(R.id.registered_user_name);
         //email = view.findViewById(R.id.registered_user_email);
         //id = view.findViewById(R.id.registered_user_id);
-        imageView = view.findViewById(R.id.user_image_registered);
+        //imageView = view.findViewById(R.id.user_image_registered);
         copyid = view.findViewById(R.id.copy_id);
-        bottomNavigationView = view.findViewById(R.id.profile_menu_nav_view);
-
-        setUpBottomNavigation(bottomNavigationView);
+        add_client_view = view.findViewById(R.id.add_client_view);
 
         String userid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         String username = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
         String useremail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
-        name.setText(username);
+        //name.setText(username);
 
 
         copyid.setOnClickListener( v -> {
@@ -120,87 +133,51 @@ public class ProfileFragment extends Fragment {
                 messaging_token = task.getResult();
 
                 Log.d(TAG, "onCreateView: messaging_token: " + messaging_token);
+                    Intent intent = new Intent(getContext(), SaveUserJobService.class);
+                    intent.putExtra("userid", userid);
+                    intent.putExtra("useremail", useremail);
+                    intent.putExtra("username", username);
+                    intent.putExtra("messaging_token", messaging_token);
 
-                Intent intent = new Intent(getActivity(), SaveUserJobService.class);
-                intent.putExtra("userid", userid);
-                intent.putExtra("useremail", useremail);
-                intent.putExtra("username", username);
-                intent.putExtra("messaging_token", messaging_token);
-
-                SaveUserJobService.enqueueWork(getActivity(), intent);
+                    SaveUserJobService.enqueueWork(getActivity(), intent);
 
             }
         });
 
-        Glide.with(this)
+        /*Glide.with(this)
                 .load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl())
                 .into(imageView);
-
-        name.setText(username);
+        */
+        //name.setText(username);
         //email.setText(useremail);
 
-        debitView = view.findViewById(R.id.debit_view);
-        creditView = view.findViewById(R.id.credit_view);
+        see_debit = view.findViewById(R.id.see_debit);
+        see_credit = view.findViewById(R.id.see_credit);
 
-        debitView.setOnClickListener( v -> new Handler().post( () -> startActivity(new Intent(getActivity(), DebitListActivity.class))));
+        NavController findNavController = Navigation.findNavController(getActivity(),R.id.pro_main_fragment);
+        see_debit.setOnClickListener( v -> new Handler().post( () -> findNavController.navigate(R.id.action_profileFragment_to_debitListFragment)));
 
-        creditView.setOnClickListener( v -> new Handler().post( () -> startActivity(new Intent(getActivity(), CreditListActivity.class))));
+        see_credit.setOnClickListener( v -> new Handler().post( () -> findNavController.navigate(R.id.action_profileFragment_to_creditListFragment)));
+        add_client_view.setOnClickListener( v -> {
 
-        //users.put("image_url",user.getPhotoUrl().);
+            View client_add_layout = getLayoutInflater().inflate(R.layout.add_clients_layout,null);
+            EditText clientid = client_add_layout.findViewById(R.id.client_id_check);
 
-        return view;
-    }
+            AlertDialog addclientalert = new AlertDialog.Builder(getActivity())
+            .setView(R.layout.add_clients_layout)
+            .setPositiveButton( "SAVE",(dialog, which) -> {
 
-    public void setUpBottomNavigation(BottomNavigationView bottomNavigationView){
-        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
-            selectDrawerItem(item);
-            return true;
+                String clientidcheck = clientid.getText().toString().trim();
+                Log.d(TAG, "onViewCreated: clientid" + clientidcheck);
+                Intent intent = new Intent(getActivity(),SelectAndAddClientService.class);
+                intent.putExtra("clientid", clientidcheck);
+                SelectAndAddClientService.enqueueWork(getContext(), intent);
+
+            }).setNegativeButton("CANCEL", null)
+            .create();
+            addclientalert.show();
+
         });
+        //users.put("image_url",user.getPhotoUrl().);
     }
-
-    @SuppressLint("NonConstantResourceId")
-    private void selectDrawerItem(MenuItem item) {
-
-        switch (item.getItemId()){
-            case R.id.addnewledger:
-                makeLedger();
-                break;
-            case R.id.addnewvoucher:
-                makeVoucher();
-                break;
-            case R.id.deletevoucher:
-                deleteVoucher();
-                break;
-            case R.id.showledger:
-                showLedgerWithVoucher();
-                break;
-            case R.id.uploadbill:
-                uploadBill();
-                break;
-        }
-
-        item.setChecked(true);
-    }
-
-    private void showLedgerWithVoucher() {
-        new Handler().post( () -> startActivity(new Intent(getActivity(), ListOfAllClients.class)));
-
-    }
-
-    private void makeVoucher() {
-        new Handler().post( () -> startActivity(new Intent(getActivity(), ListOfAllClients.class)));
-    }
-
-    private void makeLedger() {
-        new Handler().post( () -> startActivity(new Intent(getActivity(), SelectAndAddClientActivity.class)));
-    }
-
-    private void uploadBill(){
-        new Handler().post( () -> startActivity(new Intent(getActivity(), PdfUploadActivity.class)));
-    }
-
-    public void deleteVoucher(){
-        new Handler().post( () -> startActivity(new Intent(getActivity(), ListofClientForDeleteActivity.class)));
-    }
-
 }

@@ -2,7 +2,6 @@ package profile.debit.all.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,13 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.gson.internal.$Gson$Preconditions;
 import com.sourav.ledgerproject.R;
 
-import profile.addclient.model.Client;
 import profile.addledger.model.Ledger;
 import profile.addvoucher.ShowVoucherActivity;
-import profile.debit.all.BankDetailsActivity;
 
 public class DebitListAllLedgersAdapter extends FirestoreRecyclerAdapter<Ledger, DebitListAllLedgersAdapter.ViewHolder> {
 
@@ -61,17 +57,6 @@ public class DebitListAllLedgersAdapter extends FirestoreRecyclerAdapter<Ledger,
             });
         }
 
-
-
-        holder.see_bank_details.setOnClickListener(v -> {
-
-            Intent intent = new Intent(context, BankDetailsActivity.class);
-            intent.putExtra("client_id", model.getClient_id());
-            intent.putExtra("voucher_id", model.getId());
-            context.startActivity(intent);
-
-        });
-
     }
 
     @NonNull
@@ -84,7 +69,6 @@ public class DebitListAllLedgersAdapter extends FirestoreRecyclerAdapter<Ledger,
     class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView ledger_client_name, ledger_client_account_type, ledger_client_client_date;
-        Button see_bank_details;
         ImageButton go_for_voucher_list;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -92,7 +76,6 @@ public class DebitListAllLedgersAdapter extends FirestoreRecyclerAdapter<Ledger,
             ledger_client_account_type = itemView.findViewById(R.id.ledger_client_account_type);
             ledger_client_client_date = itemView.findViewById(R.id.ledger_client_creation_date);
 
-            see_bank_details = itemView.findViewById(R.id.see_ledgers_details);
             go_for_voucher_list = itemView.findViewById(R.id.go_for_voucher_list);
 
         }

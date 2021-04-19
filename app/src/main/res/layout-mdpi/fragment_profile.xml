@@ -29,18 +29,6 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="@string/home_page_heading_content" />
 
-                <ImageView
-                    android:id="@+id/debit_credi_main_image"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_marginTop="40dp"
-                    android:layout_marginStart="170dp"
-                    android:scaleType="fitXY"
-                    android:background="@drawable/debit_credit_view_border"
-                    android:src="@drawable/debit_credit_image"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView" />
 
                 <Button
                     android:id="@+id/debit_view"

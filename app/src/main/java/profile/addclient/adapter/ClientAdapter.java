@@ -2,6 +2,7 @@ package profile.addclient.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -39,12 +41,11 @@ public class ClientAdapter extends FirestoreRecyclerAdapter<Client,ClientAdapter
      */
     private Context context;
     private String activityName;
-    public ClientAdapter(@NonNull FirestoreRecyclerOptions<Client> options, Context context, String activityname) {
+    public ClientAdapter(@NonNull FirestoreRecyclerOptions<Client> options, Context context) {
         super(options);
         if(options == null || options.getSnapshots().size() == 0)
         Log.d(TAG, "ClientAdapter: options not working");
         this.context = context;
-        this.activityName = activityname;
     }
 
     @NonNull
@@ -61,21 +62,23 @@ public class ClientAdapter extends FirestoreRecyclerAdapter<Client,ClientAdapter
         holder.client_email.setText(model.getClient_email());
         holder.client_id.setText(model.getId());
         holder.client_list_for_ledger_image_text_id.setText(model.getClient_name().substring(0,1).toUpperCase());
-        holder.go_to_view_ledger_list.setOnClickListener( v -> {
+        holder.itemView.setOnClickListener( v -> {
 
             if(holder.client_id.getText().toString().trim() != null)
                 Log.d(TAG, "onLongClick: " + holder.client_id.getText().toString().trim());
             else
                 Log.d(TAG,"null");
 
-            Intent intent = null;
-            if(activityName.equals("SelectAndAddClient")) {
-                intent = new Intent(context, CreateLedgerActivity.class);
-                intent.putExtra("clientid", model.getId());
-                intent.putExtra("clientname", model.getClient_name());
+            //Intent intent = null;
+            //intent = new Intent(context, CreateLedgerActivity.class);
+            //intent.putExtra("clientid", model.getId());
+            //intent.putExtra("clientname", model.getClient_name());
+            Bundle bundle = new Bundle();
+            bundle.putString("clientid",model.getId());
+            bundle.putString("clientname",model.getClient_name());
+            Navigation.findNavController(holder.itemView).navigate(R.id.action_clientListFragment_to_addLedgerFragment, bundle);
 
-            }
-            context.startActivity(intent);
+            //context.startActivity(intent);
         });
     }
 
