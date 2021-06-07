@@ -5,6 +5,8 @@ import com.sourav.ledgerproject.ActivityScope;
 
 import dagger.BindsInstance;
 import dagger.Subcomponent;
+import profile.addvoucher.EditVoucherService;
+import profile.addvoucher.addoutstandings.model.UpdatedBalance;
 import profile.addvoucher.dependency.VoucherViewModelModule;
 import profile.addvoucher.jobintentservice.AddVoucherService;
 import profile.addvoucher.jobintentservice.UpdateVoucherService;
@@ -18,6 +20,7 @@ public interface VoucherComponent {
     //void inject(ShowLedgerActivity showLedgerActivity);
     void inject(AddVoucherService addVoucherService);
     void inject(UpdateVoucherService updateVoucherService);
+    void inject(EditVoucherService editVoucherService);
 
     @Subcomponent.Factory
     interface Factory {

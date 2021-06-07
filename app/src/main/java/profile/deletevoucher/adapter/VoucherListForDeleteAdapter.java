@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -45,25 +46,21 @@ public class VoucherListForDeleteAdapter extends FirestoreRecyclerAdapter<Vouche
             holder.voucher_date_and_time.setText(model.getTimestamp());
             Log.d(TAG, "onBindViewHolder: model.isAdded(): " + model.isAdded());
 
-            holder.itemView.setOnLongClickListener(v -> {
-                new Handler().post(() -> {
-                    AlertDialog deleteDialog = new AlertDialog.Builder(context)
-                            .setPositiveButton("Delete Voucher? ", (dialog, which) -> {
-                                Intent intent = new Intent(context, SendNotificationForDeleteVoucherService.class);
-                                intent.putExtra("voucher_id", model.getId());
-                                intent.putExtra("client_id", model.getClient_id());
-                                intent.putExtra("ledger_id", model.getLedger_id());
+            holder.delete_my_voucher.setOnClickListener( v -> {
 
-                                SendNotificationForDeleteVoucherService.enqueueWork(context, intent);
-                            }).setNegativeButton("Cancel", null)
-                            .create();
+                AlertDialog deleteDialog = new AlertDialog.Builder(context)
+                    .setPositiveButton("Delete Voucher? ", (dialog, which) -> {
+                        Intent intent = new Intent(context, SendNotificationForDeleteVoucherService.class);
+                        intent.putExtra("voucher_id", model.getId());
+                        intent.putExtra("client_id", model.getClient_id());
+                        intent.putExtra("ledger_id", model.getLedger_id());
 
-                    deleteDialog.show();
-                });
-                return true;
+                        SendNotificationForDeleteVoucherService.enqueueWork(context, intent);
+                    }).setNegativeButton("Cancel", null)
+                    .create();
+
+                deleteDialog.show();
             });
-        } else {
-            holder.currency_sign.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -76,10 +73,12 @@ public class VoucherListForDeleteAdapter extends FirestoreRecyclerAdapter<Vouche
 
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView voucher_client_amount, voucher_date_and_time, voucher_mode, currency_sign;
+        Button delete_my_voucher;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             voucher_client_amount = itemView.findViewById(R.id.voucher_client_amount);
             voucher_date_and_time = itemView.findViewById(R.id.voucher_date_and_time);
+            delete_my_voucher = itemView.findViewById(R.id.delete_my_voucher);
             voucher_mode = itemView.findViewById(R.id.voucher_mode);
             currency_sign = itemView.findViewById(R.id.currency_sign);
         }

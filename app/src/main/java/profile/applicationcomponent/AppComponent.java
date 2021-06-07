@@ -8,11 +8,15 @@ package profile.applicationcomponent;
 import javax.inject.Singleton;
 
 import dagger.Component;
+import profile.addBillAmount.dependency.AddBillAmountComponent;
 import profile.addclient.dependency.ClientComponent;
 import profile.addclient.dependency.ClientlistComponent;
+import profile.addledger.dependency.GetLedgerComponent;
 import profile.addledger.dependency.LedgerComponent;
 import profile.addledger.dependency.LedgerListComponent;
+import profile.addledger.dependency.UpdateLedgerComponent;
 import profile.addusers.dependency.UserComponent;
+import profile.addvoucher.dependency.component.GetVoucherComponent;
 import profile.addvoucher.dependency.component.VoucherComponent;
 import profile.addvoucher.dependency.component.VoucherListComponent;
 import profile.deletevoucher.dependency.VoucherDeleteComponent;
@@ -33,4 +37,8 @@ public interface AppComponent {
     CheckQRComponent.Factory getCheckQRComponent();
     VoucherDeleteComponent.Factory getVoucherDeleteComponent();
     UserComponent.Factory getUserComponent();
+    GetLedgerComponent.Factory getGetLedgerComponent();
+    AddBillAmountComponent.Factory getAddBillAmountComponent();
+    UpdateLedgerComponent.Factory getUpdateLedgerComponent();
+    GetVoucherComponent.Factory getVoucherComponent();
 }

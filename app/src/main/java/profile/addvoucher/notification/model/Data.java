@@ -1,16 +1,37 @@
 package profile.addvoucher.notification.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Data {
 
+    @SerializedName("title")
     private String title;
+
+    @SerializedName("message")
     private String message;
+
+    @SerializedName("vid")
     private String vid;
+
+    @SerializedName("clientid")
     private String clientid;
+
+    @SerializedName("ledgerid")
     private String ledgerid;
+
+    @SerializedName("ledgername")
     private String ledgername;
+
+    @SerializedName("opening_balance")
     private String opening_balance;
+
+    @SerializedName("type")
     private String type;
+
+    @SerializedName("notifyfrom")
     private String notifyfrom;
+
+    @SerializedName("activity")
     private String activity;
 
     public Data(String title, String message,String vid, String clientid, String ledgerid, String ledgername, String opening_balance, String type, String notifyfrom, String activity) {

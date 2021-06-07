@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/create_client_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
@@ -15,11 +15,15 @@
         app:navGraph="@navigation/list_of_clients_nav" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/select_menu_nav_view"
+        android:id="@+id/profile_menu_nav_view"
         android:layout_width="match_parent"
         android:layout_height="75dp"
+        style="@style/Theme.LedgerProject.BottomNavigationView"
         app:layout_constraintBottom_toBottomOf="@id/create_client_fragment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/profile_page_menu"/>
+        app:menu="@menu/profile_page_menu"
+        app:itemTextColor="@color/fine_white_100"
+        app:itemIconTint="@color/fine_white_100"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

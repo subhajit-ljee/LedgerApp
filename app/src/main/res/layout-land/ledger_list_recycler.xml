@@ -1,62 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="8dp"
     android:background="@drawable/ledger_recycler_list_border"
     >
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/voucher_list_relative_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
 
-        <TextView
-            android:id="@+id/voucher_date_and_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginStart="40dp"
-            android:text="19/03/1992"
-            android:textColor="@color/black"
-            android:textSize="18sp"/>
-
-        <TextView
-            android:id="@+id/voucher_mode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Payment"
-            android:layout_toEndOf="@id/voucher_date_and_time"
-            android:layout_marginStart="160dp"
-            android:layout_marginTop="5dp"
-            android:fontFamily="@font/nunito_bold"
-            android:textColor="@color/black"
-            android:textSize="20sp"/>
-
-        <TextView
-            android:id="@+id/currency_sign"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/voucher_mode"
-            android:layout_marginStart="200dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/currency_sign_indian_rupees"
-            android:textSize="22sp"/>
-
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/voucher_client_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_toEndOf="@id/currency_sign"
-            android:layout_marginStart="10dp"
-            android:text="4000"
-            android:textSize="22sp"
-            android:textColor="@color/design_default_color_secondary"
-            android:fontFamily="@font/nunito_bold"/>
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="450"
+            android:textColor="@color/colorPrimaryDark_1_700_op"
+            android:textSize="35sp"
+            app:layout_constraintStart_toEndOf="@+id/currency_sign"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-    </RelativeLayout>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/currency_sign"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/poppins"
+            android:text="@string/currency_sign_indian_rupees"
+            android:textColor="@color/colorPrimaryDark_1_600_op"
+            android:textSize="35sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/voucher_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/poppins"
+            android:text="@string/receipt"
+            android:textColor="@color/colorPrimaryDark_1_600_op"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/voucher_client_amount" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/voucher_date_and_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/poppins"
+            android:text="19/2/1997"
+            android:textColor="@color/colorPrimaryDark_1_600_op"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/voucher_mode"/>
+
+        <Button
+            android:id="@+id/delete_my_voucher"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="delete voucher"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/voucher_date_and_time" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.cardview.widget.CardView>

@@ -34,6 +34,7 @@ public class AddLedgerService extends JobIntentService {
 
         String id = intent.getStringExtra("id");
         String lno = intent.getStringExtra("lno");
+        String uid = intent.getStringExtra("uid");
         String clientid = intent.getStringExtra("clientid");
         String accountname = intent.getStringExtra("accountname");
         String accounttype = intent.getStringExtra("accounttype");
@@ -45,7 +46,7 @@ public class AddLedgerService extends JobIntentService {
         String timestamp = intent.getStringExtra("timestamp");
 
 
-        Ledger ledger = new Ledger(id, lno, clientid, accountname, accounttype, address, country, state, pincode, opbal, timestamp);
+        Ledger ledger = new Ledger(id, lno, clientid, uid, accountname, accounttype, address, country, state, pincode, opbal, timestamp);
         Log.d(TAG, "onHandleWork: ledger: " + ledger);
         ledgerComponent = ((LedgerApplication) getApplication()).getAppComponent()
                 .getLedgerComponentFactory().create(ledger);

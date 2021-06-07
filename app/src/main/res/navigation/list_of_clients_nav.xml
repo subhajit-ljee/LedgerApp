@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/list_of_clients_nav"
-    app:startDestination="@id/addLedgerFragment">
+    app:startDestination="@id/ledgerFragment">
     <fragment
         android:id="@+id/clientListFragment"
         android:name="profile.profilefragments.ledger.ClientListFragment"
@@ -16,10 +16,135 @@
     <fragment
         android:id="@+id/addLedgerFragment"
         android:name="profile.profilefragments.ledger.AddLedgerFragment"
-        android:label="fragment_add_ledger"
-        tools:layout="@layout/fragment_add_ledger" >
+        android:label="AddLedgerFragment" >
         <action
             android:id="@+id/action_addLedgerFragment_to_clientListFragment"
             app:destination="@id/clientListFragment" />
+        <action
+            android:id="@+id/action_addLedgerFragment_to_ledgerFragment"
+            app:destination="@id/ledgerFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/editLedgerFragment"
+        android:name="profile.addledger.editLedger.EditLedgerFragment"
+        android:label="fragment_edit_ledger"
+        tools:layout="@layout/fragment_edit_ledger" >
+        <action
+            android:id="@+id/action_editLedgerFragment_to_ledgerFieldsFragment"
+            app:destination="@id/ledgerFieldsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editClientListFragment"
+        android:name="profile.addledger.editLedger.EditClientListFragment"
+        android:label="fragment_edit_client_list"
+        tools:layout="@layout/fragment_edit_client_list" >
+        <action
+            android:id="@+id/action_editClientListFragment_to_editLedgerFragment"
+            app:destination="@id/editLedgerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ledgerFieldsFragment"
+        android:name="profile.addledger.editLedger.adapter.LedgerFieldsFragment"
+        android:label="fragment_ledger_fields"
+        tools:layout="@layout/fragment_ledger_fields" >
+        <action
+            android:id="@+id/action_ledgerFieldsFragment_to_billAddedSuccessFragment2"
+            app:destination="@id/billAddedSuccessFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/ledgerFragment"
+        android:name="profile.addledger.LedgerFragment"
+        android:label="fragment_ledger"
+        tools:layout="@layout/fragment_ledger" >
+        <action
+            android:id="@+id/action_ledgerFragment_to_addLedgerFragment"
+            app:destination="@id/addLedgerFragment" />
+        <action
+            android:id="@+id/action_ledgerFragment_self"
+            app:destination="@id/ledgerFragment" />
+        <action
+            android:id="@+id/action_ledgerFragment_to_editClientListFragment"
+            app:destination="@id/editClientListFragment" />
+        <action
+            android:id="@+id/action_ledgerFragment_to_recentLedgerListFragment"
+            app:destination="@id/recentLedgerListFragment" />
+        <action
+            android:id="@+id/action_ledgerFragment_to_seeAllClientListFragment"
+            app:destination="@id/seeAllClientListFragment" />
+        <action
+            android:id="@+id/action_ledgerFragment_to_showLedgerFragment"
+            app:destination="@id/showLedgerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/billAddedSuccessFragment2"
+        android:name="profile.addBillAmount.BillAddedSuccessFragment"
+        android:label="BillAddedSuccessFragment" />
+    <fragment
+        android:id="@+id/recentLedgerListFragment"
+        android:name="profile.addledger.RecentLedgerListFragment"
+        android:label="fragment_recent_ledger_list"
+        tools:layout="@layout/fragment_recent_ledger_list" >
+        <action
+            android:id="@+id/action_recentLedgerListFragment_to_ledgerDetailsFragment"
+            app:destination="@id/ledgerDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ledgerDetailsFragment"
+        android:name="profile.addledger.LedgerDetailsFragment"
+        android:label="fragment_ledger_details"
+        tools:layout="@layout/fragment_ledger_details" />
+    <fragment
+        android:id="@+id/seeAllClientListFragment"
+        android:name="profile.addledger.SeeAllClientListFragment"
+        android:label="fragment_see_all_client_list"
+        tools:layout="@layout/fragment_see_all_client_list" >
+        <action
+            android:id="@+id/action_seeAllClientListFragment_to_recentLedgerListFragment"
+            app:destination="@id/recentLedgerListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/showLedgerFragment"
+        android:name="profile.addledger.showLedger.ShowLedgerFragment"
+        android:label="fragment_show_ledger"
+        tools:layout="@layout/fragment_show_ledger" >
+        <action
+            android:id="@+id/action_showLedgerFragment_to_showLedgerListForPrintFragment"
+            app:destination="@id/showLedgerListForPrintFragment" />
+        <action
+            android:id="@+id/action_showLedgerFragment_to_ledgerFragment"
+            app:destination="@id/ledgerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myLedgerFragment2"
+        android:name="profile.profilefragments.myclient.MyLedgerFragment"
+        android:label="fragment_my_ledger"
+        tools:layout="@layout/fragment_my_ledger" >
+        <action
+            android:id="@+id/action_myLedgerFragment2_to_myVoucherListFragment2"
+            app:destination="@id/myVoucherListFragment2" />
+        <action
+            android:id="@+id/action_myLedgerFragment2_to_showLedgerListForPrintFragment"
+            app:destination="@id/showLedgerListForPrintFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/showLedgerListForPrintFragment"
+        android:name="profile.addledger.showLedger.ShowLedgerListForPrintFragment"
+        android:label="fragment_show_ledger_list_for_print"
+        tools:layout="@layout/fragment_show_ledger_list_for_print" >
+        <action
+            android:id="@+id/action_showLedgerListForPrintFragment_to_myLedgerFragment2"
+            app:destination="@id/myLedgerFragment2" />
+        <action
+            android:id="@+id/action_showLedgerListForPrintFragment_to_showLedgerFragment"
+            app:destination="@id/showLedgerFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/myVoucherListFragment2"
+        android:name="profile.myclient.MyVoucherListFragment"
+        android:label="fragment_my_voucher_list"
+        tools:layout="@layout/fragment_my_voucher_list" >
+        <action
+            android:id="@+id/action_myVoucherListFragment2_to_myLedgerFragment22"
+            app:destination="@id/myLedgerFragment2" />
+    </dialog>
 </navigation>

@@ -5,41 +5,31 @@
     android:id="@+id/ledger_holder_list_frag"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="profile.addledger.ListOfAllClients">
+    tools:context="profile.addledger.ListOfAllClients"
+    android:theme="@style/Theme.AppCompat">
 
-    <fragment
-        android:id="@+id/client_main_fragment"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/make_voucher_main_frag"
         android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         app:defaultNavHost="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/list_of_clients_nav" />
+        app:navGraph="@navigation/make_voucher_nav" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/profile_menu_nav_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/client_main_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        style="@style/Theme.LedgerProject.BottomNavigationView"
+        app:layout_constraintBottom_toBottomOf="@id/make_voucher_main_frag"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/profile_page_menu" />
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/allvoucherlistpagetoolbar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/client_main_fragment"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        app:menu="@menu/profile_page_menu"
+        app:itemTextColor="@color/fine_white_100"
+        app:itemIconTint="@color/fine_white_100"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

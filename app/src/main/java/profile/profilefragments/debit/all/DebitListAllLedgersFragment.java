@@ -3,16 +3,20 @@ package profile.profilefragments.debit.all;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.firebase.auth.FirebaseAuth;
 import com.sourav.ledgerproject.LedgerApplication;
 import com.sourav.ledgerproject.R;
 
@@ -46,11 +50,7 @@ public class DebitListAllLedgersFragment extends Fragment {
     }
     
     public static DebitListAllLedgersFragment newInstance(String client_id) {
-        DebitListAllLedgersFragment fragment = new DebitListAllLedgersFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString(CLIENT_ID,client_id);
-        fragment.setArguments(bundle);
-        return fragment;
+        return new DebitListAllLedgersFragment();
     }
 
     @Override
@@ -65,13 +65,20 @@ public class DebitListAllLedgersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        AtomicReference<View> view = new AtomicReference<>(inflater.inflate(R.layout.fragment_debit_list_all_ledgers, container, false));
-        TextView no_heading = view.get().findViewById(R.id.client_ledger_no_list_heading);
+        View view = inflater.inflate(R.layout.fragment_debit_list_all_ledgers, container, false);
+        MaterialToolbar toolbar = view.findViewById(R.id.toolbar2);
+        toolbar.setNavigationOnClickListener( v -> {
+            Navigation.findNavController(view).navigate(R.id.action_debitListAllLedgersFragment_to_debitListFragment);
+        });
+
+        TextView no_heading = view.findViewById(R.id.client_ledger_no_list_heading);
         no_heading.setVisibility(View.INVISIBLE);
+        String authid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         Log.d(TAG, "onCreateView: "+client_id);
         try {
             if(client_id != null) {
                 Ledger ledger = new Ledger();
+                ledger.setUser_id(authid);
                 ledger.setClient_id(client_id);
                 ledgerListComponent = ((LedgerApplication) requireActivity().getApplication()).getAppComponent()
                         .getLedgerListComponent().create(ledger);
@@ -84,7 +91,7 @@ public class DebitListAllLedgersFragment extends Fragment {
 
                 debitListAllLedgersAdapter = new DebitListAllLedgersAdapter(options, getActivity());
 
-                debitlist_recycler = view.get().findViewById(R.id.ledgers_debit_list_recycler_view);
+                debitlist_recycler = view.findViewById(R.id.ledgers_debit_list_recycler_view);
                 debitlist_recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
                 debitlist_recycler.setAdapter(debitListAllLedgersAdapter);
 
@@ -100,7 +107,22 @@ public class DebitListAllLedgersFragment extends Fragment {
             Log.e(TAG, "onCreateView: ", e);
         }
 
-        return view.get();
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+
+        view.setOnKeyListener((View v1, int keyCode, KeyEvent event) -> {
+            if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    Navigation.findNavController(view).navigate(R.id.action_debitListAllLedgersFragment_to_debitListFragment);
+                    Log.d(TAG, "onViewCreated: backpressed");
+                    return true;
+                }
+            }
+            return false;
+
+        });
+
+        return view;
     }
 
     @Override

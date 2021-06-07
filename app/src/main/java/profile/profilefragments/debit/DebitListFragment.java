@@ -3,18 +3,23 @@ package profile.profilefragments.debit;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.sourav.ledgerproject.LedgerApplication;
 import com.sourav.ledgerproject.R;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -60,6 +65,11 @@ public class DebitListFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_debit_list, container, false);
 
+        MaterialToolbar toolbar = v.findViewById(R.id.toolbar2);
+        toolbar.setNavigationOnClickListener( v1 -> {
+            Navigation.findNavController(v).navigate(R.id.action_debitListFragment_to_profileFragment);
+        });
+
         TextView t = v.findViewById(R.id.no_debit_client_heading);
         t.setVisibility(View.INVISIBLE);
 
@@ -68,7 +78,7 @@ public class DebitListFragment extends Fragment {
                 debit_list_recycler = v.findViewById(R.id.client_debit_list_recycler_view);
                 debit_list_recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-                clientlistComponent = ((LedgerApplication) getActivity().getApplication()).getAppComponent()
+                clientlistComponent = ((LedgerApplication) requireActivity().getApplication()).getAppComponent()
                         .getClientListComponentFactory().create();
                 clientlistComponent.inject(this);
 
@@ -94,6 +104,21 @@ public class DebitListFragment extends Fragment {
                     t.setVisibility(View.VISIBLE);
                 }
             }
+        });
+
+        v.setFocusableInTouchMode(true);
+        v.requestFocus();
+
+        v.setOnKeyListener((View v1, int keyCode, KeyEvent event) -> {
+            if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    Navigation.findNavController(v).navigate(R.id.action_debitListFragment_to_profileFragment);
+                    Log.d(TAG, "onViewCreated: backpressed");
+                    return true;
+                }
+            }
+            return false;
+
         });
 
         return v;

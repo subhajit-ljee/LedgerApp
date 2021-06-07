@@ -1,31 +1,63 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark_1_600"
     tools:context="profile.profilefragments.voucher.LedgerHolderFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/toolbar_layout_bill"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?attr/actionBarSize"
+            app:title="Ledgers"
+            app:titleTextColor="@color/fine_white_100"
+            android:theme="@style/Theme.LedgerProject.BillTool.Common.ActionBar"
+            app:navigationIcon="@drawable/ic_baseline_chevron_left_24"
+            tools:layout_editor_absoluteX="3dp" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="50dp">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_layout_bill">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_of_all_ledger_clients"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            tools:listitem="@layout/ledger_list_item_for_voucher"/>
+            tools:listitem="@layout/ledger_list_item_for_voucher" />
 
     </ScrollView>
-    <TextView
+
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/no_ledger_heading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No Ledger found for this Client. "
-        android:layout_marginTop="350dp"
-        android:layout_marginStart="50dp"
-        android:textSize="22sp"
+        android:fontFamily="@font/nunito"
+        android:text="@string/no_ledger_found_for_this_client"
         android:textColor="@color/teal_200"
-        android:fontFamily="@font/nunito"/>
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/toolbar_layout_bill"
+        app:layout_constraintEnd_toStartOf="@+id/toolbar_layout_bill"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark_1_100"
+    tools:context="profile.addledger.editLedger.MyEditedLedgerActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/my_client_list_items_border"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/my_client_ledger_balance_heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/nunito"
+            android:text="Ledger Balance"
+            android:textAllCaps="true"
+            android:textColor="@color/colorPrimaryDark_1_400_op"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/my_client_ledger_debit_balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="@font/poppins"
+            android:gravity="right"
+            android:text="7000.00"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimaryDark_1_700_op"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/my_client_ledger_balance_heading" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/my_client_voucher_issue_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/nunito"
+            android:text="Debit Total"
+            android:textColor="@color/colorPrimaryDark_1_700_op"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/my_client_ledger_balance_heading" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textView27"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="5dp"
+            android:fontFamily="@font/poppins"
+            android:text="@string/currency_sign_indian_rupees"
+            android:textColor="@color/colorPrimaryDark_1_700_op"
+            app:layout_constraintEnd_toStartOf="@+id/my_client_ledger_debit_balance"
+            app:layout_constraintTop_toBottomOf="@+id/my_client_ledger_balance_heading" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textView28"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/nunito"
+            android:text="Credit Total"
+            android:textColor="@color/colorPrimaryDark_1_700_op"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/my_client_voucher_issue_date" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textView29"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="5dp"
+            android:fontFamily="@font/poppins"
+            android:text="@string/currency_sign_indian_rupees"
+            android:textColor="@color/colorPrimaryDark_1_700_op"
+            app:layout_constraintEnd_toStartOf="@+id/my_client_ledger_credit_balance"
+            app:layout_constraintTop_toBottomOf="@+id/my_client_voucher_issue_date" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/my_client_ledger_credit_balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="@font/poppins"
+            android:gravity="right"
+            android:text="8000.00"
+            android:textColor="@color/colorPrimaryDark_1_700_op"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/my_client_voucher_issue_date" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/my_client_closing_balance_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="18dp"
+            android:fontFamily="@font/nunito"
+            android:text="Closing Balance"
+            android:textColor="@color/colorPrimaryDark_1_700_op"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/my_client_opening_balance_text" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textView35"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="5dp"
+            android:fontFamily="@font/poppins"
+            android:text="@string/currency_sign_indian_rupees"
+            android:textColor="@color/colorPrimaryDark_1_700_op"
+            app:layout_constraintEnd_toStartOf="@+id/my_client_closing_balance"
+            app:layout_constraintTop_toBottomOf="@+id/my_client_opening_balance_text" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/my_client_closing_balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="@font/poppins"
+            android:gravity="right"
+            android:text="29000.00"
+            android:textColor="@color/colorPrimaryDark_1_700_op"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/my_client_opening_balance_text" />
+
+        <Button
+            android:id="@+id/see_voucher_list_button"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/see_voucher_button_design"
+            android:backgroundTint="@color/colorPrimaryDark_1_700_op"
+            android:fontFamily="@font/nunito_bold"
+            android:text="Go to Home page"
+            android:textSize="8sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/my_client_closing_balance_text" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/my_client_opening_balance_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="14dp"
+            android:fontFamily="@font/nunito"
+            android:text="Opening Balance"
+            android:textColor="@color/colorPrimaryDark_1_700_op"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView28" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="5dp"
+            android:fontFamily="@font/poppins"
+            android:text="@string/currency_sign_indian_rupees"
+            android:textColor="@color/colorPrimaryDark_1_700_op"
+            app:layout_constraintEnd_toStartOf="@+id/my_client_opening_balance"
+            app:layout_constraintTop_toBottomOf="@+id/textView28" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/my_client_opening_balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="@font/poppins"
+            android:text="30000.00"
+            android:textColor="@color/colorPrimaryDark_1_700_op"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView28" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/my_client_list_items_border"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/my_client_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="17dp"
+            android:fontFamily="@font/poppins"
+            android:text="Kolkata"
+            android:textColor="@color/colorPrimaryDark_1_700_op"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/my_client_country"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/my_client_pincode" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/client_info_heading_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/nunito"
+            android:text="Client Info"
+            android:textAllCaps="true"
+            android:textColor="@color/colorPrimaryDark_1_400_op"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/my_client_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/poppins"
+            android:text="282 Private Road, Dum Dum Kolkata -74"
+            android:textColor="@color/colorPrimaryDark_1_700_op"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/client_info_heading_text" />
+
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/my_client_pincode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/poppins"
+            android:text="700074"
+            android:textColor="@color/colorPrimaryDark_1_700_op"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/my_client_address" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/my_client_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="53dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/poppins"
+            android:text="West Bengal"
+            android:textColor="@color/colorPrimaryDark_1_700_op"
+            android:textStyle=""
+            app:layout_constraintStart_toEndOf="@+id/my_client_pincode"
+            app:layout_constraintTop_toBottomOf="@+id/my_client_address" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/my_client_country"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/poppins"
+            android:text="India"
+            android:textColor="@color/colorPrimaryDark_1_700_op"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/my_client_city"
+            app:layout_constraintTop_toBottomOf="@+id/my_client_state"
+            app:layout_constraintVertical_bias="1.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/heading_view_card_for_ledger"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/my_client_list_items_border">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/your_ledger_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_gravity="left"
+                android:fontFamily="@font/nunito_bold"
+                android:text="@string/your_ledger"
+                android:textColor="@color/main_page_heading_text"
+                android:textSize="18sp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/edited"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginBottom="10dp"
+                android:layout_toEndOf="@id/your_ledger_text"
+                android:fontFamily="@font/poppins_bold"
+                android:text="(Edited)"
+                android:textColor="@color/colorPrimaryDark_1_700_op"
+                android:textStyle="bold"
+                />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/ledger_date_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="20dp"
+                android:textSize="18sp"
+                android:text="19/02/1992"
+                android:textColor="@color/main_page_heading_text"
+                />
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/my_client_list_items_border"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/heading_view_card_for_ledger">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/ledger_info_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/nunito"
+            android:text="Ledger Info"
+            android:textAllCaps="true"
+            android:textColor="@color/colorPrimaryDark_1_400_op"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/ledger_number_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/poppins"
+            android:text="No. 101"
+            android:textColor="@color/colorPrimaryDark_1_700_op"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ledger_info_text" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/my_ledger_holder_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/poppins"
+            android:text="Subhajit Dey"
+            android:textColor="@color/colorPrimaryDark_1_700_op"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ledger_number_text"
+            app:layout_constraintTop_toBottomOf="@+id/ledger_info_text" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

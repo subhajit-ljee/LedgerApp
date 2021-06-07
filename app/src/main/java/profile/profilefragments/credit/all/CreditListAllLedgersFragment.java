@@ -3,16 +3,20 @@ package profile.profilefragments.credit.all;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.firebase.auth.FirebaseAuth;
 import com.sourav.ledgerproject.LedgerApplication;
 import com.sourav.ledgerproject.R;
 
@@ -56,20 +60,8 @@ public class CreditListAllLedgersFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param clientid Parameter 1.
-     * @return A new instance of fragment CreditListAllLedgersFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CreditListAllLedgersFragment newInstance(String clientid) {
-        CreditListAllLedgersFragment fragment = new CreditListAllLedgersFragment();
-        Bundle args = new Bundle();
-        args.putString(CLIENT_ID, clientid);
-        fragment.setArguments(args);
-        return fragment;
+    public static CreditListAllLedgersFragment newInstance() {
+        return new CreditListAllLedgersFragment();
     }
 
     @Override
@@ -84,13 +76,23 @@ public class CreditListAllLedgersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        AtomicReference<View> view = new AtomicReference<>(inflater.inflate(R.layout.fragment_credit_list_all_ledgers, container, false));
-        TextView client_credit_ledger_no_list_heading = view.get().findViewById(R.id.client_credit_ledger_no_list_heading);
+
+
+        View view = inflater.inflate(R.layout.fragment_credit_list_all_ledgers, container, false);
+        TextView client_credit_ledger_no_list_heading = view.findViewById(R.id.client_credit_ledger_no_list_heading);
+        String authid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         client_credit_ledger_no_list_heading.setVisibility(View.INVISIBLE);
+
+        MaterialToolbar toolbar = view.findViewById(R.id.toolbar2);
+        toolbar.setNavigationOnClickListener( v -> {
+            Navigation.findNavController(view).navigate(R.id.action_creditListAllLedgersFragment_to_creditListFragment);
+        });
+
         Log.d(TAG, "onCreateView: "+clientid);
         try {
             if(clientid != null) {
                 Ledger ledger = new Ledger();
+                ledger.setUser_id(authid);
                 ledger.setClient_id(clientid);
                 ledgerListComponent = ((LedgerApplication) requireActivity().getApplication()).getAppComponent()
                         .getLedgerListComponent().create(ledger);
@@ -112,7 +114,7 @@ public class CreditListAllLedgersFragment extends Fragment {
 
                         creditListAllLedgersAdapter = new CreditListAllLedgersAdapter(options, getActivity());
 
-                        creditlist_recycler = view.get().findViewById(R.id.ledgers_debit_list_recycler_view);
+                        creditlist_recycler = view.findViewById(R.id.ledgers_debit_list_recycler_view);
                         creditlist_recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
                         creditlist_recycler.setAdapter(creditListAllLedgersAdapter);
 
@@ -121,7 +123,22 @@ public class CreditListAllLedgersFragment extends Fragment {
             Log.e(TAG, "onCreateView: ", e);
         }
 
-        return view.get();
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+
+        view.setOnKeyListener((View v1, int keyCode, KeyEvent event) -> {
+            if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    Navigation.findNavController(view).navigate(R.id.action_creditListAllLedgersFragment_to_creditListFragment);
+                    Log.d(TAG, "onViewCreated: backpressed");
+                    return true;
+                }
+            }
+            return false;
+
+        });
+
+        return view;
     }
 
     @Override

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pdf_upload_nav"
+    app:startDestination="@id/createQrCodeFragment">
+
+    <fragment
+        android:id="@+id/createQrCodeFragment"
+        android:name="profile.profilefragments.qr.CreateQrCodeFragment"
+        android:label="CreateQrCodeFragment" >
+        <action
+            android:id="@+id/action_createQrCodeFragment_to_qrCodeScannerFragment"
+            app:destination="@id/qrCodeScannerFragment" />
+        <action
+            android:id="@+id/action_createQrCodeFragment_to_billChooseClientFragment"
+            app:destination="@id/billChooseClientFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/qrCodeScannerFragment"
+        android:name="profile.profilefragments.qrscanner.QrCodeScannerFragment"
+        android:label="fragment_qr_code_scanner"
+        tools:layout="@layout/fragment_qr_code_scanner" />
+    <fragment
+        android:id="@+id/billChooseClientFragment"
+        android:name="profile.addBillAmount.BillChooseClientFragment"
+        android:label="fragment_bill_choose_client"
+        tools:layout="@layout/fragment_bill_choose_client" >
+        <action
+            android:id="@+id/action_billChooseClientFragment_to_billChooseLedgerFragment"
+            app:destination="@id/billChooseLedgerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/billChooseLedgerFragment"
+        android:name="profile.addBillAmount.BillChooseLedgerFragment"
+        android:label="fragment_bill_choose_ledger"
+        tools:layout="@layout/fragment_bill_choose_ledger" >
+        <action
+            android:id="@+id/action_billChooseLedgerFragment_to_enterBillFragment"
+            app:destination="@id/enterBillFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/enterBillFragment"
+        android:name="profile.addBillAmount.EnterBillFragment"
+        android:label="fragment_enter_bill"
+        tools:layout="@layout/fragment_enter_bill" >
+        <action
+            android:id="@+id/action_enterBillFragment_to_billAddedSuccessFragment"
+            app:destination="@id/billAddedSuccessFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/billAddedSuccessFragment"
+        android:name="profile.addBillAmount.BillAddedSuccessFragment"
+        android:label="BillAddedSuccessFragment" >
+        <action
+            android:id="@+id/action_billAddedSuccessFragment_to_createQrCodeFragment"
+            app:destination="@id/createQrCodeFragment" />
+    </fragment>
+</navigation>

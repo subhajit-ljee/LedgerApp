@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.sourav.ledgerproject">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
-    <uses-feature android:name="android.hardware.type.watch" />
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
@@ -16,6 +14,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
     <application
         android:name=".LedgerApplication"
@@ -26,8 +25,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LedgerProject">
+
+        <activity android:name="profile.addledger.editLedger.MyEditedLedgerActivity" />
+
+        <service
+            android:name="profile.addledger.editLedger.jobintentservice.EditLedgerService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+        <service
+            android:name="profile.addBillAmount.jobintentservice.AddOutstandingBalService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+        <service
+            android:name="profile.addvoucher.FirebaseInstanceService"
+            android:enabled="true"
+            android:exported="false" />
+        <service
+            android:name="profile.addvoucher.EditVoucherService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
         <activity android:name=".BaseActivity" />
-        <activity android:name="profile.credit.CreditListAllLedgersActivity" />
 
         <service
             android:name="profile.addclient.jobintentservices.SelectAndAddClientService"
@@ -50,16 +71,7 @@
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
-        <activity android:name="profile.deletevoucher.activities.DeleteVoucherActivity" />
-        <activity
-            android:name="profile.deletevoucher.activities.VoucherForDeletingActivity"
-            android:label="Tap and Hold to Delete Voucher" />
-        <activity android:name="profile.deletevoucher.activities.ListOfLedgerForDeletingActivity" />
-        <activity android:name="profile.deletevoucher.activities.ListofClientForDeleteActivity" />
         <activity android:name="profile.upload.QRCodeAuthenticatedActivity" />
-        <activity android:name="profile.debit.all.DebitListAllLedgersActivity" />
-        <activity android:name="profile.debit.DebitListActivity" />
-        <activity android:name="profile.credit.CreditListActivity" />
 
         <service
             android:name="profile.deletevoucher.service.DeleteVoucherService"
@@ -69,8 +81,6 @@
             android:name="profile.addusers.SaveUserJobService"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE" />
-
-        <activity android:name="profile.qrscanner.QRCodeScanActivity" />
 
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"
@@ -86,10 +96,8 @@
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <activity android:name="profile.upload.PdfUploadActivity" />
-        <activity android:name="profile.qr.CreateQrCodeActivity" />
-        <activity android:name="profile.addvoucher.ShowVoucherActivity" /> <!-- <activity android:name=".profile.ledger.voucher.ApproveVoucherActivity" /> -->
         <activity android:name="profile.addledger.ListOfAllClients" />
-        <activity android:name="profile.addledger.ShowLedgerActivity" /> <!-- <activity android:name=".profile.debit.DebitListActivity" /> -->
+        <activity android:name="profile.deletevoucher.VoucherDeleteConfirmActivity" /> <!-- <activity android:name=".profile.debit.DebitListActivity" /> -->
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
@@ -100,11 +108,7 @@
         <activity
             android:name="profile.addvoucher.CreateVoucherActivity"
             android:label="@string/title_activity_create_voucher" />
-        <activity
-            android:name="profile.addledger.CreateLedgerActivity"
-            android:label="@string/title_activity_create_ledger" />
-        <activity
-            android:name="profile.addclient.SelectAndAddClientActivity" /> <!-- <activity android:name=".MainActivity" /> -->
+        <activity android:name="profile.addclient.SelectAndAddClientActivity" /> <!-- <activity android:name=".MainActivity" /> -->
         <activity android:name="profile.ProfileActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -116,12 +120,21 @@
 
         <service
             android:name="profile.addvoucher.ShowNotificationVoucher"
-            android:enabled="true"
-            android:exported="true">
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
 
         <meta-data
             android:name="com.google.android.gms.version"

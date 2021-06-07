@@ -4,6 +4,7 @@ public class Ledger {
 
     private String id;
     private String ledger_number;
+    private String user_id;
     private String client_id;
     private String account_name;
     private String account_type;
@@ -16,10 +17,11 @@ public class Ledger {
 
     public Ledger(){}
 
-    public Ledger(String id, String ledger_number, String client_id, String account_name, String account_type, String account_address, String account_country, String account_state, String account_pincode, String opening_balance, String timestamp) {
+    public Ledger(String id, String ledger_number, String client_id, String user_id, String account_name, String account_type, String account_address, String account_country, String account_state, String account_pincode, String opening_balance, String timestamp) {
         this.id = id;
         this.ledger_number = ledger_number;
         this.client_id = client_id;
+        this.user_id = user_id;
         this.account_name = account_name;
         this.account_type = account_type;
         this.account_address = account_address;
@@ -37,6 +39,8 @@ public class Ledger {
     public String getClient_id() {
         return client_id;
     }
+
+    public String getUser_id(){ return user_id; }
 
     public String getAccount_name() {
         return account_name;
@@ -82,6 +86,8 @@ public class Ledger {
         this.client_id = client_id;
     }
 
+    public void setUser_id(String user_id){ this.user_id = user_id; }
+
     public void setAccount_name(String account_name) {
         this.account_name = account_name;
     }
@@ -119,8 +125,9 @@ public class Ledger {
     public String toString() {
         return "Ledger{" +
                 "id='" + id + '\'' +
-                "ledger_number='" + ledger_number + '\'' +
-                "client_id='" + client_id + '\'' +
+                ", ledger_number='" + ledger_number + '\'' +
+                ", client_id='" + client_id + '\'' +
+                ", user_id='" + user_id + '\'' +
                 ", account_name='" + account_name + '\'' +
                 ", account_type='" + account_type + '\'' +
                 ", account_address='" + account_address + '\'' +

@@ -2,64 +2,95 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="8dp"
-    android:layout_marginTop="8dp"
-    android:layout_marginEnd="8dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:backgroundTint="@color/colorPrimaryDark_1_600">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dp">
-
-        <TextView
-            android:id="@+id/client_list_for_show_ledger_image_text_id"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:text="A"
-            android:textSize="50sp"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:background="@drawable/debit_credit_view_border"
-            android:backgroundTint="@color/green_100" />
-
-        <TextView
-            android:id="@+id/client_name_v"
-            android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:id="@+id/main_view_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_toEndOf="@id/client_list_for_show_ledger_image_text_id"
-            android:textColor="@color/black"
-            android:fontFamily="@font/nunito_bold"
-            android:textSize="20sp" />
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/my_client_list_items_border">
 
-        <TextView
-            android:id="@+id/client_email_v"
-            android:layout_width="wrap_content"
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/client_name_v"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Subhajit Dey"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:textSize="16sp"
+                android:textColor="@color/colorPrimaryDark_1_700_op" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/client_id_v"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="6dp"
+                android:text="sdey453@gmail.com"
+                android:fontFamily="@font/poppins"
+                android:textSize="14sp"
+                android:textColor="@color/colorPrimaryDark_1_500_op"
+                android:layout_below="@id/client_name_v"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/client_email_v"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/client_id_v"
+                android:layout_marginStart="15dp"
+                android:layout_marginBottom="8dp"
+                android:textSize="15sp"
+                android:textColor="@color/colorPrimaryDark_1_600_op"
+                android:textStyle="bold"
+                android:fontFamily="@font/poppins"
+                android:text="1234567890"/>
+
+
+        </RelativeLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/second_view_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/client_name_v"
-            android:layout_marginStart="20dp"
-            android:layout_toEndOf="@id/client_list_for_show_ledger_image_text_id"
-            android:fontFamily="@font/nunito"
-            android:textSize="16sp"/>
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone"
+            android:layout_below="@+id/main_view_content">
 
-        <TextView
-            android:id="@+id/client_id_v"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/client_email_v"
-            android:layout_marginStart="20dp"
-            android:layout_toEndOf="@id/client_list_for_show_ledger_image_text_id"
-            android:fontFamily="@font/nunito"
-            android:textSize="12sp"/>
+            <ImageView
+                android:id="@+id/go_to_view_ledger_list_for_delete"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="165dp"
+                android:layout_marginTop="0dp"
+                android:contentDescription="@string/see_details"
+                android:src="@drawable/ic_baseline_format_list_bulleted_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.062" />
 
-        <ImageButton
-            android:id="@+id/go_to_view_ledger_list"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:backgroundTint="@color/black"
-            android:src="@drawable/ic_baseline_view_list_24"
-            android:layout_alignParentEnd="true"/>
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/see_details_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/go_to_view_ledger_list_for_delete"
+                android:layout_marginStart="140dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/all_ledgers"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/go_to_view_ledger_list_for_delete" />
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

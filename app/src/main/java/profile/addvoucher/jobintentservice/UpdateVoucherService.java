@@ -35,6 +35,7 @@ public class UpdateVoucherService extends JobIntentService {
         String name = intent.getStringExtra("name");
         String clientid = intent.getStringExtra("client_id");
         String ledger_id = intent.getStringExtra("ledger_id");
+        Integer voucher_number = intent.getIntExtra("voucher_number",0);
         String type = intent.getStringExtra("type");
         String amount = intent.getStringExtra("amount");
         String timestamp = intent.getStringExtra("timestamp");
@@ -47,6 +48,7 @@ public class UpdateVoucherService extends JobIntentService {
         voucher.setName(name);
         voucher.setClient_id(clientid);
         voucher.setLedger_id(ledger_id);
+        voucher.setVoucher_number(voucher_number.toString());
         voucher.setType(type);
         voucher.setAmount(amount);
         voucher.setTimestamp(timestamp);

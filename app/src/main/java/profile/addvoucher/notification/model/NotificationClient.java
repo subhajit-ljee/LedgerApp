@@ -5,16 +5,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NotificationClient {
 
-    private static Retrofit retrofit = null;
+    private static Retrofit retrofit;
 
-    public static Retrofit getClient(String url){
-        if(retrofit == null){
+    public static Retrofit getApiService(String url){
+        if(retrofit == null) {
             retrofit = new Retrofit.Builder()
                     .baseUrl(url)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
-
         return retrofit;
     }
+
+
 }

@@ -7,8 +7,10 @@ public class Voucher implements Parcelable {
 
     private String id;
     private String name;
+    private String user_id;
     private String client_id;
     private String ledger_id;
+    private String voucher_number;
     private String type;
     private String amount;
     private String timestamp;
@@ -17,11 +19,13 @@ public class Voucher implements Parcelable {
 
     public Voucher(){}
 
-    public Voucher(String id, String name, String client_id, String ledger_id, String type, String amount, String timestamp, boolean added, String notifyfrom) {
+    public Voucher(String id, String name, String user_id, String client_id, String ledger_id, String voucher_number, String type, String amount, String timestamp, boolean added, String notifyfrom) {
         this.id = id;
         this.name = name;
+        this.user_id = user_id;
         this.client_id = client_id;
         this.ledger_id = ledger_id;
+        this.voucher_number = voucher_number;
         this.type = type;
         this.amount = amount;
         this.timestamp = timestamp;
@@ -32,8 +36,10 @@ public class Voucher implements Parcelable {
     protected Voucher(Parcel in) {
         id = in.readString();
         name = in.readString();
+        user_id = in.readString();
         client_id = in.readString();
         ledger_id = in.readString();
+        voucher_number = in.readString();
         type = in.readString();
         amount = in.readString();
         timestamp = in.readString();
@@ -68,6 +74,14 @@ public class Voucher implements Parcelable {
         this.name = name;
     }
 
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
+
     public String getClient_id() {
         return client_id;
     }
@@ -82,6 +96,14 @@ public class Voucher implements Parcelable {
 
     public void setLedger_id(String ledger_id) {
         this.ledger_id = ledger_id;
+    }
+
+    public String getVoucher_number() {
+        return voucher_number;
+    }
+
+    public void setVoucher_number(String voucher_number) {
+        this.voucher_number = voucher_number;
     }
 
     public String getType() {
@@ -131,6 +153,7 @@ public class Voucher implements Parcelable {
                 ", name='" + name + '\'' +
                 ", client_id='" + client_id + '\'' +
                 ", ledger_id='" + ledger_id + '\'' +
+                ", voucher_number='" + voucher_number + '\'' +
                 ", type='" + type + '\'' +
                 ", amount='" + amount + '\'' +
                 ", timestamp='" + timestamp + '\'' +
@@ -150,6 +173,7 @@ public class Voucher implements Parcelable {
         dest.writeString(name);
         dest.writeString(client_id);
         dest.writeString(ledger_id);
+        dest.writeString(voucher_number);
         dest.writeString(type);
         dest.writeString(amount);
         dest.writeString(timestamp);

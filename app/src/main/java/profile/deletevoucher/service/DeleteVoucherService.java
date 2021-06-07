@@ -37,7 +37,7 @@ public class DeleteVoucherService extends JobIntentService {
 
         String vid = intent.getStringExtra("vid");
         String clientid = intent.getStringExtra("clientid");
-        String ledger_id = intent.getStringExtra("ledger_id");
+        String ledger_id = intent.getStringExtra("ledgerid");
         String notifyfrom = intent.getStringExtra("notifyfrom");
 
         Voucher voucher = new Voucher();

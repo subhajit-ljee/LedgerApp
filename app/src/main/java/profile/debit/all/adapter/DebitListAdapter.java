@@ -1,14 +1,20 @@
 package profile.debit.all.adapter;
 
+import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -16,7 +22,6 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.sourav.ledgerproject.R;
 
 import profile.addclient.model.Client;
-import profile.debit.all.DebitListAllLedgersActivity;
 
 public class DebitListAdapter extends FirestoreRecyclerAdapter<Client,DebitListAdapter.ViewHolder> {
 
@@ -29,6 +34,7 @@ public class DebitListAdapter extends FirestoreRecyclerAdapter<Client,DebitListA
      */
 
     private static final String TAG = "DebitListAdapter";
+    private static boolean SHOW_MENU = true;
     private Context context;
 
     public DebitListAdapter(@NonNull FirestoreRecyclerOptions<Client> options, Context context) {
@@ -48,25 +54,44 @@ public class DebitListAdapter extends FirestoreRecyclerAdapter<Client,DebitListA
         holder.client_list_item_id.setText(model.getId());
         holder.client_list_item_name.setText(model.getClient_name());
         holder.client_list_item_address.setText(model.getClient_email());
-        holder.client_list_image_text_id.setText(model.getClient_name().substring(0,1).toUpperCase());
+
         holder.itemView.setOnClickListener( v -> {
+            if(SHOW_MENU) {
+                holder.second_view.setVisibility(View.VISIBLE);
+                SHOW_MENU = false;
+            }
+            else {
+                holder.second_view.setVisibility(View.GONE);
+                SHOW_MENU = true;
+            }
+            Log.d(TAG, "onBindViewHolder: SHOW_MENU: " + SHOW_MENU);
+        });
+
+        holder.go_to_view_ledger_list.setOnClickListener( v -> {
             new Handler().post( ()-> {
-                Intent intent = new Intent(context, DebitListAllLedgersActivity.class);
-                intent.putExtra("client_id",model.getId());
-                context.startActivity(intent);
+  //              Intent intent = new Intent(context, DebitListAllLedgersActivity.class);
+//                intent.putExtra("client_id",model.getId());
+//                context.startActivity(intent);
+                Bundle bundle = new Bundle();
+                bundle.putString("client_id",model.getId());
+                NavController finNavController = Navigation.findNavController( (Activity) context,R.id.pro_main_fragment);
+                finNavController.navigate(R.id.action_debitListFragment_to_debitListAllLedgersFragment, bundle);
             });
         });
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        TextView client_list_item_name, client_list_item_address, client_list_item_id, client_list_image_text_id;
+        TextView client_list_item_name, client_list_item_address, client_list_item_id;
+        ConstraintLayout second_view;
+        ImageView go_to_view_ledger_list;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             client_list_item_name = itemView.findViewById(R.id.client_list_item_name);
             client_list_item_id = itemView.findViewById(R.id.client_list_item_id);
             client_list_item_address = itemView.findViewById(R.id.client_list_item_address);
 
-            client_list_image_text_id = itemView.findViewById(R.id.client_list_image_text_id);
+            second_view = itemView.findViewById(R.id.second_view_content);
+            go_to_view_ledger_list = itemView.findViewById(R.id.go_to_view_ledger_list);
         }
     }
 }

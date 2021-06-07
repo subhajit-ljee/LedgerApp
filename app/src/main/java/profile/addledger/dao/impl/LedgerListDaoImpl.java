@@ -4,8 +4,14 @@ import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -32,9 +38,9 @@ public class LedgerListDaoImpl implements LedgerListDao {
 
         if(ledger.getClient_id() != null) {
             CollectionReference ledgerReference = db.collection("ledger");
-            String userid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            Log.d(TAG, "getLedger: ledger.getUser_id(): " + ledger.getUser_id() + ", ledger.getClient_id(): " + ledger.getClient_id());
             query = userReference
-                    .document(userid)
+                    .document(ledger.getUser_id())
                     .collection("clients")
                     .document(ledger.getClient_id())
                     .collection("ledgers").orderBy("id");
@@ -57,7 +63,7 @@ public class LedgerListDaoImpl implements LedgerListDao {
                     .collection("clients")
                     .document(ledger.getClient_id())
                     .collection("ledgers")
-                    .whereEqualTo("account_type","Debit");
+                    .whereEqualTo("account_type","Debitor");
         }else{
             Log.d(TAG, "client id null");
         }
@@ -77,11 +83,26 @@ public class LedgerListDaoImpl implements LedgerListDao {
                     .collection("clients")
                     .document(ledger.getClient_id())
                     .collection("ledgers")
-                    .whereEqualTo("account_type", "Credit");
+                    .whereEqualTo("account_type", "Creditor");
         }else{
             Log.d(TAG, "client id null");
         }
         return query;
+    }
+
+    @Override
+    public Query getRecentLedgers(){
+        String userid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+
+
+        long DAY_IN_MS = 1000 * 60 * 60 * 24;
+        
+        return userReference.document(userid)
+                .collection("clients")
+                .document(ledger.getClient_id())
+                .collection("ledgers")
+                .orderBy("id");
+
     }
 
 }

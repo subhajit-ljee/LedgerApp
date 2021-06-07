@@ -23,11 +23,11 @@ public class BillFileUtils {
     private static Uri contentUri = null;
 
     public static String getPath(final Context context,final Uri uri){
-        final boolean isKitkat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+        final boolean isKitkat = true;
         String selection = null;
         String[] selectionArgs = null;
 
-        if(isKitkat && DocumentsContract.isDocumentUri(context,uri)){
+        if(DocumentsContract.isDocumentUri(context, uri)){
             if(isExternalStorageDocument(uri)){
                 final String docId = DocumentsContract.getDocumentId(uri);
                 final String[] split = docId.split(":");

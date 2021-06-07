@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.JobIntentService;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.sourav.ledgerproject.LedgerApplication;
 
@@ -37,17 +38,15 @@ public class SelectAndAddClientService extends JobIntentService {
         Log.d(TAG, "onHandleWork: clientid: " + client_id);
         Client client = new Client();
         client.setId(client_id);
-
+        Log.d(TAG, "onHandleWork: client");
         clientComponent = ((LedgerApplication)getApplication()).getAppComponent()
-                .getClientComponentFactory().create(client);
+                .getClientComponentFactory().create(client, this);
 
         clientComponent.inject(this);
 
         String error = clientRepository.saveClient();
         Log.d(TAG, "run: error: " + error);
-        if(!error.isEmpty()){
-            Log.d(TAG, "onHandleWork: error: "+error);
-        }
+
     }
 
     @Override

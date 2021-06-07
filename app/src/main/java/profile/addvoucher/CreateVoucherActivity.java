@@ -43,11 +43,15 @@ public class CreateVoucherActivity extends AppCompatActivity {
         String vid = null;
 
         String ledgerid = getIntent().getStringExtra("ledgerid");
-        if(getIntent().getStringExtra("vid") != null){
+        if(getIntent().getStringExtra("vid") != null) {
             vid = getIntent().getStringExtra("vid");
         }
+
         String clientid = getIntent().getStringExtra("clientid");
         String ledgername = getIntent().getStringExtra("ledgername");
+
+        Log.d(TAG, "onCreate: ledgername: " + ledgername);
+
         String opening_balance = getIntent().getStringExtra("opening_balance");
         String account_type = getIntent().getStringExtra("account_type");
         String notifyfrom = getIntent().getStringExtra("notifyfrom");

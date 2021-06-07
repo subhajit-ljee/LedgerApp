@@ -1,8 +1,7 @@
 package profile.addledger;
 
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,24 +11,30 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.sourav.ledgerproject.BaseActivity;
 import com.sourav.ledgerproject.R;
 
+import profile.ProfileActivity;
 import profile.addclient.SelectAndAddClientActivity;
-import profile.deletevoucher.activities.ListofClientForDeleteActivity;
-import profile.profilefragments.voucher.ClientListForVoucherFragment;
 import profile.upload.PdfUploadActivity;
 
 public class ListOfAllClients extends BaseActivity {
 
     private static final String TAG = "ListOfAllClients";
     private BottomNavigationView bottomNavigationView;
+    private int menuid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.d(TAG,"Inside ProfileActivity onCreate()");
+        Log.d(TAG,"Inside ListOfAllClients onCreate()");
         bottomNavigationView = findViewById(R.id.profile_menu_nav_view);
         setUpBottomNavigation(bottomNavigationView);
 
+    }
+
+
+    @Override
+    protected int getResourceLayoutId() {
+        return R.layout.activity_list_of_all_clients;
     }
 
     @Override
@@ -41,14 +46,14 @@ public class ListOfAllClients extends BaseActivity {
         });
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
-    protected int getResourceLayoutId() {
-        return R.layout.activity_list_of_all_clients;
-    }
-
-    private void selectDrawerItem(MenuItem item) {
+    protected void selectDrawerItem(MenuItem item) {
 
         switch (item.getItemId()){
+            case R.id.home:
+                startActivity(new Intent(this, ProfileActivity.class));
+                break;
             case R.id.addnewledger:
                 makeLedger();
                 Log.d(TAG, "selectDrawerItem: "+ R.id.addnewledger);
@@ -57,26 +62,16 @@ public class ListOfAllClients extends BaseActivity {
                 makeVoucher();
                 Log.d(TAG, "selectDrawerItem: "+ R.id.addnewvoucher);
                 break;
-            case R.id.deletevoucher:
-                deleteVoucher();
-                Log.d(TAG, "selectDrawerItem: "+ R.id.deletevoucher);
-                break;
-            case R.id.showledger:
-                showLedgerWithVoucher();
-                Log.d(TAG, "selectDrawerItem: "+ R.id.showledger);
-                break;
             case R.id.uploadbill:
                 uploadBill();
                 break;
         }
 
+        menuid = item.getItemId();
+
         item.setChecked(true);
     }
 
-    @Override
-    protected void showLedgerWithVoucher() {
-        startActivity(new Intent(this, ListOfAllClients.class));
-    }
 
     @Override
     protected void makeVoucher() {
@@ -94,8 +89,12 @@ public class ListOfAllClients extends BaseActivity {
     }
 
     @Override
-    protected void deleteVoucher(){
-        startActivity(new Intent(this, ListofClientForDeleteActivity.class));
+    protected void onStart() {
+        super.onStart();
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
 }

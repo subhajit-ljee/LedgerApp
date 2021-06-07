@@ -14,14 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.sourav.ledgerproject.LedgerApplication;
 import com.sourav.ledgerproject.R;
 
 import javax.inject.Inject;
 
-import profile.addclient.adapter.ClientAdapter;
 import profile.addclient.dependency.ClientlistComponent;
 import profile.addclient.model.Client;
 import profile.addclient.repository.ClientListRepository;
@@ -69,6 +67,10 @@ public class ClientListForVoucherFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        MaterialToolbar toolbar = view.findViewById(R.id.toolbar2);
+        toolbar.setNavigationOnClickListener( v -> requireActivity().onBackPressed());
+
         clientlistComponent = ((LedgerApplication)getActivity().getApplication()).getAppComponent()
                 .getClientListComponentFactory().create();
         clientlistComponent.inject(this);
@@ -79,15 +81,13 @@ public class ClientListForVoucherFragment extends Fragment {
                         .setQuery(clientListRepository.getQuery(), Client.class)
                         .build();
 
-                if(getArguments() != null) {
+                clientRecyclerView = view.findViewById(R.id.client_list_for_voucher_fragment_recycler);
+                clientAdapterForVoucher = new ClientAdapterForVoucher(options, getActivity());
+                Log.d(TAG, "onCreateView: clientAdapterForVoucher: " + clientAdapterForVoucher);
+                clientRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                clientRecyclerView.setAdapter(clientAdapterForVoucher);
+                Log.d(TAG, "onCreateView: query is not null ");
 
-                    clientRecyclerView = view.findViewById(R.id.client_list_for_voucher_fragment_recycler);
-                    clientAdapterForVoucher = new ClientAdapterForVoucher(options, getActivity());
-                    Log.d(TAG, "onCreateView: clientAdapterForVoucher: " + clientAdapterForVoucher);
-                    clientRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                    clientRecyclerView.setAdapter(clientAdapterForVoucher);
-                    Log.d(TAG, "onCreateView: query is not null ");
-                }
 
             } else {
                 Log.d(TAG, "query is null");

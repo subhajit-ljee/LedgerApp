@@ -28,4 +28,6 @@ public class LedgerListRepository {
         return ledgerListDao.getCreditLedger();
     }
 
+    public Query getRecentLedgers() { return ledgerListDao.getRecentLedgers(); }
+
 }

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/colorPrimaryDark_1_600"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:id="@+id/main_view_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/my_client_list_items_border">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/client_name_b"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Subhajit Dey"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:textSize="16sp"
+                android:textColor="@color/colorPrimaryDark_1_700_op" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/client_id_b"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="6dp"
+                android:text="sdey453@gmail.com"
+                android:fontFamily="@font/poppins"
+                android:textSize="14sp"
+                android:textColor="@color/colorPrimaryDark_1_500_op"
+                android:layout_below="@id/client_name_b"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/client_email_b"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/client_id_b"
+                android:layout_marginStart="15dp"
+                android:layout_marginBottom="8dp"
+                android:textSize="15sp"
+                android:textColor="@color/colorPrimaryDark_1_600_op"
+                android:textStyle="bold"
+                android:fontFamily="@font/poppins"
+                android:text="1234567890"/>
+
+
+        </RelativeLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/second_view_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone"
+            android:layout_below="@+id/main_view_content">
+
+            <ImageView
+                android:id="@+id/go_for_bill_entry"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="320dp"
+                android:contentDescription="@string/see_details"
+                android:src="@drawable/ic_baseline_format_list_bulleted_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/see_details_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="295dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/all_ledgers"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/go_for_bill_entry" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>

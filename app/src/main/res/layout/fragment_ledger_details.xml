@@ -1,0 +1,461 @@
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/recentledgerswiperefresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="profile.addledger.LedgerDetailsFragment">
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            android:id="@+id/load_ledger_page"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollView4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/main_content"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="50dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/header_content">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/general_info_heading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="32dp"
+                        android:fontFamily="@font/nunito_bold"
+                        android:text="General"
+                        android:textColor="@color/black_500"
+                        android:textSize="22sp"
+                        app:layout_constraintBottom_toTopOf="@+id/textView22"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/textView22"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/nunito"
+                        android:text="Name"
+                        android:textColor="@color/colorPrimaryDark_1_500"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toTopOf="@+id/textView26"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/general_info_heading" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/show_ledger_holder_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/nunito"
+                        android:text="Subhajit Dey"
+                        android:textColor="@color/colorPrimaryDark_1_500"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toTopOf="@+id/show_ledger_email"
+                        app:layout_constraintStart_toStartOf="@+id/guideline12"
+                        app:layout_constraintTop_toBottomOf="@+id/general_info_heading" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/show_ledger_email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/nunito"
+                        android:text="sdey453@gmail.com"
+                        android:textColor="@color/colorPrimaryDark_1_500"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toTopOf="@+id/show_user_id"
+                        app:layout_constraintStart_toStartOf="@+id/guideline12"
+                        app:layout_constraintTop_toBottomOf="@+id/show_ledger_holder_name" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_begin="142dp" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/textView26"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/nunito"
+                        android:text="Email"
+                        android:textColor="@color/colorPrimaryDark_1_500"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toTopOf="@+id/textView30"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/textView30"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/nunito"
+                        android:text="User ID"
+                        android:textColor="@color/colorPrimaryDark_1_500"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView26" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/show_user_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/nunito"
+                        android:text="TextView"
+                        android:textColor="@color/colorPrimaryDark_1_500"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toTopOf="@+id/show_ledger_address"
+                        app:layout_constraintStart_toStartOf="@+id/guideline12"
+                        app:layout_constraintTop_toBottomOf="@+id/show_ledger_email" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/textView33"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/nunito_bold"
+                        android:text="Account "
+                        android:textColor="@color/black_500"
+                        android:textSize="22sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView40" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/textView34"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/nunito"
+                        android:text="Ledger Type"
+                        android:textColor="@color/colorPrimaryDark_1_500"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView33" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/textView36"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="32dp"
+                        android:fontFamily="@font/nunito"
+                        android:text="Pincode"
+                        android:textColor="@color/colorPrimaryDark_1_500"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toTopOf="@+id/textView38"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView42" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/show_ledger_pincode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/nunito"
+                        android:text="700074"
+                        android:textColor="@color/colorPrimaryDark_1_500"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toTopOf="@+id/show_ledgere_state"
+                        app:layout_constraintStart_toStartOf="@+id/guideline12"
+                        app:layout_constraintTop_toBottomOf="@+id/show_ledger_address" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/textView38"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/nunito"
+                        android:text="State"
+                        android:textColor="@color/colorPrimaryDark_1_500"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toTopOf="@+id/textView40"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView36" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/show_ledgere_state"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/nunito"
+                        android:text="West Bengal"
+                        android:textColor="@color/colorPrimaryDark_1_500"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toTopOf="@+id/show_ledger_country"
+                        app:layout_constraintStart_toStartOf="@+id/guideline12"
+                        app:layout_constraintTop_toBottomOf="@+id/show_ledger_pincode" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/textView40"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/nunito"
+                        android:text="Country"
+                        android:textColor="@color/colorPrimaryDark_1_500"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toTopOf="@+id/textView33"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView38" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/show_ledger_country"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/nunito"
+                        android:text="India"
+                        android:textColor="@color/colorPrimaryDark_1_500"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="@+id/guideline12"
+                        app:layout_constraintTop_toBottomOf="@+id/show_ledgere_state" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/textView42"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/nunito"
+                        android:text="Address"
+                        android:textColor="@color/colorPrimaryDark_1_500"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toTopOf="@+id/textView36"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView30" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/show_ledger_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/nunito"
+                        android:text="282 Private Road Dum Dum \nKolkata - 74"
+                        android:textColor="@color/colorPrimaryDark_1_500"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toTopOf="@+id/show_ledger_pincode"
+                        app:layout_constraintStart_toStartOf="@+id/guideline12"
+                        app:layout_constraintTop_toBottomOf="@+id/show_user_id" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/show_ledger_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/nunito"
+                        android:text="Creditor"
+                        android:textColor="@color/colorPrimaryDark_1_500"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="@+id/guideline12"
+                        app:layout_constraintTop_toBottomOf="@+id/textView33" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/textView47"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/nunito"
+                        android:text="Created On"
+                        android:textColor="@color/colorPrimaryDark_1_500"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView34" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/show_ledger_creation_date_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/nunito"
+                        android:text="19/02/1992"
+                        android:textColor="@color/colorPrimaryDark_1_500"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="@+id/guideline12"
+                        app:layout_constraintTop_toBottomOf="@+id/show_ledger_type" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/textView49"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/nunito"
+                        android:text="Last Updated"
+                        android:textColor="@color/colorPrimaryDark_1_500"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView47" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/show_ledger_updated_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="55dp"
+                        android:fontFamily="@font/nunito"
+                        android:text="19/02/1992"
+                        android:textColor="@color/colorPrimaryDark_1_500"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/guideline12"
+                        app:layout_constraintTop_toBottomOf="@+id/show_ledger_creation_date_2" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/header_content"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0">
+
+                    <ImageView
+                        android:id="@+id/imageView5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/debit_image_crop"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/header_content_layer"
+                        android:layout_width="match_parent"
+                        android:layout_height="240dp"
+                        android:background="@drawable/ledger_info_page_header_design"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/textView15"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="32dp"
+                            android:fontFamily="@font/poppins_bold"
+                            android:text="Ledger Holder Info"
+                            android:textColor="@color/black_200"
+                            android:textSize="24sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/textView51"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="32dp"
+                            android:fontFamily="@font/nunito_bold"
+                            android:text="Balance"
+                            android:textColor="@color/black_180"
+                            android:textSize="20sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/textView52"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="32dp"
+                            android:fontFamily="@font/nunito_bold"
+                            android:text="@string/currency_sign_indian_rupees"
+                            android:textColor="@color/black_180"
+                            android:textSize="20sp"
+                            app:layout_constraintStart_toEndOf="@+id/textView51"
+                            app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/show_legder_balance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginTop="32dp"
+                            android:fontFamily="@font/nunito_bold"
+                            android:text="50000"
+                            android:textColor="@color/black_180"
+                            android:textSize="20sp"
+                            app:layout_constraintStart_toEndOf="@+id/textView52"
+                            app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/textView54"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/nunito_bold"
+                            android:text="Creation Date"
+                            android:textColor="@color/black_180"
+                            android:textSize="20sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView51" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/show_ledger_creation_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/nunito_bold"
+                            android:text="19/02/1992"
+                            android:textColor="@color/black_180"
+                            android:textSize="20sp"
+                            app:layout_constraintStart_toEndOf="@+id/textView54"
+                            app:layout_constraintTop_toBottomOf="@+id/show_legder_balance" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

@@ -6,4 +6,5 @@ public interface LedgerListDao {
     Query getLedger();
     Query getDebitLedger();
     Query getCreditLedger();
+    Query getRecentLedgers();
 }

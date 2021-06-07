@@ -5,6 +5,12 @@
 
     <group android:checkableBehavior="single">
 
+        <item android:id="@+id/home"
+            android:title="@string/title_activity_profile"
+            app:showAsAction="ifRoom"
+            android:icon="@drawable/ic_baseline_home_24"
+            />
+
         <item android:id="@+id/addnewledger"
             android:title="@string/profile_menu_content"
             app:showAsAction="ifRoom"
@@ -15,18 +21,6 @@
             android:title="@string/profile_voucher_content"
             app:showAsAction="ifRoom"
             android:icon="@drawable/voucher_icon"
-            />
-
-        <item android:id="@+id/showledger"
-            android:title="@string/show_ledger"
-            app:showAsAction="ifRoom"
-            android:icon="@drawable/ledger"
-            />
-
-        <item android:id="@+id/deletevoucher"
-            android:title="@string/delete_voucher"
-            app:showAsAction="ifRoom"
-            android:icon="@drawable/delete_voucher"
             />
 
         <item android:id="@+id/uploadbill"

@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">LedgerApp</string>
 
+    <string name="web_client_id">396238793131-f2heche0mer90mq506m0l4joaflqfj9f.apps.googleusercontent.com</string>
+
     <string name="title_activity_splash">SplashActivity</string>
     <string name="home_page_search_text">Search..</string>
     <string name="title_activity_register">RegisterActivity</string>
@@ -8,17 +10,17 @@
     <string name="type_of_account">Choose Your Profile Type</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="debit_background">Debit</string>
-    <string name="credit_background">Credit</string>
+    <string name="debit_background">Debitor</string>
+    <string name="credit_background">Creditor</string>
     <string name="title_activity_debit">DebitActivity</string>
-    <string name="profile_menu_content">New Ledger</string>
-    <string name="profile_voucher_content">New Voucher</string>
+    <string name="title_activity_profile">Home</string>
+    <string name="profile_menu_content">Ledgers</string>
+    <string name="profile_voucher_content">Vouchers</string>
     <string name="show_ledger">Show Voucher with Ledger</string>
     <string name="show_voucher_of_ledger">Show Voucher</string>
     <string name="create_voucher_of_ledger">Create Voucher</string>
     <string name="delete_voucher_title_toolbar">Tap and Hold to Delete a Voucher</string>
     <string name="print_ledger">Print Ledger</string>
-    <string name="delete_voucher">Delete Voucher</string>
     <string name="upload_bill">Upload Bill</string>
     <string name="add_new_client_button_text">Add New Client</string>
     <string name="client_card_demo_id">102000122345</string>
@@ -66,4 +68,30 @@
     <string name="hello_world">Hello Square World!</string>
     <string name="home_page_heading_content">LedgerApp! INDIA\'s 1 Ledger based App</string>
     <string name="mandatory">(Required)</string>
+    <string name="see_details">See Details</string>
+    <string name="all_ledgers">All Ledgers</string>
+    <string name="edit">Edit</string>
+    <string name="details">Details</string>
+    <string name="delete">Delete</string>
+    <string name="your_ledger">Your Ledger</string>
+    <string name="todo">TODO</string>
+    <string name="make_voucher">Make Voucher</string>
+    <string name="show_vouchers">Show Vouchers</string>
+    <string name="voucher_type">Voucher Type</string>
+    <string name="amount">Amount</string>
+    <string name="create_voucher">Create Voucher</string>
+    <string name="save_voucher">Save Voucher</string>
+    <string name="print_ledger_voucher">Print Ledger Voucher</string>
+    <string name="ledger_info">Ledger Info</string>
+    <string name="receipt">Receipt</string>
+    <string name="add_bill_amount">Add Bill Amount</string>
+    <string name="debit">debit</string>
+    <string name="ledger_no">Ledger No.</string>
+
+    <string name="bill_amount_entry_description_text">Enter Your Bill Amount to Adjust your Outstanding ledger with specific client</string>
+    <string name="no_ledger_found_for_this_client">No Ledger found for this Client.</string>
+    <string name="delete_voucher">Delete Voucher</string>
+    <string name="choose_bill_document_pdf">Choose Bill Document (.pdf)</string>
+    <string name="edit_ledger">Edit Ledger</string>
+    <string name="upload_bil_button_text">Upload Bill to print qr code</string>
 </resources>

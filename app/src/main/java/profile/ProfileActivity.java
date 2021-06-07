@@ -1,8 +1,6 @@
 package profile;
 
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -12,23 +10,28 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.sourav.ledgerproject.BaseActivity;
 import com.sourav.ledgerproject.MainActivity;
 import com.sourav.ledgerproject.R;
 
+import java.util.Objects;
+
 import profile.addclient.SelectAndAddClientActivity;
 import profile.addledger.ListOfAllClients;
-import profile.deletevoucher.activities.ListofClientForDeleteActivity;
-import profile.profilefragments.ProfileFragment;
 import profile.upload.PdfUploadActivity;
 
 public class ProfileActivity extends BaseActivity {
     private static final String LEDGERNUMBERPREF = "ledgernumberpref";
+    private static final String VOUCHERNUMBERPREF = "vouchernumberpref";
     private static final String TAG = "ProfileActivity";
     private BottomNavigationView bottomNavigationView;
     private SharedPreferences lnopref;
+    private SharedPreferences vnopref;
     private SharedPreferences.Editor editor;
     FirebaseAuth mAuth;
 
@@ -51,14 +54,26 @@ public class ProfileActivity extends BaseActivity {
             editor.apply();
         }
 
+        vnopref = getSharedPreferences(VOUCHERNUMBERPREF, Context.MODE_PRIVATE);
+        if(vnopref.getInt("vno",0) >= 0) {
+
+            editor = vnopref.edit();
+            int vnop = vnopref.getInt("vno",-1);
+            vnop++;
+            editor.putInt("vno", vnop);
+            editor.apply();
+        }
+
 
         setUpBottomNavigation(bottomNavigationView);
     }
+
 
     @Override
     protected void setUpBottomNavigation(BottomNavigationView bottomNavigationView) {
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             Log.d(TAG, "setUpBottomNavigation: ");
+            item.setChecked(true);
             selectDrawerItem(item);
             return true;
         });
@@ -69,9 +84,14 @@ public class ProfileActivity extends BaseActivity {
         return R.layout.activity_profile;
     }
 
-    private void selectDrawerItem(MenuItem item) {
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    protected void selectDrawerItem(MenuItem item) {
 
         switch (item.getItemId()){
+            case R.id.home:
+                startActivity(new Intent(this,ProfileActivity.class));
+                break;
             case R.id.addnewledger:
                 makeLedger();
                 Log.d(TAG, "selectDrawerItem: "+ R.id.addnewledger);
@@ -80,25 +100,11 @@ public class ProfileActivity extends BaseActivity {
                 makeVoucher();
                 Log.d(TAG, "selectDrawerItem: "+ R.id.addnewvoucher);
                 break;
-            case R.id.deletevoucher:
-                deleteVoucher();
-                Log.d(TAG, "selectDrawerItem: "+ R.id.deletevoucher);
-                break;
-            case R.id.showledger:
-                showLedgerWithVoucher();
-                Log.d(TAG, "selectDrawerItem: "+ R.id.showledger);
-                break;
             case R.id.uploadbill:
                 uploadBill();
                 break;
         }
-
-        item.setChecked(true);
-    }
-
-    @Override
-    protected void showLedgerWithVoucher() {
-        startActivity(new Intent(this, ListOfAllClients.class));
+        
     }
 
     @Override
@@ -117,27 +123,36 @@ public class ProfileActivity extends BaseActivity {
     }
 
     @Override
-    protected void deleteVoucher(){
-        startActivity(new Intent(this, ListofClientForDeleteActivity.class));
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
-
-        //if the user is not logged in
-        //opening the login activity
-
-        if (mAuth.getCurrentUser() == null) {
-            Log.d(TAG, "onStart: mAuth user: " + mAuth.getCurrentUser().getUid());
-            new Handler().post( () -> startActivity(new Intent(this, MainActivity.class)));
-        }
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+    }
 
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+
+        Log.d(TAG, "onBackPressed: getClass().getSuperclass().toString(): " + getClass().getSuperclass().toString());
+        if(Objects.equals(TAG,"ProfileActivity")){
+            Log.d(TAG, "onBackPressed: yes");
+            Log.d(TAG, "onBackPressed: TAG: " + TAG);
+            if(mAuth.getCurrentUser() != null) {
+                new MaterialAlertDialogBuilder(this)
+                        .setMessage("Want to Exit LedgerApp")
+                        .setPositiveButton("yes", (dialog, which) -> finishAffinity())
+                        .setNegativeButton("no", null)
+                        .create()
+                        .show();
+            }
+        }
     }
 }

@@ -9,7 +9,7 @@
     android:theme="@style/Theme.AppCompat"
     >
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/pro_main_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
@@ -25,9 +25,12 @@
         android:id="@+id/profile_menu_nav_view"
         android:layout_width="match_parent"
         android:layout_height="75dp"
+        style="@style/Theme.LedgerProject.BottomNavigationView"
         app:layout_constraintBottom_toBottomOf="@id/pro_main_fragment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/profile_page_menu"/>
+        app:menu="@menu/profile_page_menu"
+        app:itemTextColor="@color/fine_white_100"
+        app:itemIconTint="@color/fine_white_100"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

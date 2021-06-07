@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="billpage_toolbar_background">
+        <item name="android:background">@color/fine_white_100</item>
+    </style>
+    <style name="bottomNavigationView_inactive">
+        <item name="colorPrimary">@color/fine_white_100</item>
+    </style>
+</resources>

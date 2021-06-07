@@ -4,8 +4,12 @@
     <color name="teal_300">#5184AC</color>
     <color name="teal_700">#FF018786</color>
     <color name="green_100">#4CAF50</color>
+    <color name="green_200">#CD00A343</color>
+    <color name="red_200">#D51414</color>
     <color name="black">#FF000000</color>
+    <color name="black_500">#1C1C1C</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="fine_white_100">#FFFFFF</color>
     <color name="main_page_heading_text">#1E1D1D</color>
     <color name="black_200">#DCDBDB</color>
     <color name="black_180">#F1F1F1</color>
@@ -19,6 +23,11 @@
     <color name="colorPrimaryDark_1_500">#3843A3</color>
     <color name="colorPrimaryDark_1_600">#29348F</color>
     <color name="colorPrimaryDark_1_700">#1D2880</color>
+    <color name="colorPrimaryDark_1_300_op">#E9727EEA</color>
+    <color name="colorPrimaryDark_1_400_op">#F04C57B6</color>
+    <color name="colorPrimaryDark_1_500_op">#EB3843A3</color>
+    <color name="colorPrimaryDark_1_600_op">#ED29348F</color>
+    <color name="colorPrimaryDark_1_700_op">#E91D2880</color>
     <color name="colorPrimaryLight">#8DCAF6</color>
     <color name="colorAccent">#D81B60</color>
     <color name="searchEditColor">#FFFCF7F9</color>
@@ -28,5 +37,7 @@
     <color name="textColorCategoryFriendsLight">#7A7676</color>
     <color name="backgroundColorRegisration">#0A0A6B</color>
     <color name="accountButtonColor">#40BFF8</color>
+    <color name="creditorColor">#D50000</color>
+    <color name="debiitorColor">#0D6E07</color>
 
 </resources>

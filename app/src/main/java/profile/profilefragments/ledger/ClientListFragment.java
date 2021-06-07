@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.sourav.ledgerproject.LedgerApplication;
 import com.sourav.ledgerproject.R;
@@ -65,11 +66,7 @@ public class ClientListFragment extends Fragment {
     private ClientAdapter clientAdapter;
 
     public static ClientListFragment newInstance(String activityName) {
-        ClientListFragment fragment = new ClientListFragment();
-        Bundle args = new Bundle();
-        //args.putString(ACTIVITY_NAME, activityName);
-        fragment.setArguments(args);
-        return fragment;
+        return new ClientListFragment();
     }
 
     @Override
@@ -81,10 +78,16 @@ public class ClientListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        MaterialToolbar toolbar = view.findViewById(R.id.toolbar2);
+        toolbar.setNavigationOnClickListener( v -> {
+            requireActivity().onBackPressed();
+        });
+
         TextView t = view.findViewById(R.id.no_client_heading);
         t.setVisibility(View.INVISIBLE);
 
-        clientlistComponent = ((LedgerApplication)getActivity().getApplication()).getAppComponent()
+        clientlistComponent = ((LedgerApplication)requireActivity().getApplication()).getAppComponent()
                 .getClientListComponentFactory().create();
         clientlistComponent.inject(this);
 

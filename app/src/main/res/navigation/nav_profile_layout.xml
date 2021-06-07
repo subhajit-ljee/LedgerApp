@@ -6,6 +6,15 @@
     app:startDestination="@id/profileFragment">
 
     <fragment
+        android:id="@+id/voucherListFragment3"
+        android:name="profile.profilefragments.voucher.VoucherListFragment"
+        android:label="fragment_voucher_list"
+        tools:layout="@layout/fragment_voucher_list" >
+        <action
+            android:id="@+id/action_voucherListFragment3_to_debitListAllLedgersFragment"
+            app:destination="@id/debitListAllLedgersFragment" />
+    </fragment>
+    <fragment
         android:id="@+id/profileFragment"
         android:name="profile.profilefragments.ProfileFragment"
         android:label="ProfileFragment" >
@@ -15,15 +24,110 @@
         <action
             android:id="@+id/action_profileFragment_to_creditListFragment"
             app:destination="@id/creditListFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_myLedgerMainFragment"
+            app:destination="@id/myLedgerMainFragment" />
     </fragment>
     <fragment
         android:id="@+id/debitListFragment"
         android:name="profile.profilefragments.debit.DebitListFragment"
         android:label="fragment_debit_list"
-        tools:layout="@layout/fragment_debit_list" />
+        tools:layout="@layout/fragment_debit_list" >
+        <action
+            android:id="@+id/action_debitListFragment_to_debitListAllLedgersFragment"
+            app:destination="@id/debitListAllLedgersFragment" />
+        <action
+            android:id="@+id/action_debitListFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
     <fragment
         android:id="@+id/creditListFragment"
         android:name="profile.profilefragments.credit.CreditListFragment"
         android:label="fragment_credit_list"
-        tools:layout="@layout/fragment_credit_list" />
+        tools:layout="@layout/fragment_credit_list" >
+        <action
+            android:id="@+id/action_creditListFragment_to_creditListAllLedgersFragment"
+            app:destination="@id/creditListAllLedgersFragment" />
+        <action
+            android:id="@+id/action_creditListFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myLedgerMainFragment"
+        android:name="profile.myclient.MyLedgerMainFragment"
+        android:label="fragment_my_ledger_main"
+        tools:layout="@layout/fragment_my_ledger_main" >
+        <action
+            android:id="@+id/action_myLedgerMainFragment_to_myLedgerListFragment"
+            app:destination="@id/myLedgerListFragment" />
+        <action
+            android:id="@+id/action_myLedgerMainFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myLedgerFragment"
+        android:name="profile.profilefragments.myclient.MyLedgerFragment"
+        android:label="fragment_my_ledger"
+        tools:layout="@layout/fragment_my_ledger" >
+        <action
+            android:id="@+id/action_myLedgerFragment_to_myVoucherListFragment"
+            app:destination="@id/myVoucherListFragment" />
+        <action
+            android:id="@+id/action_myLedgerFragment_to_myLedgerListFragment"
+            app:destination="@id/myLedgerListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myLedgerListFragment"
+        android:name="profile.profilefragments.myclient.MyLedgerListFragment"
+        android:label="fragment_my_ledger_list"
+        tools:layout="@layout/fragment_my_ledger_list" >
+        <action
+            android:id="@+id/action_myLedgerListFragment_to_myLedgerFragment"
+            app:destination="@id/myLedgerFragment" />
+        <action
+            android:id="@+id/action_myLedgerListFragment_to_myLedgerMainFragment"
+            app:destination="@id/myLedgerMainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myVoucherListFragment"
+        android:name="profile.myclient.MyVoucherListFragment"
+        android:label="fragment_my_voucher_list"
+        tools:layout="@layout/fragment_my_voucher_list" >
+        <action
+            android:id="@+id/action_myVoucherListFragment_to_myLedgerFragment"
+            app:destination="@id/myLedgerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/creditListAllLedgersFragment"
+        android:name="profile.profilefragments.credit.all.CreditListAllLedgersFragment"
+        android:label="fragment_credit_list_all_ledgers"
+        tools:layout="@layout/fragment_credit_list_all_ledgers" >
+        <action
+            android:id="@+id/action_creditListAllLedgersFragment_to_voucherListFragment2"
+            app:destination="@id/voucherListFragment2" />
+        <action
+            android:id="@+id/action_creditListAllLedgersFragment_to_creditListFragment"
+            app:destination="@id/creditListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/debitListAllLedgersFragment"
+        android:name="profile.profilefragments.debit.all.DebitListAllLedgersFragment"
+        android:label="fragment_debit_list_all_ledgers"
+        tools:layout="@layout/fragment_debit_list_all_ledgers" >
+        <action
+            android:id="@+id/action_debitListAllLedgersFragment_to_voucherListFragment3"
+            app:destination="@id/voucherListFragment3" />
+        <action
+            android:id="@+id/action_debitListAllLedgersFragment_to_debitListFragment"
+            app:destination="@id/debitListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/voucherListFragment2"
+        android:name="profile.profilefragments.voucher.VoucherListFragment"
+        android:label="fragment_voucher_list"
+        tools:layout="@layout/fragment_voucher_list" >
+        <action
+            android:id="@+id/action_voucherListFragment2_to_creditListAllLedgersFragment"
+            app:destination="@id/creditListAllLedgersFragment" />
+    </fragment>
 </navigation>

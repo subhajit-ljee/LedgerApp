@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.sourav.ledgerproject.LedgerApplication;
 import com.sourav.ledgerproject.R;
 
@@ -43,8 +44,8 @@ public class VoucherListForDeleteFragment extends Fragment {
     @Inject
     VoucherListRepository voucherListRepository;
 
-    private static final String CLIENT_ID = "client_id";
-    private static final String LEDGER_ID = "ledger_id";
+    private static final String CLIENT_ID = "clientid";
+    private static final String LEDGER_ID = "ledgerid";
 
     // TODO: Rename and change types of parameters
     private String client_id;
@@ -54,22 +55,8 @@ public class VoucherListForDeleteFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param client_id Parameter 1.
-     * @param ledger_id Parameter 2.
-     * @return A new instance of fragment VoucherListForDeleteFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static VoucherListForDeleteFragment newInstance(String client_id, String ledger_id) {
-        VoucherListForDeleteFragment fragment = new VoucherListForDeleteFragment();
-        Bundle args = new Bundle();
-        args.putString(CLIENT_ID, client_id);
-        args.putString(LEDGER_ID, ledger_id);
-        fragment.setArguments(args);
-        return fragment;
+    public static VoucherListForDeleteFragment newInstance() {
+        return new VoucherListForDeleteFragment();
     }
 
     @Override
@@ -94,7 +81,9 @@ public class VoucherListForDeleteFragment extends Fragment {
         if(!(client_id == null && ledger_id == null)){
             try{
                 Log.d(TAG, "onCreateView: client_id: " + client_id + " ,ledger_id: " + ledger_id);
+                String userid = FirebaseAuth.getInstance().getCurrentUser().getUid();
                 Ledger ledger = new Ledger();
+                ledger.setUser_id(userid);
                 ledger.setClient_id(client_id);
                 ledger.setId(ledger_id);
 
@@ -113,19 +102,21 @@ public class VoucherListForDeleteFragment extends Fragment {
                 voucherListForDeleteRecyclerView.setAdapter(voucherListForDeleteAdapter);
 
             }catch (Exception e){
+                Log.e(TAG, "onCreateView: ", e);
                 v = inflater.inflate(R.layout.fragment_error_adding_ledger, container, false);
             }
         }else{
             v = inflater.inflate(R.layout.fragment_error_adding_ledger, container, false);
+            Log.d(TAG, "onCreateView: error");
         }
 
-        voucherListRepository.getVoucher().get().addOnCompleteListener( task -> {
-            if(task.isSuccessful()){
-                if(task.getResult().size() < 1){
-                    t.setVisibility(View.VISIBLE);
-                }
-            }
-        });
+//        voucherListRepository.getVoucher().get().addOnCompleteListener( task -> {
+//            if(task.isSuccessful()){
+//                if(task.getResult().size() < 1){
+//                    t.setVisibility(View.VISIBLE);
+//                }
+//            }
+//        });
         return v;
     }
 

@@ -1,50 +1,50 @@
 package profile.profilefragments.voucher;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
-import com.sourav.ledgerproject.LedgerApplication;
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.sourav.ledgerproject.R;
 
-
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.UUID;
 
-import javax.inject.Inject;
-
-import profile.addvoucher.dependency.component.VoucherComponent;
+import profile.addledger.ListOfAllClients;
 import profile.addvoucher.jobintentservice.AddVoucherService;
 import profile.addvoucher.jobintentservice.UpdateVoucherService;
 import profile.addvoucher.model.Voucher;
-import profile.addvoucher.model.VoucherRepository;
-import profile.addvoucher.threads.AddVoucherHandlerThread;
-import profile.addvoucher.threads.AddVoucherRunnable;
-import profile.addvoucher.threads.UpdateVoucherRunnable;
-import profile.addvoucher.uivalidation.VoucherValidation;
 
-import static profile.addvoucher.threads.AddVoucherHandlerThread.ADD_VOUCHER_TASK;
 
 public class CreateVoucherFragment extends Fragment {
 
@@ -57,6 +57,7 @@ public class CreateVoucherFragment extends Fragment {
     private static final String ACCOUNT_TYPE = "account_type";
     public static final String APPROVE = "approve";
     public static final String NOTIFYFROM = "notifyfrom";
+    private static final String VOUCHERNUMBERPREF = "vouchernumberpref";
 
     private String voucherid;
     private String ledgerid;
@@ -67,24 +68,15 @@ public class CreateVoucherFragment extends Fragment {
     private String account_type;
     private String notifyfrom;
 
-    private AutoCompleteTextView payment_mode;
-    private EditText amount;
+    private RadioGroup payment_mode;
+    private RadioButton voucher_type_radio;
+    private TextInputLayout amount_lay;
+    private TextInputEditText amount;
     private Button saveVoucherButton;
     private ImageView added_successfully;
     private Animation voucher_added_anim;
 
-    @Inject
-    VoucherRepository voucherRepository;
-
-    private VoucherComponent voucherComponent;
-
-    private ArrayAdapter<String> array_payment_type;
-
-    private AddVoucherRunnable addVoucherRunnable;
-    private UpdateVoucherRunnable updateVoucherRunnable;
-    private AddVoucherHandlerThread addVoucherHandlerThread;
-
-    private VoucherValidation voucherValidation;
+    private boolean f = true;
 
     public static CreateVoucherFragment newInstance(String voucher_id, String ledger_id, String client_id, String ledgername, String opening_balance, String account_type, String approve, String notifyfrom) {
         CreateVoucherFragment fragment = new CreateVoucherFragment();
@@ -103,7 +95,7 @@ public class CreateVoucherFragment extends Fragment {
         args.putString(NOTIFYFROM,notifyfrom);
         fragment.setArguments(args);
 
-        Log.d(TAG, "newInstance: createVoucherFragment: clientid "+client_id+" ledgerid"+ledger_id+" ledgername "+ledgername+" opening_balance "+opening_balance+" type "+account_type+" notifyfrom "+notifyfrom);
+        Log.d(TAG, "newInstance: createVoucherFragment: clientid "+client_id+" ledgerid"+ledger_id+" ledgername "+ledgername+" opening_balance "+opening_balance+" type "+account_type+" notifyfrom "+notifyfrom+", approve: "+approve);
 
         return fragment;
     }
@@ -116,50 +108,83 @@ public class CreateVoucherFragment extends Fragment {
             ledgerid = getArguments().getString(LEDGER_ID);
             clientid = getArguments().getString(CLIENT_ID);
             ledgername = getArguments().getString(LEDGER_NAME);
-            openingbalance = getArguments().getString(OPENING_BALANCE);
             account_type = getArguments().getString(ACCOUNT_TYPE);
+            openingbalance = getArguments().getString(OPENING_BALANCE);
             approve = getArguments().getString(APPROVE);
             notifyfrom = getArguments().getString(NOTIFYFROM);
-            addVoucherHandlerThread = new AddVoucherHandlerThread(getActivity());
-            addVoucherHandlerThread.start();
         }
     }
 
+    @SuppressLint("InflateParams")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_add_voucher, container, false);
 
         if(getArguments() != null){
-            String[] payment_mode_array  = {"Payment","Receipt"};
-            array_payment_type = new ArrayAdapter<>
-                    (getActivity(), android.R.layout.select_dialog_item, payment_mode_array);
 
-            payment_mode = v.findViewById(R.id.list_voucher_mode);
-            payment_mode.setThreshold(2);
-            payment_mode.setAdapter(array_payment_type);
+            //radio button problem fixed on 31/05/2021
+            payment_mode = v.findViewById(R.id.payment_receipt_radiogroup);
+
+            amount_lay = v.findViewById(R.id.client_voucher_amount_lay);
             amount = v.findViewById(R.id.client_voucher_amount);
             saveVoucherButton = v.findViewById(R.id.client_voucher_save);
+
+            amount.addTextChangedListener(new CreateVoucherTextWatcher(amount));
+
+            MaterialToolbar toolbar = v.findViewById(R.id.toolbar2);
+            toolbar.setNavigationOnClickListener( v1 -> {
+                if(!Objects.requireNonNull(amount.getText()).toString().isEmpty()){
+                    new MaterialAlertDialogBuilder(requireActivity())
+                            .setMessage("Want to discard Amount?")
+                            .setPositiveButton("discard", (dialog, which) -> {
+                                requireActivity().onBackPressed();
+                            })
+                            .setNegativeButton("cancel", null)
+                            .create()
+                            .show();
+                }else{
+                    requireActivity().onBackPressed();
+                }
+            });
 
             Voucher voucher = new Voucher();
 
             String vouchervid = UUID.randomUUID().toString();
-
+            Log.d(TAG, "onCreateView: unique voucherid: " + vouchervid);
             voucher.setId(vouchervid);
             voucher.setClient_id(clientid);
             voucher.setLedger_id(ledgerid);
 
+            //Log.d(TAG, "onCreateView: voucher type: " + voucher_type_radio.getText().toString().trim());
+            //voucher.setType(voucher_type_radio.getText().toString().trim());
+
+            voucher.setNotifyfrom(notifyfrom);
+            Log.d(TAG, "onCreateView: notifyfrom");
+            voucher.setUser_id(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
             String simpledate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
             voucher.setTimestamp(simpledate);
             Log.d(TAG, "onCreateView: voucher: "+voucher);
-
+            Log.d(TAG, "onCreateView: approve: " + approve);
             if(approve.equals("1")){
                 voucher.setAdded(true);
             }else{
                 voucher.setAdded(false);
             }
 
-            saveVoucherButton.setOnClickListener( view -> {
+            View finalV = v;
+            saveVoucherButton.setOnClickListener(view -> {
+                voucher_type_radio = finalV.findViewById(payment_mode.getCheckedRadioButtonId());
+//              voucher_type_radio.setChecked(true);
+                if(payment_mode.getCheckedRadioButtonId() == -1){
+                    Log.d(TAG, "onCreateView: radio button null");
+                }else{
+                    Log.d(TAG, "onCreateView: radio button not null");
+                }
+
+                voucher.setType(voucher_type_radio.getText().toString().trim());
+
                 if(approve != null && approve.equals("0")) {
                     Log.d(TAG, "onCreateView: on button click: " + voucher);
                     setVoucher(voucher, approve, notifyfrom);
@@ -167,12 +192,24 @@ public class CreateVoucherFragment extends Fragment {
             });
 
             if(approve != null && approve.equals("1")){
-                setVoucher(voucher, approve, notifyfrom);
-                v = inflater.inflate(R.layout.voucher_added_successfully, null);
-                added_successfully = v.findViewById(R.id.voucher_added_animation);
-                voucher_added_anim = AnimationUtils.loadAnimation(getActivity(),R.anim.voucher_added_anim);
-                added_successfully.startAnimation(voucher_added_anim);
+                Log.d(TAG, "onCreateView: approve: " + approve+ ", and it is approved");
+                setVoucherForUpdate(voucher, approve, notifyfrom);
+                v = getLayoutInflater().inflate(R.layout.voucher_added_successfully, null);
+                TextView notifyfromname = v.findViewById(R.id.notifyfrom_name);
+                Button thanks_button = v.findViewById(R.id.thanks_button);
+                requireActivity().runOnUiThread( () ->
+                    FirebaseFirestore.getInstance()
+                            .collection("users")
+                            .document(voucher.getNotifyfrom())
+                            .get()
+                            .addOnCompleteListener( task -> {
+                                if(task.isSuccessful()){
+                                    DocumentSnapshot s = task.getResult();
+                                    notifyfromname.setText(s.getString("name"));
+                                }
+                            }));
 
+                thanks_button.setOnClickListener( v1 -> startActivity(new Intent(requireActivity(), ListOfAllClients.class)));
             }
 
         }
@@ -180,47 +217,165 @@ public class CreateVoucherFragment extends Fragment {
         return v;
     }
 
+    private class CreateVoucherTextWatcher implements TextWatcher {
+
+        private View view;
+        public CreateVoucherTextWatcher(View view){
+            this.view = view;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @SuppressLint("NonConstantResourceId")
+        @Override
+        public void afterTextChanged(Editable s) {
+            switch (view.getId()){
+                case R.id.client_voucher_amount:
+                    validateAmount();
+                    break;
+            }
+        }
+    }
+
+    private boolean validateAmount(){
+        String amt = Objects.requireNonNull(amount.getText()).toString().trim();
+        if(amt.isEmpty()) {
+            amount_lay.setErrorEnabled(true);
+            amount_lay.setError("Enter Valid Amount for Voucher");
+            requestFocus(amount);
+            return false;
+        }
+        else {
+            if(amt.matches("^(?!0)\\d{2,7}$")) {
+                Log.d(TAG, "validateAmount: in true statement");
+                Log.d(TAG, "validateAmount: validation: " + amt.matches("^(?!0)\\d{2,7}$"));
+                amount_lay.setErrorEnabled(false);
+                return true;
+            }else {
+                Log.d(TAG, "validateAmount: in false statement");
+                amount_lay.setErrorEnabled(true);
+                amount_lay.setError("Enter Valid Amount");
+                Log.d(TAG, "validateAmount: validation: " + amt.matches("^(?!0)\\d{2,7}$"));
+                requestFocus(amount);
+                return false;
+            }
+        }
+    }
+
+    private void requestFocus(View view) {
+        if (view.requestFocus()) {
+            requireActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
-        addVoucherHandlerThread.quit();
     }
 
     private void setVoucher(Voucher voucher, String approve, String notifyfrom){
+        if(voucher_type_radio != null) {
+            String voucher_amount = Objects.requireNonNull(amount.getText()).toString().trim();
+            Log.d(TAG, "onCreateView: voucher_amount: " + voucher_amount + " voucher_payment_type: " + voucher.getType());
+
+            voucher.setAmount(voucher_amount);
+
+            if (voucher_amount.isEmpty() || !voucher_amount.matches("^(?!0)\\d{2,7}$")) {
+
+                f = false;
+
+                new MaterialAlertDialogBuilder(requireActivity())
+                        .setTitle("Voucher Error")
+                        .setMessage("Enter Valid Voucher Amount")
+                        .setPositiveButton("ok", null)
+                        .create()
+                        .show();
+            } else {
+                f = true;
+            }
+
+            if (f) {
+
+                new MaterialAlertDialogBuilder(requireActivity())
+                        .setTitle("Voucher Details")
+                        .setMessage("Voucher Type: " + voucher.getType() + "\n" + "Amount: \u20B9 " + voucher_amount + ".00")
+                        .setPositiveButton("confirm", (dialog, which) -> {
+                            if (clientid != null) {
+
+                                if (!validateAmount()) {
+                                    Log.d(TAG, "setVoucher: terminating function..");
+                                    return;
+                                }
+
+                                Log.d(TAG, "setVoucher: inside setVoucher on button click: voucher " + voucher);
+
+
+                                Log.d(TAG, "onCreateView: approve: " + approve);
+
+                                SharedPreferences sharedPreferences = Objects.requireNonNull(requireActivity()).getSharedPreferences(VOUCHERNUMBERPREF, Context.MODE_PRIVATE);
+                                int vnop = 0;
+                                if (sharedPreferences.getInt("vno", -1) >= 0) {
+                                    vnop = sharedPreferences.getInt("vno", -1);
+                                    Log.d(TAG, "onViewCreated: inside condition vnop: " + vnop);
+                                }
+                                if (approve.equals("0")) {
+
+                                    voucher.setName(ledgername);
+                                    Log.d(TAG, "setVoucher: voucher: " + voucher);
+                                    Intent intent = new Intent(getActivity(), AddVoucherService.class);
+
+                                    intent.putExtra("id", voucher.getId());
+                                    intent.putExtra("name", voucher.getName());
+                                    intent.putExtra("client_id", voucher.getClient_id());
+                                    intent.putExtra("ledger_id", voucher.getLedger_id());
+                                    intent.putExtra("voucher_number", String.valueOf(vnop));
+                                    intent.putExtra("type", voucher.getType());
+                                    intent.putExtra("amount", voucher.getAmount());
+                                    intent.putExtra("timestamp", voucher.getTimestamp());
+                                    intent.putExtra("added", voucher.isAdded());
+                                    intent.putExtra("notifyfrom", voucher.getNotifyfrom());
+                                    intent.putExtra("opening_balance", openingbalance);
+
+                                    AddVoucherService.enqueueWork(getActivity(), intent);
+
+                                }
+
+                            }
+                        })
+                        .setNegativeButton("cancel", null)
+                        .create()
+                        .show();
+
+            }
+        }else{
+            Log.d(TAG, "setVoucher: nothing to show about type");
+        }
+    }
+
+    private void setVoucherForUpdate(Voucher voucher, String approve, String notifyfrom){
 
         String voucher_amount = amount.getText().toString().trim();
-        String voucher_payment_type = payment_mode.getText().toString().trim();
-        Log.d(TAG, "onCreateView: voucher_amount: " + voucher_amount + " voucher_payment_type: " + voucher_payment_type);
+        Log.d(TAG, "onCreateView: voucher_amount: " + voucher_amount + " voucher_payment_type: " + voucher.getType());
 
         voucher.setAmount(voucher_amount);
-        voucher.setType(voucher_payment_type);
 
         if(clientid != null) {
             Log.d(TAG, "setVoucher: inside setVoucher on button click: voucher "+voucher);
-
-
             Log.d(TAG, "onCreateView: approve: " + approve);
 
-            if(approve.equals("0")) {
-                Log.d(TAG, "setVoucher: voucher: " + voucher);
-                Intent intent = new Intent(getActivity(), AddVoucherService.class);
-
-                intent.putExtra("id", voucher.getId());
-                intent.putExtra("name", voucher.getName());
-                intent.putExtra("client_id", voucher.getClient_id());
-                intent.putExtra("ledger_id", voucher.getLedger_id());
-                intent.putExtra("type", voucher.getType());
-                intent.putExtra("amount",voucher.getAmount());
-                intent.putExtra("timestamp",voucher.getTimestamp());
-                intent.putExtra("added",voucher.isAdded());
-                intent.putExtra("notifyfrom",voucher.getNotifyfrom());
-                intent.putExtra("opening_balance",openingbalance);
-
-                addVoucherRunnable = new AddVoucherRunnable(getActivity(), voucher, openingbalance);
-                addVoucherHandlerThread.getHandler().post(addVoucherRunnable);
-
-                AddVoucherService.enqueueWork(getActivity(),intent);
-
+            SharedPreferences sharedPreferences = Objects.requireNonNull(requireActivity()).getSharedPreferences(VOUCHERNUMBERPREF, Context.MODE_PRIVATE);
+            int vnop = 0;
+            if(sharedPreferences.getInt("vno",-1) >= 0){
+                vnop = sharedPreferences.getInt("vno",-1);
+                Log.d(TAG, "onViewCreated: inside condition vnop: " + vnop);
             }
 
             if(approve.equals("1")) {
@@ -234,7 +389,8 @@ public class CreateVoucherFragment extends Fragment {
                     intent.putExtra("name", voucher.getName());
                     intent.putExtra("client_id", voucher.getClient_id());
                     intent.putExtra("ledger_id", voucher.getLedger_id());
-                    intent.putExtra("type", voucher.getType());
+                    intent.putExtra("voucher_number", vnop);
+                    intent.putExtra("type", account_type);
                     intent.putExtra("amount",voucher.getAmount());
                     intent.putExtra("timestamp",voucher.getTimestamp());
                     intent.putExtra("added",voucher.isAdded());

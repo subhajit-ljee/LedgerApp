@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/make_voucher_nav"
+    app:startDestination="@id/clientListForVoucherFragment">
+    <fragment
+        android:id="@+id/clientListForVoucherFragment"
+        android:name="profile.profilefragments.voucher.ClientListForVoucherFragment"
+        android:label="fragment_client_list_for_voucher"
+        tools:layout="@layout/fragment_client_list_for_voucher" >
+        <action
+            android:id="@+id/action_clientListForVoucherFragment_to_ledgerHolderFragment"
+            app:destination="@id/ledgerHolderFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ledgerHolderFragment"
+        android:name="profile.profilefragments.voucher.LedgerHolderFragment"
+        android:label="fragment_ledger_holder"
+        tools:layout="@layout/fragment_ledger_holder" >
+        <action
+            android:id="@+id/action_ledgerHolderFragment_to_voucherListFragment"
+            app:destination="@id/voucherListFragment" />
+        <action
+            android:id="@+id/action_ledgerHolderFragment_to_voucherListForDeleteFragment"
+            app:destination="@id/voucherListForDeleteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/voucherListFragment"
+        android:name="profile.profilefragments.voucher.VoucherListFragment"
+        android:label="fragment_voucher_list"
+        tools:layout="@layout/fragment_voucher_list" >
+        <action
+            android:id="@+id/action_voucherListFragment_to_editVoucherFragment"
+            app:destination="@id/editVoucherFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/voucherListForDeleteFragment"
+        android:name="profile.profilefragments.deletevoucher.VoucherListForDeleteFragment"
+        android:label="fragment_voucher_list_for_delete"
+        tools:layout="@layout/fragment_voucher_list_for_delete" />
+    <fragment
+        android:id="@+id/editVoucherFragment"
+        android:name="profile.profilefragments.voucher.EditVoucherFragment"
+        android:label="fragment_edit_voucher"
+        tools:layout="@layout/fragment_edit_voucher" >
+        <action
+            android:id="@+id/action_editVoucherFragment_to_voucherListFragment"
+            app:destination="@id/voucherListFragment" />
+    </fragment>
+</navigation>

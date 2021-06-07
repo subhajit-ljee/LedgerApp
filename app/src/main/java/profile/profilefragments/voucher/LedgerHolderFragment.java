@@ -2,6 +2,7 @@ package profile.profilefragments.voucher;
 
 import android.os.Bundle;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.firebase.auth.FirebaseAuth;
 import com.sourav.ledgerproject.LedgerApplication;
 import com.sourav.ledgerproject.R;
 
@@ -27,7 +30,6 @@ import profile.addvoucher.adapter.LedgerAdapter;
 public class LedgerHolderFragment extends Fragment {
 
     private static final String TAG = "LedgerHolderFragment";
-    private static final String ACTIVITY_NAME = "activity_name";
     private static final String CLIENT_ID = "client_id";
 
     private LedgerListComponent ledgerListComponent;
@@ -38,7 +40,6 @@ public class LedgerHolderFragment extends Fragment {
     @Inject
     LedgerListRepository ledgerListRepository;
 
-    private String activity_name;
     private String client_id;
 
     public LedgerHolderFragment() {
@@ -46,24 +47,22 @@ public class LedgerHolderFragment extends Fragment {
     }
 
 
-    public static LedgerHolderFragment newInstance(String activity_name, String client_id) {
-        LedgerHolderFragment fragment = new LedgerHolderFragment();
-        Bundle args = new Bundle();
-        args.putString(ACTIVITY_NAME, activity_name);
-        args.putString(CLIENT_ID, client_id);
-        fragment.setArguments(args);
-        return fragment;
+    public static LedgerHolderFragment newInstance() {
+        return new LedgerHolderFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            activity_name = getArguments().getString(ACTIVITY_NAME);
-            client_id = getArguments().getString(CLIENT_ID);
+
+            client_id = getArguments().getString("client_id");
+
+            String authid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
             Ledger ledger = new Ledger();
             Log.d(TAG, "onCreate: client_id: " + client_id);
+            ledger.setUser_id(authid);
             ledger.setClient_id(client_id);
 
             ledgerListComponent = ((LedgerApplication) getActivity().getApplication()).getAppComponent()
@@ -78,6 +77,10 @@ public class LedgerHolderFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_ledger_holder, container, false);
 
+        MaterialToolbar toolbar = view.findViewById(R.id.toolbar2);
+        toolbar.setNavigationOnClickListener( v1 -> requireActivity().onBackPressed());
+
+
         TextView t = view.findViewById(R.id.no_ledger_heading);
         t.setVisibility(View.INVISIBLE);
         if (ledgerListRepository.getLedger() != null || ledgerListRepository.getLedger().get().getResult().size() != 0) {
@@ -85,7 +88,7 @@ public class LedgerHolderFragment extends Fragment {
                     .setQuery(ledgerListRepository.getLedger(), Ledger.class)
                     .build();
             if(getArguments() != null) {
-                ledgerAdapter = new LedgerAdapter(options, getActivity(), "ShowLedgerActivity");
+                ledgerAdapter = new LedgerAdapter(options, getActivity());
                 ledgerRecyclerView = view.findViewById(R.id.list_of_all_ledger_clients);
                 ledgerRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 ledgerRecyclerView.setAdapter(ledgerAdapter);

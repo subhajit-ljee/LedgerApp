@@ -5,8 +5,9 @@ import com.sourav.ledgerproject.ActivityScope;
 import dagger.BindsInstance;
 import dagger.Subcomponent;
 import profile.addledger.model.Ledger;
-import profile.addvoucher.ShowVoucherActivity;
 import profile.addvoucher.dependency.VoucherListViewModelModule;
+import profile.deletevoucher.VoucherDeleteConfirmActivity;
+import profile.myclient.MyVoucherListFragment;
 import profile.profilefragments.deletevoucher.VoucherListForDeleteFragment;
 import profile.profilefragments.voucher.VoucherListFragment;
 
@@ -15,8 +16,9 @@ import profile.profilefragments.voucher.VoucherListFragment;
 public interface VoucherListComponent {
 
     void inject(VoucherListFragment voucherListFragment);
-    void inject(ShowVoucherActivity showVoucherActivity);
     void inject(VoucherListForDeleteFragment voucherListForDeleteFragment);
+    void inject(MyVoucherListFragment myVoucherListFragment);
+    void inject(VoucherDeleteConfirmActivity voucherDeleteConfirmActivity);
 
     @Subcomponent.Factory
     interface Factory{

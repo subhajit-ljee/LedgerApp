@@ -11,8 +11,6 @@ import profile.addledger.dao.LedgerDao;
 @ActivityScope
 public class LedgerRepository {
 
-    private final String TAG = getClass().getCanonicalName();
-
     private LedgerDao ledgerDao;
 
     @Inject
